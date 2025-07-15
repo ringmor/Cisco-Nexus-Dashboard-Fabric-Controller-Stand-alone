@@ -1,0 +1,277 @@
+/* Nexus Dashboard Custom Styles */
+
+:root {
+    --nexus-primary: #0066cc;
+    --nexus-secondary: #004499;
+    --nexus-success: #28a745;
+    --nexus-warning: #ffc107;
+    --nexus-danger: #dc3545;
+    --nexus-info: #17a2b8;
+    --nexus-dark: #343a40;
+    --nexus-light: #f8f9fa;
+}
+
+body {
+    background-color: #f5f5f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--nexus-primary), var(--nexus-secondary));
+    color: white;
+    border-radius: 8px 8px 0 0 !important;
+    font-weight: 600;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    background-color: var(--nexus-light);
+    border-top: none;
+    font-weight: 600;
+    color: var(--nexus-dark);
+}
+
+.status-up {
+    color: var(--nexus-success);
+    font-weight: bold;
+}
+
+.status-down {
+    color: var(--nexus-danger);
+    font-weight: bold;
+}
+
+.status-admin-down {
+    color: var(--nexus-warning);
+    font-weight: bold;
+}
+
+.btn-nexus {
+    background: linear-gradient(135deg, var(--nexus-primary), var(--nexus-secondary));
+    border: none;
+    color: white;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-nexus:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,102,204,0.3);
+    color: white;
+}
+
+.metric-card {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.metric-card:hover {
+    transform: translateY(-2px);
+}
+
+.metric-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--nexus-primary);
+}
+
+.metric-label {
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.interface-port {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin: 2px;
+}
+
+.port-ethernet {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+.port-mgmt {
+    background-color: #f3e5f5;
+    color: #7b1fa2;
+}
+
+.port-loopback {
+    background-color: #e8f5e8;
+    color: #388e3c;
+}
+
+.vlan-tag {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin: 1px;
+}
+
+.vlan-active {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.vlan-inactive {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.config-section {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.config-title {
+    color: var(--nexus-primary);
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--nexus-light);
+}
+
+.form-control:focus {
+    border-color: var(--nexus-primary);
+    box-shadow: 0 0 0 0.2rem rgba(0,102,204,0.25);
+}
+
+.alert-custom {
+    border-radius: 8px;
+    border: none;
+    font-weight: 500;
+}
+
+.navbar-brand i {
+    margin-right: 8px;
+}
+
+.dropdown-menu {
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.dropdown-item:hover {
+    background-color: var(--nexus-light);
+    color: var(--nexus-primary);
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid var(--nexus-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.progress-custom {
+    height: 8px;
+    border-radius: 4px;
+    background-color: var(--nexus-light);
+}
+
+.progress-bar-custom {
+    background: linear-gradient(90deg, var(--nexus-primary), var(--nexus-secondary));
+    border-radius: 4px;
+}
+
+.command-output {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    font-family: 'Courier New', monospace;
+    padding: 15px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.command-input {
+    background-color: #2d2d2d;
+    color: #ffffff;
+    border: 1px solid #555;
+    font-family: 'Courier New', monospace;
+}
+
+.command-input:focus {
+    background-color: #2d2d2d;
+    color: #ffffff;
+    border-color: var(--nexus-primary);
+    box-shadow: 0 0 0 0.2rem rgba(0,102,204,0.25);
+}
+
+.topology-container {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    min-height: 400px;
+    position: relative;
+}
+
+.device-node {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: var(--nexus-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.device-node:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0,102,204,0.4);
+}
+
+@media (max-width: 768px) {
+    .metric-card {
+        margin-bottom: 15px;
+    }
+    
+    .config-section {
+        padding: 15px;
+    }
+    
+    .table-responsive {
+        font-size: 0.9rem;
+    }
+}
+
