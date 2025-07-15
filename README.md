@@ -2,6 +2,8 @@
 
 A professional web-based dashboard for managing Cisco Nexus Layer 3 switches with complete network management capabilities.
 
+Look for Screenshots
+
 ## 🚀 Features Implemented
 
 ### ✅ Phase 1: Enhanced Navigation & Core Infrastructure
