@@ -79,15 +79,18 @@ function setRefreshInterval(seconds) {
 }
 
 // Execute NX-API command
-function executeCommand(command, callback) {
+function executeCommand(command, callback, type = null) {
     showLoading(true);
-    
+    let body = 'cmd=' + encodeURIComponent(command);
+    if (type) {
+        body += '&type=' + encodeURIComponent(type);
+    }
     fetch('nxapi.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: 'cmd=' + encodeURIComponent(command)
+        body: body
     })
     .then(response => response.json())
     .then(data => {
@@ -337,12 +340,6 @@ function loadMonitoringData(type = null, limit = 100) {
     return loadData('load_monitoring', {
         type: type,
         limit: limit
-    });
-}pboard(text) {
-    navigator.clipboard.writeText(text).then(function() {
-        showAlert('Copied to clipboard!', 'success', 2000);
-    }).catch(function(err) {
-        showAlert('Failed to copy to clipboard', 'danger');
     });
 }
 

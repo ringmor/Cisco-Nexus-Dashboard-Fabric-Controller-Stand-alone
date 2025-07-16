@@ -686,10 +686,10 @@
                 .map(option => option.value);
             
             confirmAction(`Apply configuration to ${selectedInterfaces.length} interface(s)?\n\n${selectedInterfaces.join(', ')}`, function() {
-                executeCommand(commands.join('\n'), function(data) {
+                executeCommand(commands.join(' ; '), function(data) {
                     showAlert(`Configuration applied to ${selectedInterfaces.length} interface(s)`, 'success');
                     setTimeout(loadData, 2000);
-                });
+                }, 'cli_conf');
             });
         }
 

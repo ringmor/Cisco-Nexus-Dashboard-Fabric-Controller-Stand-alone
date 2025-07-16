@@ -763,11 +763,11 @@
             const configCommands = commands.join('\n');
             
             confirmAction(`${action === 'add' ? 'Add' : 'Update'} static route?\n\n${configCommands}`, function() {
-                executeCommand(`configure terminal\n${configCommands}`, function(data) {
+                executeCommand(commands.join(' ; '), function(data) {
                     showAlert(`Static route ${action === 'add' ? 'added' : 'updated'} successfully`, 'success');
                     bootstrap.Modal.getInstance(document.getElementById('routeModal')).hide();
                     setTimeout(loadData, 2000);
-                });
+                }, 'cli_conf');
             });
         }
 
@@ -820,9 +820,9 @@
             const configCommands = commands.join('\n');
             
             confirmAction(`Configure OSPF with the following settings?\n\n${configCommands}`, function() {
-                executeCommand(`configure terminal\n${configCommands}`, function(data) {
+                executeCommand(commands.join(' ; '), function(data) {
                     showAlert('OSPF configuration applied successfully', 'success');
-                });
+                }, 'cli_conf');
             });
         }
 
@@ -850,9 +850,9 @@
             const configCommands = commands.join('\n');
             
             confirmAction(`Configure BGP with the following settings?\n\n${configCommands}`, function() {
-                executeCommand(`configure terminal\n${configCommands}`, function(data) {
+                executeCommand(commands.join(' ; '), function(data) {
                     showAlert('BGP configuration applied successfully', 'success');
-                });
+                }, 'cli_conf');
             });
         }
 
@@ -880,9 +880,9 @@
             const configCommands = commands.join('\n');
             
             confirmAction(`Configure EIGRP with the following settings?\n\n${configCommands}`, function() {
-                executeCommand(`configure terminal\n${configCommands}`, function(data) {
+                executeCommand(commands.join(' ; '), function(data) {
                     showAlert('EIGRP configuration applied successfully', 'success');
-                });
+                }, 'cli_conf');
             });
         }
 
@@ -906,9 +906,9 @@
             const configCommands = commands.join('\n');
             
             confirmAction(`Configure RIP with the following settings?\n\n${configCommands}`, function() {
-                executeCommand(`configure terminal\n${configCommands}`, function(data) {
+                executeCommand(commands.join(' ; '), function(data) {
                     showAlert('RIP configuration applied successfully', 'success');
-                });
+                }, 'cli_conf');
             });
         }
     </script>

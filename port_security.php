@@ -678,11 +678,11 @@
             }
 
             confirmAction(`Apply port security configuration to ${interfaceName}?\n\n${commands.join('\n')}`, function() {
-                executeCommand(`configure terminal\n${commands.join('\n')}`, function(data) {
+                executeCommand(commands.join(' ; '), function(data) {
                     showAlert('Port security configuration applied successfully', 'success');
                     bootstrap.Modal.getInstance(document.getElementById('portSecurityModal')).hide();
                     setTimeout(loadPortSecurityData, 2000);
-                });
+                }, 'cli_conf');
             });
         }
 
@@ -718,11 +718,11 @@
             }
 
             confirmAction(`Apply bulk port security configuration?\n\n${commands.join('\n')}`, function() {
-                executeCommand(`configure terminal\n${commands.join('\n')}`, function(data) {
+                executeCommand(commands.join(' ; '), function(data) {
                     showAlert('Bulk port security configuration applied successfully', 'success');
                     bootstrap.Modal.getInstance(document.getElementById('bulkPortSecurityModal')).hide();
                     setTimeout(loadPortSecurityData, 2000);
-                });
+                }, 'cli_conf');
             });
         }
 
@@ -746,10 +746,10 @@
 
         function enableInterface(interfaceName) {
             confirmAction(`Enable interface ${interfaceName}?`, function() {
-                executeCommand(`configure terminal\ninterface ${interfaceName}\nno shutdown`, function(data) {
+                executeCommand([`interface ${interfaceName}`, 'no shutdown'].join(' ; '), function(data) {
                     showAlert(`Interface ${interfaceName} enabled`, 'success');
                     setTimeout(loadPortSecurityData, 2000);
-                });
+                }, 'cli_conf');
             });
         }
 
@@ -821,7 +821,7 @@
 
             if (commands.length > 0) {
                 confirmAction(`Apply global port security settings?\n\n${commands.join('\n')}`, function() {
-                    executeCommand(`configure terminal\n${commands.join('\n')}`, function(data) {
+                    executeCommand(commands.join(' ; '), function(data) {
                         showAlert('Global port security settings applied', 'success');
                     });
                 });

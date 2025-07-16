@@ -271,71 +271,55 @@
                     // Mock data for demonstration
                     vlansData = generateMockVlanData();
                 }
-                
                 displayVlans();
                 updateSummaryCards();
             });
         }
 
-        function loadInterfaces() {
-            executeCommand('show interface brief', function(data) {
-                if (data && data.ins_api && data.ins_api.outputs && data.ins_api.outputs.output) {
-                    const output = data.ins_api.outputs.output;
-                    if (output.body && output.body.TABLE_interface) {
-                        interfacesData = output.body.TABLE_interface.ROW_interface || [];
-                        if (!Array.isArray(interfacesData)) {
-                            interfacesData = [interfacesData];
-                        }
+        // Helper to expand a VLAN list string like "1-5,10,20-22" to an array of strings
+        function expandVlanList(vlanListStr) {
+            const result = [];
+            if (!vlanListStr) return result;
+            vlanListStr.split(',').forEach(part => {
+                if (part.includes('-')) {
+                    const [start, end] = part.split('-').map(Number);
+                    for (let i = start; i <= end; i++) {
+                        result.push(i.toString());
                     }
                 } else {
-                    // Mock data for demonstration
-                    interfacesData = generateMockInterfaceData();
+                    result.push(part.trim());
                 }
+            });
+            return result;
+        }
+
+        // Use show interface switchport output for accurate port-to-VLAN mapping
+        function getAssignedPorts(vlanId) {
+            // interfacesData should be from show interface switchport
+            return interfacesData.filter(intf => {
+                if (intf.oper_mode === 'access') {
+                    return intf.access_vlan === vlanId;
+                } else if (intf.oper_mode === 'trunk') {
+                    const vlans = expandVlanList(intf.trunk_vlans);
+                    return vlans.includes(vlanId);
+                }
+                return false;
             });
         }
 
-        function generateMockVlanData() {
-            return [
-                {
-                    vlanshowbr_vlanid: '1',
-                    vlanshowbr_vlanname: 'default',
-                    vlanshowbr_vlanstate: 'active',
-                    vlanshowbr_shutstate: 'noshutdown'
-                },
-                {
-                    vlanshowbr_vlanid: '10',
-                    vlanshowbr_vlanname: 'USERS',
-                    vlanshowbr_vlanstate: 'active',
-                    vlanshowbr_shutstate: 'noshutdown'
-                },
-                {
-                    vlanshowbr_vlanid: '20',
-                    vlanshowbr_vlanname: 'SERVERS',
-                    vlanshowbr_vlanstate: 'active',
-                    vlanshowbr_shutstate: 'noshutdown'
-                },
-                {
-                    vlanshowbr_vlanid: '30',
-                    vlanshowbr_vlanname: 'GUEST',
-                    vlanshowbr_vlanstate: 'active',
-                    vlanshowbr_shutstate: 'noshutdown'
-                },
-                {
-                    vlanshowbr_vlanid: '100',
-                    vlanshowbr_vlanname: 'MANAGEMENT',
-                    vlanshowbr_vlanstate: 'active',
-                    vlanshowbr_shutstate: 'noshutdown'
-                }
-            ];
+        function checkSviExists(vlanId) {
+            // Mock check - in real implementation, this would check for SVI existence
+            return ['10', '20', '100'].includes(vlanId);
         }
 
-        function generateMockInterfaceData() {
-            return [
-                { interface: 'Ethernet1/1', vlan: '10' },
-                { interface: 'Ethernet1/2', vlan: '20' },
-                { interface: 'Ethernet1/3', vlan: '1' },
-                { interface: 'Ethernet1/4', vlan: '1' }
-            ];
+        function getSviIpAddress(vlanId) {
+            // Mock IP addresses - in real implementation, this would get actual SVI IPs
+            const sviIps = {
+                '10': '192.168.10.1/24',
+                '20': '192.168.20.1/24',
+                '100': '192.168.100.1/24'
+            };
+            return sviIps[vlanId];
         }
 
         function displayVlans() {
@@ -344,28 +328,29 @@
 
             vlansData.forEach(vlan => {
                 const row = document.createElement('tr');
-                
-                const vlanId = vlan.vlanshowbr_vlanid || vlan.vlan_id;
-                const vlanName = vlan.vlanshowbr_vlanname || vlan.vlan_name;
-                const vlanState = vlan.vlanshowbr_vlanstate || vlan.vlan_state;
-                
-                // Get assigned ports for this VLAN
+                // Use dash field names for real API output, fallback to underscore for mock/demo
+                const vlanId = vlan['vlanshowbr-vlanid'] || vlan.vlanshowbr_vlanid || vlan.vlan_id;
+                const vlanName = vlan['vlanshowbr-vlanname'] || vlan.vlanshowbr_vlanname || vlan.vlan_name;
+                const vlanState = vlan['vlanshowbr-vlanstate'] || vlan.vlanshowbr_vlanstate || vlan.vlan_state;
+                // Get assigned ports using new logic
                 const assignedPorts = getAssignedPorts(vlanId);
+                const portCount = assignedPorts.length;
+                const portListHtml = assignedPorts.map(p => `<span class='badge bg-light text-dark me-1'>${p.interface}</span>`).join(' ');
                 const hasSvi = checkSviExists(vlanId);
                 const sviIp = getSviIpAddress(vlanId);
-                
                 row.innerHTML = `
                     <td><span class="vlan-tag vlan-active">${vlanId}</span></td>
                     <td><strong>${vlanName}</strong></td>
                     <td>${formatVlanStatus(vlanState)}</td>
                     <td>Ethernet</td>
                     <td>
-                        <span class="badge bg-secondary">${assignedPorts.length} ports</span>
+                        <span class="badge bg-secondary">${portCount} ports</span>
                         <button class="btn btn-sm btn-outline-info ms-1" 
                                 onclick="showVlanAssignment('${vlanId}', '${vlanName}')"
                                 data-bs-toggle="tooltip" title="Manage Port Assignment">
                             <i class="fas fa-network-wired"></i>
                         </button>
+                        <div class="mt-1">${portListHtml || '<span class=\'text-muted\'>None</span>'}</div>
                     </td>
                     <td>
                         ${hasSvi ? '<i class="fas fa-check text-success"></i>' : '<i class="fas fa-times text-muted"></i>'}
@@ -391,42 +376,31 @@
                         ` : ''}
                     </td>
                 `;
-                
                 tbody.appendChild(row);
             });
-
             initializeTooltips();
         }
 
         function updateSummaryCards() {
             const total = vlansData.length;
-            const active = vlansData.filter(v => (v.vlanshowbr_vlanstate || v.vlan_state) === 'active').length;
-            const withSvi = vlansData.filter(v => checkSviExists(v.vlanshowbr_vlanid || v.vlan_id)).length;
-            const unused = vlansData.filter(v => getAssignedPorts(v.vlanshowbr_vlanid || v.vlan_id).length === 0).length;
+            const active = vlansData.filter(v => {
+                const state = v['vlanshowbr-vlanstate'] || v.vlanshowbr_vlanstate || v.vlan_state;
+                return state === 'active';
+            }).length;
+            const withSvi = vlansData.filter(v => {
+                const vlanId = v['vlanshowbr-vlanid'] || v.vlanshowbr_vlanid || v.vlan_id;
+                return checkSviExists(vlanId);
+            }).length;
+            const unused = vlansData.filter(v => {
+                const vlanId = v['vlanshowbr-vlanid'] || v.vlanshowbr_vlanid || v.vlan_id;
+                const assignedPorts = getAssignedPorts(vlanId);
+                return assignedPorts.length === 0;
+            }).length;
 
             document.getElementById('total-vlans').textContent = total;
             document.getElementById('active-vlans').textContent = active;
             document.getElementById('svi-vlans').textContent = withSvi;
             document.getElementById('unused-vlans').textContent = unused;
-        }
-
-        function getAssignedPorts(vlanId) {
-            return interfacesData.filter(intf => intf.vlan === vlanId);
-        }
-
-        function checkSviExists(vlanId) {
-            // Mock check - in real implementation, this would check for SVI existence
-            return ['10', '20', '100'].includes(vlanId);
-        }
-
-        function getSviIpAddress(vlanId) {
-            // Mock IP addresses - in real implementation, this would get actual SVI IPs
-            const sviIps = {
-                '10': '192.168.10.1/24',
-                '20': '192.168.20.1/24',
-                '100': '192.168.100.1/24'
-            };
-            return sviIps[vlanId];
         }
 
         function showCreateVlanModal() {
@@ -532,11 +506,11 @@
             const configCommands = commands.join('\n');
             
             confirmAction(`${action === 'create' ? 'Create' : 'Update'} VLAN ${vlanId} with the following configuration?\n\n${configCommands}`, function() {
-                executeCommand(`configure terminal\n${configCommands}`, function(data) {
+                executeCommand(configCommands.split('\n').join(' ; '), function(data) {
                     showAlert(`VLAN ${vlanId} ${action === 'create' ? 'created' : 'updated'} successfully`, 'success');
                     bootstrap.Modal.getInstance(document.getElementById('vlanModal')).hide();
                     setTimeout(loadVlans, 2000);
-                });
+                }, 'cli_conf');
             });
         }
 
@@ -546,11 +520,10 @@
                     `no vlan ${vlanId}`,
                     `no interface vlan${vlanId}`
                 ];
-
-                executeCommand(`configure terminal\n${commands.join('\n')}`, function(data) {
+                executeCommand(commands.join(' ; '), function(data) {
                     showAlert(`VLAN ${vlanId} deleted successfully`, 'success');
                     setTimeout(loadVlans, 2000);
-                });
+                }, 'cli_conf');
             });
         }
 
@@ -569,8 +542,8 @@
             const assignedDiv = document.getElementById('assigned-interfaces');
             
             // Get interfaces assigned to this VLAN
-            const assignedInterfaces = interfacesData.filter(intf => intf.vlan === vlanId);
-            const availableInterfaces = interfacesData.filter(intf => intf.vlan !== vlanId && !intf.interface.includes('mgmt'));
+            const assignedInterfaces = interfacesData.filter(intf => intf.access_vlan === vlanId || intf.trunk_vlans.includes(vlanId));
+            const availableInterfaces = interfacesData.filter(intf => intf.access_vlan !== vlanId && intf.trunk_vlans.filter(v => expandVlanList(v).includes(vlanId)).length === 0 && !intf.interface.includes('mgmt'));
             
             // Display available interfaces
             availableDiv.innerHTML = '';
@@ -581,7 +554,7 @@
                     <input class="form-check-input" type="checkbox" id="avail-${intf.interface}" 
                            value="${intf.interface}">
                     <label class="form-check-label" for="avail-${intf.interface}">
-                        ${intf.interface} <small class="text-muted">(VLAN ${intf.vlan})</small>
+                        ${intf.interface} <small class="text-muted">(VLAN ${intf.access_vlan || intf.trunk_vlans.filter(v => expandVlanList(v).includes(vlanId)).length > 0 ? intf.trunk_vlans.filter(v => expandVlanList(v).includes(vlanId))[0] : 'N/A'})</small>
                     </label>
                 `;
                 availableDiv.appendChild(div);

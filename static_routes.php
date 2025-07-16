@@ -769,14 +769,18 @@
             const routeType = document.getElementById('static-route-type').value;
             const adminDistance = document.getElementById('static-admin-distance').value;
             const description = document.getElementById('static-description').value;
+            const vrf = document.getElementById('static-vrf') ? document.getElementById('static-vrf').value : '';
 
             if (!network) {
                 showAlert('Please enter a destination network.', 'danger');
                 return;
             }
 
-            let commands = [];
-            let routeCommand = `ip route ${network}`;
+            let routeCommand = 'ip route';
+            if (vrf && vrf.trim() !== '') {
+                routeCommand += ` vrf ${vrf.trim()}`;
+            }
+            routeCommand += ` ${network}`;
 
             if (routeType === 'nexthop') {
                 const nextHop = document.getElementById('static-nexthop').value;
@@ -786,12 +790,12 @@
                 }
                 routeCommand += ` ${nextHop}`;
             } else if (routeType === 'interface') {
-                const interface = document.getElementById('static-interface-only').value;
-                if (!interface) {
+                const iface = document.getElementById('static-interface-only').value;
+                if (!iface) {
                     showAlert('Please select an exit interface.', 'danger');
                     return;
                 }
-                routeCommand += ` ${interface}`;
+                routeCommand += ` ${iface}`;
             } else if (routeType === 'null') {
                 routeCommand += ' null0';
             }
@@ -813,31 +817,48 @@
                 routeCommand += ` name ${description}`;
             }
 
-            commands.push(routeCommand);
-
-            confirmAction(`${action === 'add' ? 'Add' : 'Update'} static route?\n\n${commands.join('\n')}`, function() {
-                executeCommand(`configure terminal\n${commands.join('\n')}`, function(data) {
+            confirmAction(`${action === 'add' ? 'Add' : 'Update'} static route?\n\n${routeCommand}`, function() {
+                executeCommand(routeCommand, function(data) {
                     showAlert(`Static route ${action === 'add' ? 'added' : 'updated'} successfully`, 'success');
                     bootstrap.Modal.getInstance(document.getElementById('staticRouteModal')).hide();
                     setTimeout(loadStaticRoutes, 2000);
-                });
+                }, 'cli_conf');
             });
         }
 
         function deleteStaticRoute(routeId) {
             const route = staticRoutesData.find(r => r.id === routeId);
             if (!route) return;
-            
-            confirmAction(`Delete static route to ${route.network}?`, function() {
-                let command = `no ip route ${route.network}`;
-                if (route.nexthop) {
-                    command += ` ${route.nexthop}`;
-                }
-
-                executeCommand(`configure terminal\n${command}`, function(data) {
+            // Reconstruct the full static route command for deletion
+            let routeCommand = 'no ip route';
+            if (route.vrf && route.vrf.trim() !== '') {
+                routeCommand += ` vrf ${route.vrf.trim()}`;
+            }
+            routeCommand += ` ${route.network}`;
+            if (route.type === 'nexthop' && route.nexthop) {
+                routeCommand += ` ${route.nexthop}`;
+            } else if (route.type === 'interface' && route.interface) {
+                routeCommand += ` ${route.interface}`;
+            } else if (route.type === 'null') {
+                routeCommand += ' null0';
+            }
+            if (route.adminDistance && route.adminDistance !== '1') {
+                routeCommand += ` ${route.adminDistance}`;
+            }
+            if (route.metric) {
+                routeCommand += ` ${route.metric}`;
+            }
+            if (route.permanent) {
+                routeCommand += ' permanent';
+            }
+            if (route.description) {
+                routeCommand += ` name ${route.description}`;
+            }
+            confirmAction(`Are you sure you want to delete the static route to ${route.network}?`, function() {
+                executeCommand(routeCommand, function(data) {
                     showAlert('Static route deleted successfully', 'success');
                     setTimeout(loadStaticRoutes, 2000);
-                });
+                }, 'cli_conf');
             });
         }
 

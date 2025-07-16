@@ -96,6 +96,9 @@
                                         </select>
                                         <input type="text" class="form-control form-control-sm" id="ipv4-search" 
                                                placeholder="Search ACLs..." onkeyup="filterIpv4Acls()">
+                                        <button class="btn btn-sm btn-outline-secondary" onclick="toggleIpv4RawJson()" data-bs-toggle="tooltip" title="Show raw JSON">
+                                            <i class="fas fa-code"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -123,6 +126,12 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <!-- Raw JSON output for IPv4 -->
+                                <div class="mt-3">
+                                    <pre id="ipv4-json-raw" class="command-output"></pre>
+                                </div>
+                                <!-- Parsed ACL details -->
+                                <div id="ipv4-acl-details" class="mt-3"></div>
                             </div>
                         </div>
                     </div>
@@ -436,6 +445,9 @@
         let filteredAcls = [];
         let interfacesData = [];
         let ruleCounter = 0;
+        let ipv6AclsData = [];
+        let macAclsData = [];
+        let aclSummaryData = {};
 
         // Page-specific refresh function
         window.pageRefreshFunction = loadAcls;
@@ -447,16 +459,93 @@
         });
 
         function loadAcls() {
+            // Fetch and display IPv4 ACLs
+            const ipv4Body = document.getElementById('ipv4-acls-tbody');
+            ipv4Body.innerHTML = '<tr><td colspan="8" class="text-center"><div class="loading-spinner"></div> Loading IPv4 ACLs...</td></tr>';
             executeCommand('show ip access-lists', function(data) {
-                // Mock data for demonstration
-                aclsData = generateMockAclData();
+                // Parse NX-API CLI or JSON-RPC response for IPv4 ACLs
+                let bodyObj;
+                if (data.ins_api) {
+                    const out = data.ins_api.outputs.output;
+                    bodyObj = Array.isArray(out) ? out[0].body : out.body;
+                } else if (data.result) {
+                    bodyObj = data.result.body;
+                } else {
+                    bodyObj = {};
+                }
+                const rows = bodyObj.TABLE_ip_ipv6_mac?.ROW_ip_ipv6_mac || [];
+                const arr = Array.isArray(rows) ? rows : [rows];
+                aclsData = arr.map(item => {
+                    const seq = item.TABLE_seqno?.ROW_seqno;
+                    const entries = seq ? (Array.isArray(seq) ? seq : [seq]) : [];
+                    return {
+                        name: item.acl_name,
+                        type: 'ipv4-extended',
+                        rules: entries.length,
+                        appliedTo: [],
+                        direction: null,
+                        hitCount: 0,
+                        status: 'active',
+                        entries
+                    };
+                });
                 filteredAcls = [...aclsData];
                 displayIpv4Acls();
-                displayIpv6Acls();
-                displayMacAcls();
-                displayObjectGroups();
                 updateAclSummary();
+                // Populate raw JSON for testing
+                document.getElementById('ipv4-json-raw').textContent = JSON.stringify(data, null, 2);
             });
+
+            // Fetch and display IPv6 ACLs
+            const ipv6Body = document.getElementById('ipv6-acls-tbody');
+            ipv6Body.innerHTML = '<tr><td colspan="6" class="text-center"><div class="loading-spinner"></div> Loading IPv6 ACLs...</td></tr>';
+            executeCommand('show ipv6 access-lists', function(data) {
+                // Support both ins_api and JSON-RPC wrappers
+                const body = data.ins_api?.outputs?.output?.body || data.result?.body;
+                const rows = body.TABLE_ip_ipv6_mac?.ROW_ip_ipv6_mac || [];
+                const arr = Array.isArray(rows) ? rows : [rows];
+                ipv6AclsData = arr.map(item => {
+                    const seq = item.TABLE_seqno?.ROW_seqno;
+                    const entries = seq ? (Array.isArray(seq) ? seq : [seq]) : [];
+                    return {
+                        name: item.acl_name,
+                        rules: entries.length,
+                        appliedTo: [],
+                        direction: null,
+                        hitCount: 0,
+                        status: 'active',
+                        entries
+                    };
+                });
+                displayIpv6Acls();
+            });
+
+            // Fetch and display MAC ACLs
+            const macBody = document.getElementById('mac-acls-tbody');
+            macBody.innerHTML = '<tr><td colspan="6" class="text-center"><div class="loading-spinner"></div> Loading MAC ACLs...</td></tr>';
+            executeCommand('show mac access-lists', function(data) {
+                // Support both ins_api and JSON-RPC wrappers
+                const body = data.ins_api?.outputs?.output?.body || data.result?.body;
+                const rows = body.TABLE_ip_ipv6_mac?.ROW_ip_ipv6_mac || [];
+                const arr = Array.isArray(rows) ? rows : [rows];
+                macAclsData = arr.map(item => {
+                    const seq = item.TABLE_seqno?.ROW_seqno;
+                    const entries = seq ? (Array.isArray(seq) ? seq : [seq]) : [];
+                    return {
+                        name: item.acl_name,
+                        rules: entries.length,
+                        appliedTo: [],
+                        direction: null,
+                        hitCount: 0,
+                        status: 'active',
+                        entries
+                    };
+                });
+                displayMacAcls();
+            });
+
+            // Refresh object groups
+            displayObjectGroups();
         }
 
         function loadInterfaces() {
@@ -521,6 +610,32 @@
                 { interface: 'Ethernet1/2' }
             ];
         }
+       
+        // Mock data for MAC-based ACLs
+        function generateMockMacAclData() {
+            return [
+                {
+                    name: 'MAC_ACL1',
+                    type: 'mac',
+                    rules: 2,
+                    appliedTo: ['Vlan10'],
+                    direction: 'in',
+                    hitCount: 350,
+                    status: 'active',
+                    description: 'Allow frames from specific MAC'
+                },
+                {
+                    name: 'MAC_BLOCK',
+                    type: 'mac',
+                    rules: 1,
+                    appliedTo: [],
+                    direction: null,
+                    hitCount: 0,
+                    status: 'unused',
+                    description: 'Block all MAC addresses'
+                }
+            ];
+        }
 
         function displayIpv4Acls() {
             const tbody = document.getElementById('ipv4-acls-tbody');
@@ -532,7 +647,7 @@
                 const row = document.createElement('tr');
                 
                 row.innerHTML = `
-                    <td><strong>${acl.name}</strong></td>
+                    <td><strong><a href="#" onclick="viewAclDetails('${acl.name}'); return false;">${acl.name}</a></strong></td>
                     <td>
                         <span class="badge ${getAclTypeBadge(acl.type)}">${getAclTypeLabel(acl.type)}</span>
                     </td>
@@ -612,7 +727,29 @@
 
         function displayMacAcls() {
             const tbody = document.getElementById('mac-acls-tbody');
-            tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted">No MAC ACLs configured</td></tr>';
+            tbody.innerHTML = '';
+            if (!macAclsData || macAclsData.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted">No MAC ACLs configured</td></tr>';
+            } else {
+                macAclsData.forEach(acl => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td><strong>${acl.name}</strong></td>
+                        <td>${acl.rules} rules</td>
+                        <td>${acl.appliedTo.length > 0 ? acl.appliedTo.join(', ') : '--'}</td>
+                        <td>${acl.direction ? acl.direction.toUpperCase() : '--'}</td>
+                        <td>${formatNumber(acl.hitCount)}</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary" onclick="editAcl('${acl.name}')"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-outline-success" onclick="showApplyAclModal('${acl.name}')"><i class="fas fa-link"></i></button>
+                            <button class="btn btn-sm btn-outline-info" onclick="viewAclDetails('${acl.name}')"><i class="fas fa-eye"></i></button>
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteAcl('${acl.name}')"><i class="fas fa-trash"></i></button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
+            initializeTooltips();
         }
 
         function displayObjectGroups() {
@@ -837,28 +974,47 @@
 
             // Generate ACL configuration commands
             let commands = [];
-            
+            // Use NX-OS classic ACL syntax (auto type detection)
             if (aclType.startsWith('ipv4')) {
-                commands.push(`ip access-list extended ${aclName}`);
+                commands.push(`ip access-list ${aclName}`);
             } else if (aclType === 'ipv6') {
                 commands.push(`ipv6 access-list ${aclName}`);
             } else if (aclType === 'mac') {
-                commands.push(`mac access-list extended ${aclName}`);
+                commands.push(`mac access-list ${aclName}`);
             }
-
+            // Add a remark for the description
             if (description) {
                 commands.push(`remark ${description}`);
             }
-
-            // Add rules (simplified for demo)
-            commands.push('permit ip any any');
+            // Iterate each rule block and build commands
+            const ruleDivs = document.querySelectorAll('#acl-rules-container > div');
+            ruleDivs.forEach(div => {
+                const action = div.querySelector('select:nth-of-type(1)').value;
+                const protocol = div.querySelector('select:nth-of-type(2)').value;
+                const anyInputs = div.querySelectorAll('input[placeholder^="any"]');
+                const src = anyInputs[0]?.value || 'any';
+                const dst = anyInputs[1]?.value || 'any';
+                const portInputs = div.querySelectorAll('input[placeholder^="any,"]');
+                const srcPort = portInputs[0]?.value || 'any';
+                const dstPort = portInputs[1]?.value || 'any';
+                const checks = div.querySelectorAll('.form-check-input');
+                let ruleCmd = `${action} ${protocol} ${src}`;
+                if (srcPort !== 'any') ruleCmd += ` ${srcPort}`;
+                ruleCmd += ` ${dst}`;
+                if (dstPort !== 'any') ruleCmd += ` ${dstPort}`;
+                if (checks[0]?.checked) ruleCmd += ' log';
+                if (checks[1]?.checked) ruleCmd += ' established';
+                commands.push(ruleCmd);
+            });
+            // Exit ACL configuration context
+            commands.push('exit');
 
             confirmAction(`Create ACL with the following configuration?\n\n${commands.join('\n')}`, function() {
-                executeCommand(`configure terminal\n${commands.join('\n')}`, function(data) {
+                executeCommand(commands.join(' ; '), function(data) {
                     showAlert('ACL created successfully', 'success');
                     bootstrap.Modal.getInstance(document.getElementById('aclModal')).hide();
                     setTimeout(loadAcls, 2000);
-                });
+                }, 'cli_conf');
             });
         }
 
@@ -868,10 +1024,21 @@
 
         function deleteAcl(aclName) {
             confirmAction(`Delete ACL ${aclName}?`, function() {
-                executeCommand(`configure terminal\nno ip access-list extended ${aclName}`, function(data) {
+                // Determine ACL type for proper removal command
+                let delCmd;
+                if (aclsData.find(a => a.name === aclName)) {
+                    delCmd = `no ip access-list ${aclName}`;
+                } else if (ipv6AclsData.find(a => a.name === aclName)) {
+                    delCmd = `no ipv6 access-list ${aclName}`;
+                } else if (macAclsData.find(a => a.name === aclName)) {
+                    delCmd = `no mac access-list ${aclName}`;
+                } else {
+                    delCmd = `no ip access-list ${aclName}`;
+                }
+                executeCommand(delCmd, function(data) {
                     showAlert('ACL deleted successfully', 'success');
                     setTimeout(loadAcls, 2000);
-                });
+                }, 'cli_conf');
             });
         }
 
@@ -903,7 +1070,41 @@
         }
 
         function viewAclDetails(aclName) {
-            showAlert(`View details for ACL ${aclName} - Feature coming soon!`, 'info');
+            // Hide raw JSON panel
+            const raw = document.getElementById('ipv4-json-raw');
+            raw.style.display = 'none';
+            // Find the parsed ACL data
+            const acl = aclsData.find(a => a.name === aclName);
+            const detailsDiv = document.getElementById('ipv4-acl-details');
+            if (!acl) {
+                detailsDiv.innerHTML = `<p class="text-danger">ACL ${aclName} not found.</p>`;
+                return;
+            }
+            const entries = acl.entries || [];
+            if (entries.length === 0) {
+                detailsDiv.innerHTML = `<p>No entries configured for ACL <strong>${aclName}</strong>.</p>`;
+                return;
+            }
+            let html = `<h5>Entries for ACL <strong>${aclName}</strong>:</h5>`;
+            html += `<table class="table table-striped table-bordered"><thead><tr>` +
+                    `<th>Seq</th><th>Action</th><th>Protocol</th><th>Source</th><th>Destination</th><th>Operator</th><th>Port</th>` +
+                `</tr></thead><tbody>`;
+            entries.forEach(e => {
+                const op = e.dest_port_op || e.src_port_op || '';
+                const portVal = e.dest_port1_str || e.dest_port1_num || e.src_port1_str || e.src_port1_num || '';
+                const proto = e.proto_str || e.proto;
+                html += `<tr>` +
+                    `<td>${e.seqno}</td>` +
+                    `<td>${e.permitdeny}</td>` +
+                    `<td>${proto}</td>` +
+                    `<td>${e.src_any}${e.src_ip_prefix ? ' '+e.src_ip_prefix : ''}</td>` +
+                    `<td>${e.dest_any}${e.dest_ip_prefix ? ' '+e.dest_ip_prefix : ''}</td>` +
+                    `<td>${op}</td>` +
+                    `<td>${portVal}</td>` +
+                `</tr>`;
+            });
+            html += `</tbody></table>`;
+            detailsDiv.innerHTML = html;
         }
 
         function previewAcl() {
@@ -953,6 +1154,30 @@
 
         function showCreateObjectGroupModal() {
             showAlert('Create Object Group feature coming soon!', 'info');
+        }
+
+        // Add toggle function for IPv4 raw JSON
+        function toggleIpv4RawJson() {
+            const pre = document.getElementById('ipv4-json-raw');
+            // Toggle visibility
+            if (pre.style.display === 'block') {
+                pre.style.display = 'none';
+            } else {
+                pre.style.display = 'block';
+                // Fetch raw response text for debug
+                fetch('nxapi.php', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    body: 'cmd=' + encodeURIComponent('show ip access-lists')
+                })
+                .then(response => response.text())
+                .then(text => {
+                    pre.textContent = text;
+                })
+                .catch(err => {
+                    pre.textContent = 'Error fetching raw data: ' + err.message;
+                });
+            }
         }
     </script>
 </body>

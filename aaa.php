@@ -952,10 +952,10 @@
             }
 
             confirmAction(`Apply console authentication configuration?\n\n${commands.join('\n')}`, function() {
-                executeCommand(`configure terminal\n${commands.join('\n')}`, function(data) {
+                executeCommand(commands.join(' ; '), function(data) {
                     showAlert('Console authentication configuration applied', 'success');
                     setTimeout(loadAaaData, 2000);
-                });
+                }, 'cli_conf');
             });
         }
 
@@ -971,10 +971,10 @@
             }
 
             confirmAction(`Apply SSH authentication configuration?\n\n${commands.join('\n')}`, function() {
-                executeCommand(`configure terminal\n${commands.join('\n')}`, function(data) {
+                executeCommand(commands.join(' ; '), function(data) {
                     showAlert('SSH authentication configuration applied', 'success');
                     setTimeout(loadAaaData, 2000);
-                });
+                }, 'cli_conf');
             });
         }
 
@@ -1023,11 +1023,11 @@
             ];
 
             confirmAction(`Create local user ${username}?\n\n${commands.join('\n')}`, function() {
-                executeCommand(`configure terminal\n${commands.join('\n')}`, function(data) {
+                executeCommand(commands.join(' ; '), function(data) {
                     showAlert(`User ${username} created successfully`, 'success');
                     bootstrap.Modal.getInstance(document.getElementById('addUserModal')).hide();
                     setTimeout(loadAaaData, 2000);
-                });
+                }, 'cli_conf');
             });
         }
 
@@ -1053,7 +1053,7 @@
         }
 
         function exportAaaConfig() {
-            const config = `! AAA Configuration\naaa authentication login default tacacs+ local\naaa authorization commands default tacacs+ local\naaa accounting commands default start-stop tacacs+\n!`;
+            const config = `! AAA Configuration\naaa authentication login default tacacs+ local\naa authorization commands default tacacs+ local\naa accounting commands default start-stop tacacs+\n!`;
             exportConfig(config, 'aaa-config.txt');
         }
 

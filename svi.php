@@ -651,22 +651,21 @@
             const configCommands = commands.join('\n');
             
             confirmAction(`${action === 'create' ? 'Create' : 'Update'} SVI for VLAN ${vlanId}?\n\n${configCommands}`, function() {
-                executeCommand(`configure terminal\n${configCommands}`, function(data) {
+                executeCommand(configCommands.split('\n').join(' ; '), function(data) {
                     showAlert(`SVI for VLAN ${vlanId} ${action === 'create' ? 'created' : 'updated'} successfully`, 'success');
                     bootstrap.Modal.getInstance(document.getElementById('sviModal')).hide();
                     setTimeout(loadData, 2000);
-                });
+                }, 'cli_conf');
             });
         }
 
         function deleteSvi(vlanId) {
             confirmAction(`Are you sure you want to delete SVI for VLAN ${vlanId}?\n\nThis will remove all IP configuration for this VLAN.`, function() {
                 const commands = [`no interface vlan${vlanId}`];
-
-                executeCommand(`configure terminal\n${commands.join('\n')}`, function(data) {
+                executeCommand(commands.join(' ; '), function(data) {
                     showAlert(`SVI for VLAN ${vlanId} deleted successfully`, 'success');
                     setTimeout(loadData, 2000);
-                });
+                }, 'cli_conf');
             });
         }
 

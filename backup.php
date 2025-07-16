@@ -979,8 +979,34 @@
         }
 
         function downloadBackup(filename) {
-            // In a real implementation, this would initiate a file download
-            alert('Download functionality would be implemented here for: ' + filename);
+            fetch('nxapi.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'cmd=' + encodeURIComponent('show file bootflash:' + filename)
+            })
+            .then(response => response.json())
+            .then(data => {
+                let content = '';
+                try {
+                    if (data.ins_api && data.ins_api.outputs && data.ins_api.outputs.output) {
+                        const output = data.ins_api.outputs.output;
+                        content = output.body || (Array.isArray(output) ? output.map(o => o.body).join('\n') : '');
+                    }
+                } catch (e) {
+                    console.error('Error parsing file content:', e);
+                }
+                const blob = new Blob([content], { type: 'text/plain' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = filename;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(link.href);
+            })
+            .catch(error => {
+                alert('Error fetching file: ' + error.message);
+            });
         }
 
         function restoreBackup(filename) {
