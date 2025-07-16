@@ -10,8 +10,8 @@
             background: linear-gradient(145deg, #2c3e50, #34495e);
             border-radius: 15px;
             padding: 30px;
-            margin: 20px 0;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            margin: 0;
+            box-shadow: none;
             position: relative;
         }
         
@@ -26,9 +26,27 @@
         
         .port-panel {
             display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 8px;
-            margin: 20px 0;
+            grid-template-columns: repeat(24, 1fr);
+            gap: 6px;
+            margin: 0 0 18px 0;
+        }
+        .port-row {
+            margin-bottom: 18px;
+        }
+        @media (max-width: 1200px) {
+            .port-panel {
+                grid-template-columns: repeat(12, 1fr);
+            }
+        }
+        @media (max-width: 768px) {
+            .port-panel {
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+        @media (max-width: 480px) {
+            .port-panel {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
         
         .port {
@@ -72,8 +90,9 @@
         }
         
         .port-number {
-            font-size: 8px;
+            font-size: 18px;
             margin-bottom: 2px;
+            line-height: 1.1;
         }
         
         .port-speed {
@@ -86,8 +105,8 @@
             position: absolute;
             top: 2px;
             right: 2px;
-            width: 6px;
-            height: 6px;
+            width: 10px;
+            height: 10px;
             background: #fff;
             border-radius: 50%;
             animation: blink 2s infinite;
@@ -98,37 +117,51 @@
             51%, 100% { opacity: 0.3; }
         }
         
-        .switch-info {
-            background: rgba(52, 73, 94, 0.8);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            color: white;
+        /* Remove .switch-info styles */
+        .switch-info { display: none; }
+        /* New bottom summary styles */
+        .status-summary-bottom {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0 0 0;
+            padding: 25px 0 10px 0;
+            border-radius: 16px;
+            background: linear-gradient(90deg, #232526 0%, #414345 100%);
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.37);
         }
-        
-        .status-summary {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
+        .status-card-bottom {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 18px 28px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.08);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            min-width: 90px;
         }
-        
-        .status-card {
-            background: rgba(255,255,255,0.1);
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
+        .status-card-bottom.up {
+            background: linear-gradient(135deg, #27ae60 60%, #2ecc71 100%);
+            color: #fff;
         }
-        
+        .status-card-bottom.down {
+            background: linear-gradient(135deg, #e74c3c 60%, #c0392b 100%);
+            color: #fff;
+        }
+        .status-card-bottom.total {
+            background: linear-gradient(135deg, #2980b9 60%, #6dd5fa 100%);
+            color: #fff;
+        }
         .status-number {
-            font-size: 24px;
+            font-size: 2.2rem;
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.18);
         }
-        
         .status-label {
-            font-size: 12px;
-            opacity: 0.8;
+            font-size: 1rem;
+            opacity: 0.92;
+            letter-spacing: 1px;
         }
         
         .mgmt-ports {
@@ -152,17 +185,23 @@
             margin-right: 10px;
         }
         
-        .refresh-controls {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            background: rgba(52, 73, 94, 0.95);
-            padding: 15px;
-            border-radius: 10px;
-            color: white;
-            z-index: 1000;
+        .refresh-controls, .refresh-controls-fixed, .status-summary-bottom { display: none; }
+        .switch-chassis {
+            background: linear-gradient(145deg, #2c3e50, #34495e);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 0;
+            box-shadow: none;
+            position: relative;
         }
-        
+        .switch-label {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            color: #ecf0f1;
+            font-size: 14px;
+            font-weight: bold;
+        }
         .loading-overlay {
             position: absolute;
             top: 0;
@@ -176,83 +215,76 @@
             border-radius: 15px;
             z-index: 100;
         }
-        
         .loading-text {
             color: white;
             font-size: 16px;
+        }
+        .card.text-center h3#total-ports,
+        .card.text-center h3#ports-up,
+        .card.text-center h3#ports-down {
+            font-weight: 900;
+            font-size: 2.6rem;
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
     <div class="container-fluid">
-        <!-- Refresh Controls -->
-        <div class="refresh-controls">
-            <div class="mb-2">
-                <button class="btn btn-success btn-sm" onclick="refreshInterfaces()" id="refresh-btn">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2><i class="fas fa-network-wired"></i> Interface Status</h2>
+            <div>
+                <button class="btn btn-success" onclick="refreshInterfaces()" id="refresh-btn">
                     <i class="fas fa-sync-alt"></i> Refresh
                 </button>
-            </div>
-            <div class="mb-2">
-                <button class="btn btn-warning btn-sm" onclick="toggleAutoRefresh()" id="auto-refresh-btn">
+                <button class="btn btn-warning" onclick="toggleAutoRefresh()" id="auto-refresh-btn">
                     <i class="fas fa-play"></i> Auto
                 </button>
-            </div>
-            <div class="small">
-                <span id="last-update">Never</span>
+                <!-- Removed last-update span -->
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-12">
-                <h2><i class="fas fa-network-wired"></i> Interface Status - Visual Switch</h2>
-                
-                <!-- Switch Information -->
-                <div class="switch-info">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h4><i class="fas fa-server"></i> Cisco Nexus Switch</h4>
-                            <p class="mb-1"><strong>Model:</strong> <span id="switch-model">Loading...</span></p>
-                            <p class="mb-1"><strong>Software:</strong> <span id="switch-version">Loading...</span></p>
-                            <p class="mb-0"><strong>Uptime:</strong> <span id="switch-uptime">Loading...</span></p>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="status-summary">
-                                <div class="status-card">
-                                    <div class="status-number text-success" id="ports-up">0</div>
-                                    <div class="status-label">UP</div>
-                                </div>
-                                <div class="status-card">
-                                    <div class="status-number text-danger" id="ports-down">0</div>
-                                    <div class="status-label">DOWN</div>
-                                </div>
-                                <div class="status-card">
-                                    <div class="status-number text-warning" id="ports-admin-down">0</div>
-                                    <div class="status-label">ADMIN</div>
-                                </div>
-                                <div class="status-card">
-                                    <div class="status-number text-info" id="total-ports">0</div>
-                                    <div class="status-label">TOTAL</div>
-                                </div>
-                            </div>
-                        </div>
+        <!-- Status Overview Cards -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title text-success">UP</h5>
+                        <h3 id="ports-up" class="text-success">0</h3>
                     </div>
                 </div>
-
-                <!-- Switch Chassis -->
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title text-danger">DOWN</h5>
+                        <h3 id="ports-down" class="text-danger">0</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title text-info">TOTAL</h5>
+                        <h3 id="total-ports" class="text-info">0</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Main Card for Switch Chassis and Ports -->
+        <div class="card mb-4">
+            <div class="card-body">
                 <div class="switch-chassis" id="switch-chassis">
                     <div class="switch-label">CISCO NEXUS</div>
-                    
                     <div class="loading-overlay" id="loading-overlay">
                         <div class="loading-text">
                             <i class="fas fa-spinner fa-spin"></i> Loading interfaces from switch...
                         </div>
                     </div>
-                    
-                    <!-- Ethernet Ports -->
-                    <div class="port-panel" id="ethernet-ports">
-                        <!-- Ports will be dynamically generated -->
+                    <!-- Ethernet Ports: 24 top, 24 bottom, close together -->
+                    <div id="ethernet-ports-rows">
+                        <div class="port-panel port-row" id="ethernet-ports-top"></div>
+                        <div class="port-panel port-row" id="ethernet-ports-bottom"></div>
                     </div>
-                    
                     <!-- Management Ports -->
                     <div class="mgmt-ports">
                         <h6 style="color: #ecf0f1; margin-bottom: 10px;">Management Ports</h6>
@@ -263,9 +295,7 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Port Details Modal -->
+        <!-- Port Details Modal -->
     <div class="modal fade" id="portModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -413,16 +443,21 @@
         }
 
         function displayInterfaces(interfaces) {
-            const ethernetContainer = document.getElementById('ethernet-ports');
+            const ethernetTop = document.getElementById('ethernet-ports-top');
+            const ethernetBottom = document.getElementById('ethernet-ports-bottom');
             const mgmtContainer = document.getElementById('mgmt-ports-container');
-            
-            ethernetContainer.innerHTML = '';
+
+            ethernetTop.innerHTML = '';
+            ethernetBottom.innerHTML = '';
             mgmtContainer.innerHTML = '';
-            
+
+            // Gather all Ethernet ports
+            const ethPorts = interfaces.filter(intf => intf.interface.startsWith('Ethernet'));
+            ethPorts.slice(0, 24).forEach(intf => createEthernetPort(intf, ethernetTop));
+            ethPorts.slice(24, 48).forEach(intf => createEthernetPort(intf, ethernetBottom));
+
             interfaces.forEach(intf => {
-                if (intf.interface.startsWith('Ethernet')) {
-                    createEthernetPort(intf, ethernetContainer);
-                } else if (intf.interface.startsWith('mgmt')) {
+                if (intf.interface.startsWith('mgmt')) {
                     createMgmtPort(intf, mgmtContainer);
                 }
             });
@@ -479,25 +514,21 @@
         }
 
         function updateSummaryStats(interfaces) {
-            let up = 0, down = 0, adminDown = 0, total = 0;
-            
-            interfaces.forEach(intf => {
-                if (intf.interface.startsWith('Ethernet')) {
-                    total++;
-                    if (intf.admin_state === 'down') {
-                        adminDown++;
-                    } else if (intf.state === 'up') {
-                        up++;
-                    } else {
-                        down++;
-                    }
+            let up = 0, down = 0;
+            // Count all Ethernet ports for total
+            const ethPorts = interfaces.filter(intf => intf.interface.startsWith('Ethernet'));
+            ethPorts.forEach(intf => {
+                if (intf.admin_state === 'down') {
+                    // skip admin down for up/down
+                } else if (intf.state === 'up') {
+                    up++;
+                } else {
+                    down++;
                 }
             });
-            
             document.getElementById('ports-up').textContent = up;
             document.getElementById('ports-down').textContent = down;
-            document.getElementById('ports-admin-down').textContent = adminDown;
-            document.getElementById('total-ports').textContent = total;
+            document.getElementById('total-ports').textContent = ethPorts.length;
         }
 
         function showPortDetails(intf) {
