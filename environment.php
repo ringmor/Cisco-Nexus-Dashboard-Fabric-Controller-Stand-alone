@@ -155,10 +155,20 @@
         }
 
         function loadTemperatureData() {
-            fetch('nxapi.php', { method: 'POST', headers: {'Content-Type':'application/x-www-form-urlencoded'}, body: 'cmd=show environment temperature' })
+            fetch('nxapi.php', { 
+                method: 'POST', 
+                headers: {'Content-Type':'application/json'}, 
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show environment temperature'
+                })
+            })
             .then(res => res.json())
             .then(data => {
-                const out = data.ins_api.outputs.output.body;
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                const out = data.result.ins_api.outputs.output.body;
                 let rows = out.TABLE_tempinfo.ROW_tempinfo;
                 if (!Array.isArray(rows)) rows = [rows];
 
@@ -209,10 +219,20 @@
         }
 
         function loadPowerData() {
-            fetch('nxapi.php', { method: 'POST', headers: {'Content-Type':'application/x-www-form-urlencoded'}, body: 'cmd=show environment power' })
+            fetch('nxapi.php', { 
+                method: 'POST', 
+                headers: {'Content-Type':'application/json'}, 
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show environment power'
+                })
+            })
             .then(res => res.json())
             .then(data => {
-                const p = data.ins_api.outputs.output.body.powersup;
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                const p = data.result.ins_api.outputs.output.body.powersup;
                 const mod = p.TABLE_mod_pow_info.ROW_mod_pow_info;
                 const summary = p.power_summary;
 
@@ -242,10 +262,20 @@
         }
 
         function loadFanData() {
-            fetch('nxapi.php',{ method: 'POST', headers: {'Content-Type':'application/x-www-form-urlencoded'}, body: 'cmd=show environment fan' })
+            fetch('nxapi.php',{ 
+                method: 'POST', 
+                headers: {'Content-Type':'application/json'}, 
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show environment fan'
+                })
+            })
             .then(res => res.json())
             .then(data => {
-                const f = data.ins_api.outputs.output.body.fandetails.TABLE_faninfo.ROW_faninfo;
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                const f = data.result.ins_api.outputs.output.body.fandetails.TABLE_faninfo.ROW_faninfo;
                 const rows = Array.isArray(f) ? f : [f];
                 const failures = rows.filter(r => r.fanstatus.toLowerCase() !== 'ok');
 

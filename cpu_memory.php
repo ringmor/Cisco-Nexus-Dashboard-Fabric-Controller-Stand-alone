@@ -211,8 +211,11 @@
         function loadSystemResources() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show system resources'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show system resources'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -220,7 +223,11 @@
                     throw new Error(data.error);
                 }
                 
-                const resources = parseResourceData(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const resources = parseResourceData(data.result);
                 updateResourceDisplay(resources);
                 updateCharts(resources);
                 document.getElementById('last-update').textContent = new Date().toLocaleTimeString();
@@ -321,8 +328,11 @@
         function loadProcesses() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show processes cpu'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show processes cpu'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -330,7 +340,11 @@
                     throw new Error(data.error);
                 }
                 
-                const processes = parseProcessData(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const processes = parseProcessData(data.result);
                 displayProcesses(processes);
             })
             .catch(error => {

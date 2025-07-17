@@ -259,8 +259,8 @@
 
         function loadVlans() {
             executeCommand('show vlan brief', function(data) {
-                if (data && data.ins_api && data.ins_api.outputs && data.ins_api.outputs.output) {
-                    const output = data.ins_api.outputs.output;
+                if (data && data.success && data.result && data.result.ins_api && data.result.ins_api.outputs && data.result.ins_api.outputs.output) {
+                    const output = data.result.ins_api.outputs.output;
                     if (output.body && output.body.TABLE_vlanbriefxbrief) {
                         vlansData = output.body.TABLE_vlanbriefxbrief.ROW_vlanbriefxbrief || [];
                         if (!Array.isArray(vlansData)) {
@@ -274,6 +274,71 @@
                 displayVlans();
                 updateSummaryCards();
             });
+        }
+
+        function loadInterfaces() {
+            executeCommand('show interface switchport', function(data) {
+                if (data && data.success && data.result && data.result.ins_api && data.result.ins_api.outputs && data.result.ins_api.outputs.output) {
+                    const output = data.result.ins_api.outputs.output;
+                    if (output.body && output.body.TABLE_interface) {
+                        interfacesData = output.body.TABLE_interface.ROW_interface || [];
+                        if (!Array.isArray(interfacesData)) {
+                            interfacesData = [interfacesData];
+                        }
+                    }
+                } else {
+                    // Mock data for demonstration
+                    interfacesData = generateMockInterfaceData();
+                }
+            });
+        }
+
+        function generateMockVlanData() {
+            return [
+                {
+                    'vlanshowbr-vlanid': '1',
+                    'vlanshowbr-vlanname': 'default',
+                    'vlanshowbr-vlanstate': 'active'
+                },
+                {
+                    'vlanshowbr-vlanid': '10',
+                    'vlanshowbr-vlanname': 'DATA',
+                    'vlanshowbr-vlanstate': 'active'
+                },
+                {
+                    'vlanshowbr-vlanid': '20',
+                    'vlanshowbr-vlanname': 'VOICE',
+                    'vlanshowbr-vlanstate': 'active'
+                },
+                {
+                    'vlanshowbr-vlanid': '100',
+                    'vlanshowbr-vlanname': 'MGMT',
+                    'vlanshowbr-vlanstate': 'active'
+                }
+            ];
+        }
+
+        function generateMockInterfaceData() {
+            return [
+                {
+                    interface: 'Ethernet1/1',
+                    oper_mode: 'access',
+                    access_vlan: '10',
+                    trunk_vlans: []
+                },
+                {
+                    interface: 'Ethernet1/2',
+                    oper_mode: 'access',
+                    access_vlan: '20',
+                    trunk_vlans: []
+                },
+                {
+                    interface: 'Ethernet1/3',
+                    oper_mode: 'trunk',
+                    access_vlan: '',
+                    trunk_vlans: '1-10,20,100'
+                }
+            ];
         }
 
         // Helper to expand a VLAN list string like "1-5,10,20-22" to an array of strings

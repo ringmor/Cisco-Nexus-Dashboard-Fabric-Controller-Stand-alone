@@ -285,11 +285,14 @@
             loadBgpRoutes();
         }
 
-        function loadBgpSummary() {
+        function loadBgpStatus() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show ip bgp summary'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show ip bgp summary'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -297,21 +300,29 @@
                     throw new Error(data.error);
                 }
                 
-                const summary = parseBgpSummary(data);
-                displayBgpSummary(summary);
-                updateBgpOverview(summary);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const bgpInfo = parseBgpStatus(data.result);
+                displayBgpStatus(bgpInfo);
+                document.getElementById('last-update').textContent = new Date().toLocaleTimeString();
             })
             .catch(error => {
-                console.error('Error loading BGP summary:', error);
-                displayBgpError(error.message);
+                console.error('Error loading BGP status:', error);
+                document.getElementById('bgp-status').innerHTML = 
+                    '<div class="alert alert-danger">Error loading BGP status</div>';
             });
         }
 
         function loadBgpNeighbors() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show ip bgp neighbors'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show ip bgp neighbors'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -319,21 +330,28 @@
                     throw new Error(data.error);
                 }
                 
-                const neighbors = parseBgpNeighbors(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const neighbors = parseBgpNeighbors(data.result);
                 displayBgpNeighbors(neighbors);
             })
             .catch(error => {
                 console.error('Error loading BGP neighbors:', error);
-                document.getElementById('bgp-neighbors-tbody').innerHTML = 
-                    '<tr><td colspan="4" class="text-center text-danger">Error: ' + error.message + '</td></tr>';
+                document.getElementById('bgp-neighbors').innerHTML = 
+                    '<div class="alert alert-danger">Error loading BGP neighbors</div>';
             });
         }
 
         function loadBgpRoutes() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show ip bgp'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show ip bgp'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -341,13 +359,17 @@
                     throw new Error(data.error);
                 }
                 
-                const routes = parseBgpRoutes(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const routes = parseBgpRoutes(data.result);
                 displayBgpRoutes(routes);
             })
             .catch(error => {
                 console.error('Error loading BGP routes:', error);
-                document.getElementById('bgp-routes-tbody').innerHTML = 
-                    '<tr><td colspan="7" class="text-center text-danger">Error: ' + error.message + '</td></tr>';
+                document.getElementById('bgp-routes').innerHTML = 
+                    '<div class="alert alert-danger">Error loading BGP routes</div>';
             });
         }
 

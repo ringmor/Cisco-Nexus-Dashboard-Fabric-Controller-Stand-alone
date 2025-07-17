@@ -1,0 +1,22 @@
+{
+    "switchIP": "10.10.100.80",
+    "switchPort": "80",
+    "username": "admin",
+    "password": "admin",
+    "useHTTPS": false,
+    "verifySSL": false,
+    "apiTimeout": "30",
+    "maxRetries": "3",
+    "refreshInterval": "10",
+    "enableLogging": true,
+    "enableDebug": false,
+    "dashboardTheme": "light",
+    "defaultPage": "vlans.php",
+    "itemsPerPage": "25",
+    "showTooltips": true,
+    "enableAnimations": true,
+    "enableNotifications": true,
+    "soundAlerts": false,
+    "emailAlerts": false,
+    "lastUpdated": "2025-07-17T00:36:06.189Z"
+}

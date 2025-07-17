@@ -4,14 +4,37 @@
  * Handles persistent storage of configuration data
  */
 
+// Suppress error output to prevent HTML in JSON responses
+error_reporting(0);
+ini_set('display_errors', 0);
+
 class DataManager {
     private $dataDir;
     
     public function __construct() {
         $this->dataDir = __DIR__ . '/data/';
+        $this->ensureDataDirectory();
+    }
+    
+    /**
+     * Ensure data directory exists and is writable
+     */
+    private function ensureDataDirectory() {
         if (!is_dir($this->dataDir)) {
-            mkdir($this->dataDir, 0755, true);
+            if (!@mkdir($this->dataDir, 0755, true)) {
+                // Don't throw exception, just log error
+                error_log("Failed to create data directory: " . $this->dataDir);
+                return false;
+            }
         }
+        
+        if (!is_writable($this->dataDir)) {
+            // Don't throw exception, just log error
+            error_log("Data directory is not writable: " . $this->dataDir);
+            return false;
+        }
+        
+        return true;
     }
     
     /**
@@ -275,7 +298,7 @@ class DataManager {
     /**
      * Generic data saver
      */
-    private function saveData($filename, $data) {
+    public function saveData($filename, $data) {
         $filepath = $this->dataDir . $filename;
         $content = json_encode($data, JSON_PRETTY_PRINT);
         return file_put_contents($filepath, $content) !== false;
@@ -301,16 +324,29 @@ class DataManager {
 }
 
 // Initialize data manager
-$dataManager = new DataManager();
+try {
+    $dataManager = new DataManager();
+} catch (Exception $e) {
+    header('Content-Type: application/json');
+    echo json_encode(['success' => false, 'error' => 'Failed to initialize data manager: ' . $e->getMessage()]);
+    exit;
+}
 
 // Handle AJAX requests
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Content-Type: application/json');
     
-    $input = json_decode(file_get_contents('php://input'), true);
-    $action = $input['action'] ?? '';
+    // Debug logging
+    $debug_log = __DIR__ . '/data_manager_debug.log';
+    file_put_contents($debug_log, "REQUEST: " . file_get_contents('php://input') . "\n", FILE_APPEND);
     
-    switch ($action) {
+    try {
+        $input = json_decode(file_get_contents('php://input'), true);
+        $action = $input['action'] ?? '';
+        
+        file_put_contents($debug_log, "ACTION: $action\n", FILE_APPEND);
+        
+        switch ($action) {
         case 'save_interface':
             $result = $dataManager->saveInterfaceConfig($input['interface'], $input['config']);
             if ($result) {
@@ -384,9 +420,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo json_encode(['success' => true, 'data' => $data]);
             break;
             
+        case 'save_settings':
+            try {
+                file_put_contents($debug_log, "SAVE_SETTINGS: Processing request\n", FILE_APPEND);
+                
+                if (!isset($input['data'])) {
+                    file_put_contents($debug_log, "SAVE_SETTINGS: No data provided\n", FILE_APPEND);
+                    echo json_encode(['success' => false, 'error' => 'No data provided']);
+                    break;
+                }
+                
+                file_put_contents($debug_log, "SAVE_SETTINGS: Data received, attempting to save\n", FILE_APPEND);
+                
+                $result = $dataManager->saveData('dashboard_settings.json', $input['data']);
+                if ($result) {
+                    $dataManager->saveLog('info', 'Dashboard settings saved', 'settings');
+                    file_put_contents($debug_log, "SAVE_SETTINGS: Success\n", FILE_APPEND);
+                    echo json_encode(['success' => true]);
+                } else {
+                    file_put_contents($debug_log, "SAVE_SETTINGS: Failed to write settings file\n", FILE_APPEND);
+                    echo json_encode(['success' => false, 'error' => 'Failed to write settings file']);
+                }
+            } catch (Exception $e) {
+                file_put_contents($debug_log, "SAVE_SETTINGS: Exception: " . $e->getMessage() . "\n", FILE_APPEND);
+                echo json_encode(['success' => false, 'error' => 'Exception: ' . $e->getMessage()]);
+            }
+            break;
+            
         default:
             echo json_encode(['success' => false, 'error' => 'Unknown action']);
             break;
+    }
+    } catch (Exception $e) {
+        header('Content-Type: application/json');
+        echo json_encode(['success' => false, 'error' => 'Error processing request: ' . $e->getMessage()]);
     }
     exit;
 }

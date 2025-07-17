@@ -294,8 +294,11 @@
         function loadOspfProcesses() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show ip ospf'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show ip ospf'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -303,7 +306,11 @@
                     throw new Error(data.error);
                 }
                 
-                const processes = parseOspfProcesses(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const processes = parseOspfProcesses(data.result);
                 displayOspfProcesses(processes);
                 updateOspfSummary(processes);
             })
@@ -317,8 +324,11 @@
         function loadOspfNeighbors() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show ip ospf neighbor'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show ip ospf neighbor'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -326,7 +336,11 @@
                     throw new Error(data.error);
                 }
                 
-                const neighbors = parseOspfNeighbors(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const neighbors = parseOspfNeighbors(data.result);
                 displayOspfNeighbors(neighbors);
             })
             .catch(error => {
@@ -339,8 +353,11 @@
         function loadOspfInterfaces() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show ip ospf interface'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show ip ospf interface'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -348,7 +365,11 @@
                     throw new Error(data.error);
                 }
                 
-                const interfaces = parseOspfInterfaces(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const interfaces = parseOspfInterfaces(data.result);
                 displayOspfInterfaces(interfaces);
             })
             .catch(error => {
@@ -361,8 +382,11 @@
         function loadOspfDatabase() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show ip ospf database'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show ip ospf database'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -370,7 +394,11 @@
                     throw new Error(data.error);
                 }
                 
-                const database = parseOspfDatabase(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const database = parseOspfDatabase(data.result);
                 displayOspfDatabase(database);
             })
             .catch(error => {
@@ -641,8 +669,11 @@
         function loadInterfaceList() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show interface brief'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show interface brief'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -767,8 +798,11 @@
             
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=' + encodeURIComponent(configCmd) + '&type=config'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: configCmd
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -795,8 +829,11 @@
             if (confirm('Are you sure you want to remove OSPF process ' + processId + '?')) {
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: 'cmd=no router ospf ' + processId + '&type=config'
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: 'no router ospf ' + processId
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -824,8 +861,11 @@
             if (confirm('Are you sure you want to clear OSPF process ' + processId + '?')) {
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: 'cmd=clear ip ospf process ' + processId
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: 'clear ip ospf process ' + processId
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {

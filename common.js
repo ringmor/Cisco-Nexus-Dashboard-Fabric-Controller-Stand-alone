@@ -24,13 +24,20 @@ function checkConnectionStatus() {
     fetch('nxapi.php', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/json',
         },
-        body: 'cmd=show version'
+        body: JSON.stringify({
+            action: 'execute_command',
+            command: 'show version'
+        })
     })
     .then(response => response.json())
     .then(data => {
-        updateConnectionStatus(true);
+        if (data.success) {
+            updateConnectionStatus(true);
+        } else {
+            updateConnectionStatus(false);
+        }
     })
     .catch(error => {
         updateConnectionStatus(false);
@@ -81,16 +88,23 @@ function setRefreshInterval(seconds) {
 // Execute NX-API command
 function executeCommand(command, callback, type = null) {
     showLoading(true);
-    let body = 'cmd=' + encodeURIComponent(command);
+    
+    const requestBody = {
+        action: 'execute_command',
+        command: command
+    };
+    
+    // If type is specified, add it to the request body
     if (type) {
-        body += '&type=' + encodeURIComponent(type);
+        requestBody.type = type;
     }
+    
     fetch('nxapi.php', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/json',
         },
-        body: body
+        body: JSON.stringify(requestBody)
     })
     .then(response => response.json())
     .then(data => {

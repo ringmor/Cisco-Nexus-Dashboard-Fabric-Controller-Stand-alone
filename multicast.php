@@ -458,8 +458,11 @@
         function loadIgmpGroups() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show ip igmp groups'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show ip igmp groups'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -467,7 +470,11 @@
                     throw new Error(data.error);
                 }
                 
-                const groups = parseIgmpGroups(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const groups = parseIgmpGroups(data.result);
                 displayIgmpGroups(groups);
                 document.getElementById('igmp-groups').textContent = groups.length;
             })
@@ -480,8 +487,11 @@
             // Load IGMP interfaces
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show ip igmp interface'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show ip igmp interface'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -496,8 +506,11 @@
         function loadPimNeighbors() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show ip pim neighbor'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show ip pim neighbor'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -505,7 +518,11 @@
                     throw new Error(data.error);
                 }
                 
-                const neighbors = parsePimNeighbors(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const neighbors = parsePimNeighbors(data.result);
                 displayPimNeighbors(neighbors);
                 document.getElementById('pim-neighbors').textContent = neighbors.length;
             })
@@ -518,8 +535,11 @@
             // Load PIM interfaces
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show ip pim interface'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show ip pim interface'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -534,8 +554,11 @@
         function loadMulticastRoutes() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show ip mroute'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show ip mroute'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -543,7 +566,11 @@
                     throw new Error(data.error);
                 }
                 
-                const routes = parseMulticastRoutes(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const routes = parseMulticastRoutes(data.result);
                 displayMulticastRoutes(routes);
                 document.getElementById('mcast-routes').textContent = routes.length;
             })
@@ -557,8 +584,11 @@
         function loadRpMappings() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show ip pim rp'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show ip pim rp'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -566,7 +596,11 @@
                     throw new Error(data.error);
                 }
                 
-                const mappings = parseRpMappings(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const mappings = parseRpMappings(data.result);
                 displayRpMappings(mappings);
                 document.getElementById('rp-mappings').textContent = mappings.length;
             })
@@ -1004,8 +1038,11 @@
         function loadInterfaceList() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show interface brief'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show interface brief'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -1121,8 +1158,12 @@
             
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=' + encodeURIComponent(configCmd) + '&type=config'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: configCmd,
+                    type: 'cli_conf'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -1160,8 +1201,12 @@
 
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=' + encodeURIComponent(command) + '&type=config'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: command,
+                    type: 'cli_conf'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -1194,8 +1239,12 @@
 
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=' + encodeURIComponent(command) + '&type=config'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: command,
+                    type: 'cli_conf'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -1222,8 +1271,12 @@
             
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=' + encodeURIComponent(configCmd) + '&type=config'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: configCmd,
+                    type: 'cli_conf'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -1251,8 +1304,12 @@
                 
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: 'cmd=' + encodeURIComponent(configCmd) + '&type=config'
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: configCmd,
+                        type: 'cli_conf'
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -1272,8 +1329,11 @@
         function clearMulticastCounters() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=clear ip mroute *'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'clear ip mroute *'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -1293,8 +1353,11 @@
             if (confirm(`Leave IGMP group ${groupAddress} on ${interfaceName}?`)) {
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: `cmd=clear ip igmp group ${groupAddress} interface ${interfaceName}`
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: `clear ip igmp group ${groupAddress} interface ${interfaceName}`
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -1315,8 +1378,11 @@
             if (confirm(`Clear PIM neighbor ${neighborAddress} on ${interfaceName}?`)) {
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: `cmd=clear ip pim neighbor ${neighborAddress}`
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: `clear ip pim neighbor ${neighborAddress}`
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -1337,8 +1403,11 @@
             if (confirm(`Clear multicast route ${source},${group}?`)) {
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: `cmd=clear ip mroute ${source} ${group}`
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: `clear ip mroute ${source} ${group}`
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -1359,8 +1428,11 @@
             if (confirm(`Remove RP mapping ${rpAddress} for ${groupRange}?`)) {
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: `cmd=no ip pim rp-address ${rpAddress} group-list ${groupRange}&type=config`
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: `no ip pim rp-address ${rpAddress} group-list ${groupRange}`
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {

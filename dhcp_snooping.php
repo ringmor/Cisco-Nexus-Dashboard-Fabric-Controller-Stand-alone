@@ -516,8 +516,12 @@
         function loadDhcpSnoopingStatus() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show ip dhcp snooping'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show ip dhcp snooping',
+                    type: 'cli_conf'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -525,24 +529,34 @@
                     throw new Error(data.error);
                 }
                 
-                const status = parseDhcpSnoopingStatus(data);
-                displayDhcpSnoopingStatus(status);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const dhcpInfo = parseDhcpSnoopingStatus(data.result);
+                displayDhcpSnoopingStatus(dhcpInfo);
+                document.getElementById('last-update').textContent = new Date().toLocaleTimeString();
             })
             .catch(error => {
                 console.error('Error loading DHCP snooping status:', error);
-                displayDhcpSnoopingStatusError(error.message);
+                document.getElementById('dhcp-status').innerHTML = 
+                    '<div class="alert alert-danger">Error loading DHCP snooping status</div>';
             });
 
             // Load VLAN configuration
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show ip dhcp snooping vlan'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show ip dhcp snooping vlan',
+                    type: 'cli_conf'
+                })
             })
             .then(response => response.json())
             .then(data => {
                 if (!data.error) {
-                    const vlanConfig = parseVlanConfig(data);
+                    const vlanConfig = parseVlanConfig(data.result);
                     displayVlanConfig(vlanConfig);
                 }
             })
@@ -552,8 +566,12 @@
         function loadInterfaceConfig() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show ip dhcp snooping interface'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show ip dhcp snooping interface',
+                    type: 'cli_conf'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -561,7 +579,11 @@
                     throw new Error(data.error);
                 }
                 
-                const interfaces = parseInterfaceConfig(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const interfaces = parseInterfaceConfig(data.result);
                 displayInterfaceConfig(interfaces);
                 document.getElementById('trusted-interfaces').textContent = 
                     interfaces.filter(intf => intf.trust_state === 'trusted').length;
@@ -576,8 +598,12 @@
         function loadBindingTable() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show ip dhcp snooping binding'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show ip dhcp snooping binding',
+                    type: 'cli_conf'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -585,7 +611,11 @@
                     throw new Error(data.error);
                 }
                 
-                const bindings = parseBindingTable(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const bindings = parseBindingTable(data.result);
                 displayBindingTable(bindings);
                 document.getElementById('binding-entries').textContent = bindings.length;
             })
@@ -599,8 +629,12 @@
         function loadStatistics() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show ip dhcp snooping statistics'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show ip dhcp snooping statistics',
+                    type: 'cli_conf'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -608,7 +642,11 @@
                     throw new Error(data.error);
                 }
                 
-                const statistics = parseStatistics(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const statistics = parseStatistics(data.result);
                 displayStatistics(statistics);
                 document.getElementById('violations').textContent = statistics.total_violations || 0;
             })
@@ -632,19 +670,15 @@
             };
             
             try {
-                if (data.ins_api && data.ins_api.outputs && data.ins_api.outputs.output) {
-                    const output = data.ins_api.outputs.output;
-                    
-                    if (output.body) {
-                        status.global_status = output.body.dhcp_snooping_enabled || 'Disabled';
-                        status.info_option = output.body.dhcp_snooping_info_option || 'Disabled';
-                        status.allow_untrusted = output.body.dhcp_snooping_allow_untrusted || 'Disabled';
-                        status.rate_limit = output.body.dhcp_snooping_rate_limit || 'None';
-                        status.verify_mac = output.body.dhcp_snooping_verify_mac || 'Disabled';
-                        status.database_agent = output.body.dhcp_snooping_database_agent || 'None';
-                        status.database_timeout = output.body.dhcp_snooping_database_timeout || '300';
-                        status.write_delay = output.body.dhcp_snooping_write_delay || '300';
-                    }
+                if (data.body) {
+                    status.global_status = data.body.dhcp_snooping_enabled || 'Disabled';
+                    status.info_option = data.body.dhcp_snooping_info_option || 'Disabled';
+                    status.allow_untrusted = data.body.dhcp_snooping_allow_untrusted || 'Disabled';
+                    status.rate_limit = data.body.dhcp_snooping_rate_limit || 'None';
+                    status.verify_mac = data.body.dhcp_snooping_verify_mac || 'Disabled';
+                    status.database_agent = data.body.dhcp_snooping_database_agent || 'None';
+                    status.database_timeout = data.body.dhcp_snooping_database_timeout || '300';
+                    status.write_delay = data.body.dhcp_snooping_write_delay || '300';
                 }
             } catch (e) {
                 console.error('Error parsing DHCP snooping status:', e);
@@ -657,22 +691,18 @@
             const vlans = [];
             
             try {
-                if (data.ins_api && data.ins_api.outputs && data.ins_api.outputs.output) {
-                    const output = data.ins_api.outputs.output;
+                if (data.body && data.body.TABLE_vlan) {
+                    let rows = data.body.TABLE_vlan.ROW_vlan;
+                    if (!Array.isArray(rows)) rows = [rows];
                     
-                    if (output.body && output.body.TABLE_vlan) {
-                        let rows = output.body.TABLE_vlan.ROW_vlan;
-                        if (!Array.isArray(rows)) rows = [rows];
-                        
-                        rows.forEach(row => {
-                            vlans.push({
-                                vlan: row.vlan_id || '',
-                                dhcp_snooping: row.dhcp_snooping_enabled || 'Disabled',
-                                trusted_interfaces: row.trusted_interfaces || '',
-                                untrusted_interfaces: row.untrusted_interfaces || ''
-                            });
+                    rows.forEach(row => {
+                        vlans.push({
+                            vlan: row.vlan_id || '',
+                            dhcp_snooping: row.dhcp_snooping_enabled || 'Disabled',
+                            trusted_interfaces: row.trusted_interfaces || '',
+                            untrusted_interfaces: row.untrusted_interfaces || ''
                         });
-                    }
+                    });
                 }
             } catch (e) {
                 console.error('Error parsing VLAN configuration:', e);
@@ -685,23 +715,19 @@
             const interfaces = [];
             
             try {
-                if (data.ins_api && data.ins_api.outputs && data.ins_api.outputs.output) {
-                    const output = data.ins_api.outputs.output;
+                if (data.body && data.body.TABLE_interface) {
+                    let rows = data.body.TABLE_interface.ROW_interface;
+                    if (!Array.isArray(rows)) rows = [rows];
                     
-                    if (output.body && output.body.TABLE_interface) {
-                        let rows = output.body.TABLE_interface.ROW_interface;
-                        if (!Array.isArray(rows)) rows = [rows];
-                        
-                        rows.forEach(row => {
-                            interfaces.push({
-                                interface: row.interface_name || '',
-                                trust_state: row.trust_state || 'untrusted',
-                                rate_limit: row.rate_limit || 'None',
-                                burst_interval: row.burst_interval || 'None',
-                                vlan: row.vlan || ''
-                            });
+                    rows.forEach(row => {
+                        interfaces.push({
+                            interface: row.interface_name || '',
+                            trust_state: row.trust_state || 'untrusted',
+                            rate_limit: row.rate_limit || 'None',
+                            burst_interval: row.burst_interval || 'None',
+                            vlan: row.vlan || ''
                         });
-                    }
+                    });
                 }
             } catch (e) {
                 console.error('Error parsing interface configuration:', e);
@@ -714,24 +740,20 @@
             const bindings = [];
             
             try {
-                if (data.ins_api && data.ins_api.outputs && data.ins_api.outputs.output) {
-                    const output = data.ins_api.outputs.output;
+                if (data.body && data.body.TABLE_binding) {
+                    let rows = data.body.TABLE_binding.ROW_binding;
+                    if (!Array.isArray(rows)) rows = [rows];
                     
-                    if (output.body && output.body.TABLE_binding) {
-                        let rows = output.body.TABLE_binding.ROW_binding;
-                        if (!Array.isArray(rows)) rows = [rows];
-                        
-                        rows.forEach(row => {
-                            bindings.push({
-                                mac_address: row.mac_address || '',
-                                ip_address: row.ip_address || '',
-                                lease_time: row.lease_time || '',
-                                type: row.binding_type || 'dynamic',
-                                vlan: row.vlan || '',
-                                interface: row.interface || ''
-                            });
+                    rows.forEach(row => {
+                        bindings.push({
+                            mac_address: row.mac_address || '',
+                            ip_address: row.ip_address || '',
+                            lease_time: row.lease_time || '',
+                            type: row.binding_type || 'dynamic',
+                            vlan: row.vlan || '',
+                            interface: row.interface || ''
                         });
-                    }
+                    });
                 }
             } catch (e) {
                 console.error('Error parsing binding table:', e);
@@ -757,23 +779,19 @@
             };
             
             try {
-                if (data.ins_api && data.ins_api.outputs && data.ins_api.outputs.output) {
-                    const output = data.ins_api.outputs.output;
-                    
-                    if (output.body) {
-                        statistics.packets_forwarded = output.body.packets_forwarded || 0;
-                        statistics.packets_dropped = output.body.packets_dropped || 0;
-                        statistics.discover_packets = output.body.discover_packets || 0;
-                        statistics.offer_packets = output.body.offer_packets || 0;
-                        statistics.request_packets = output.body.request_packets || 0;
-                        statistics.ack_packets = output.body.ack_packets || 0;
-                        statistics.mac_failures = output.body.mac_failures || 0;
-                        statistics.server_violations = output.body.server_violations || 0;
-                        statistics.option82_failures = output.body.option82_failures || 0;
-                        statistics.rate_limit_violations = output.body.rate_limit_violations || 0;
-                        statistics.binding_violations = output.body.binding_violations || 0;
-                        statistics.total_violations = output.body.total_violations || 0;
-                    }
+                if (data.body) {
+                    statistics.packets_forwarded = data.body.packets_forwarded || 0;
+                    statistics.packets_dropped = data.body.packets_dropped || 0;
+                    statistics.discover_packets = data.body.discover_packets || 0;
+                    statistics.offer_packets = data.body.offer_packets || 0;
+                    statistics.request_packets = data.body.request_packets || 0;
+                    statistics.ack_packets = data.body.ack_packets || 0;
+                    statistics.mac_failures = data.body.mac_failures || 0;
+                    statistics.server_violations = data.body.server_violations || 0;
+                    statistics.option82_failures = data.body.option82_failures || 0;
+                    statistics.rate_limit_violations = data.body.rate_limit_violations || 0;
+                    statistics.binding_violations = data.body.binding_violations || 0;
+                    statistics.total_violations = data.body.total_violations || 0;
                 }
             } catch (e) {
                 console.error('Error parsing statistics:', e);
@@ -928,13 +946,17 @@
         function loadInterfaceList() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show interface brief'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show interface brief',
+                    type: 'cli_conf'
+                })
             })
             .then(response => response.json())
             .then(data => {
                 if (!data.error) {
-                    const interfaces = parseInterfaceList(data);
+                    const interfaces = parseInterfaceList(data.result);
                     populateInterfaceSelects(interfaces);
                 }
             })
@@ -945,22 +967,18 @@
             const interfaces = [];
             
             try {
-                if (data.ins_api && data.ins_api.outputs && data.ins_api.outputs.output) {
-                    const output = data.ins_api.outputs.output;
+                if (data.body && data.body.TABLE_interface) {
+                    let rows = data.body.TABLE_interface.ROW_interface;
                     
-                    if (output.body && output.body.TABLE_interface) {
-                        let rows = output.body.TABLE_interface.ROW_interface;
-                        
-                        if (!Array.isArray(rows)) {
-                            rows = [rows];
-                        }
-                        
-                        rows.forEach(row => {
-                            if (row.interface && (row.interface.startsWith('Ethernet') || row.interface.startsWith('Vlan'))) {
-                                interfaces.push(row.interface);
-                            }
-                        });
+                    if (!Array.isArray(rows)) {
+                        rows = [rows];
                     }
+                    
+                    rows.forEach(row => {
+                        if (row.interface && (row.interface.startsWith('Ethernet') || row.interface.startsWith('Vlan'))) {
+                            interfaces.push(row.interface);
+                        }
+                    });
                 }
             } catch (e) {
                 console.error('Error parsing interface list:', e);
@@ -1015,8 +1033,12 @@
             
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=' + encodeURIComponent(configCmd) + '&type=config'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: configCmd,
+                    type: 'cli_conf'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -1045,8 +1067,12 @@
                 
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: 'cmd=' + encodeURIComponent(configCmd) + '&type=config'
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: configCmd,
+                        type: 'cli_conf'
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -1083,8 +1109,12 @@
 
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=' + encodeURIComponent(command) + '&type=config'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: command,
+                    type: 'cli_conf'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -1104,8 +1134,12 @@
             if (confirm('Clear all DHCP snooping binding entries?')) {
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: 'cmd=clear ip dhcp snooping binding *'
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: 'clear ip dhcp snooping binding *',
+                        type: 'cli_conf'
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -1175,8 +1209,12 @@
             
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=' + encodeURIComponent(configCmd) + '&type=config'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: configCmd,
+                    type: 'cli_conf'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -1195,8 +1233,12 @@
         function enableDhcpSnooping() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=ip dhcp snooping&type=config'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'ip dhcp snooping',
+                    type: 'cli_conf'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -1216,8 +1258,12 @@
             if (confirm('Are you sure you want to disable DHCP snooping?')) {
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: 'cmd=no ip dhcp snooping&type=config'
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: 'no ip dhcp snooping',
+                        type: 'cli_conf'
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -1249,8 +1295,12 @@
                 
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: 'cmd=' + encodeURIComponent(configCmd) + '&type=config'
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: configCmd,
+                        type: 'cli_conf'
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -1271,8 +1321,12 @@
             if (confirm('Clear DHCP snooping statistics?')) {
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: 'cmd=clear ip dhcp snooping statistics'
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: 'clear ip dhcp snooping statistics',
+                        type: 'cli_conf'
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -1293,8 +1347,12 @@
             if (confirm(`Remove binding for ${macAddress} (${ipAddress})?`)) {
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: `cmd=clear ip dhcp snooping binding ${macAddress}`
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: `clear ip dhcp snooping binding ${macAddress}`,
+                        type: 'cli_conf'
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -1327,8 +1385,12 @@
                 
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: 'cmd=' + encodeURIComponent(configCmd) + '&type=config'
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: configCmd,
+                        type: 'cli_conf'
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {

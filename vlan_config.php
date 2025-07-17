@@ -155,8 +155,11 @@
 
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show vlan brief'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show vlan brief'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -164,10 +167,15 @@
                     throw new Error(data.error);
                 }
                 
-                const vlans = parseVlanData(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const vlans = parseVlanData(data.result);
                 vlansData = vlans;
                 displayVlans(vlans);
                 updateSummaryCards(vlans);
+                document.getElementById('last-update').textContent = new Date().toLocaleTimeString();
             })
             .catch(error => {
                 console.error('Error loading VLANs:', error);
@@ -337,8 +345,12 @@
             
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=' + encodeURIComponent(configCmd) + '&type=config'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: configCmd,
+                    type: 'cli_conf'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -363,8 +375,12 @@
             if (confirm('Are you sure you want to delete VLAN ' + vlanId + '?')) {
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: 'cmd=no vlan ' + vlanId + '&type=config'
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: `no vlan ${vlanId}`,
+                        type: 'cli_conf'
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {

@@ -386,8 +386,11 @@
         function loadSystemInfo() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show version'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show version'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -395,7 +398,11 @@
                     throw new Error(data.error);
                 }
                 
-                const versionInfo = parseVersionInfo(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const versionInfo = parseVersionInfo(data.result);
                 document.getElementById('current-version').textContent = versionInfo.version;
                 document.getElementById('boot-image').textContent = versionInfo.bootImage;
                 document.getElementById('system-image').textContent = versionInfo.systemImage;
@@ -410,8 +417,11 @@
             // Load available space
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=dir bootflash: | include free'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'dir bootflash: | include free'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -429,8 +439,11 @@
         function loadImageFiles() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=dir bootflash: | include .bin'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'dir bootflash: | include .bin'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -438,7 +451,11 @@
                     throw new Error(data.error);
                 }
                 
-                const images = parseImageFiles(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const images = parseImageFiles(data.result);
                 displayImageFiles(images);
                 populateUpgradeImageSelect(images);
             })
@@ -451,8 +468,11 @@
         function loadModuleInfo() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show module'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show module'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -460,7 +480,11 @@
                     throw new Error(data.error);
                 }
                 
-                const modules = parseModuleInfo(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const modules = parseModuleInfo(data.result);
                 displayModuleInfo(modules);
             })
             .catch(error => {
@@ -776,8 +800,11 @@
         function performUpgrade(command, verify) {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=' + encodeURIComponent(command)
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: command
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -870,8 +897,11 @@
             // Check image compatibility
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: `cmd=show install all impact nxos bootflash:${image}`
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: `show install all impact nxos bootflash:${image}`
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -890,8 +920,11 @@
             if (confirm(`Set ${filename} as boot image?`)) {
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: `cmd=boot nxos bootflash:${filename}`
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: `boot nxos bootflash:${filename}`
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -911,8 +944,11 @@
         function verifyImage(filename) {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: `cmd=show file bootflash:${filename} md5sum`
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: `show file bootflash:${filename} md5sum`
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -931,8 +967,11 @@
             if (confirm(`Are you sure you want to delete ${filename}?`)) {
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: `cmd=delete bootflash:${filename}`
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: `delete bootflash:${filename}`
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {

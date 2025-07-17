@@ -483,8 +483,11 @@
         function loadVpcDomain() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show vpc'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show vpc'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -492,7 +495,11 @@
                     throw new Error(data.error);
                 }
                 
-                const domain = parseVpcDomain(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const domain = parseVpcDomain(data.result);
                 displayVpcDomain(domain);
             })
             .catch(error => {
@@ -503,13 +510,16 @@
             // Load peer-link information
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show vpc peer-keepalive'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show vpc peer-keepalive'
+                })
             })
             .then(response => response.json())
             .then(data => {
                 if (!data.error) {
-                    const peerLink = parseVpcPeerLink(data);
+                    const peerLink = parseVpcPeerLink(data.result);
                     displayVpcPeerLink(peerLink);
                 }
             })
@@ -519,8 +529,11 @@
         function loadVpcPeers() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show vpc brief'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show vpc brief'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -528,7 +541,11 @@
                     throw new Error(data.error);
                 }
                 
-                const peers = parseVpcPeers(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const peers = parseVpcPeers(data.result);
                 displayVpcPeers(peers);
                 document.getElementById('vpc-peers').textContent = peers.length;
             })
@@ -542,8 +559,11 @@
         function loadVpcVlans() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show vpc consistency-parameters vlans'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show vpc consistency-parameters vlans'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -551,7 +571,11 @@
                     throw new Error(data.error);
                 }
                 
-                const vlans = parseVpcVlans(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const vlans = parseVpcVlans(data.result);
                 displayVpcVlans(vlans);
                 document.getElementById('vpc-vlans').textContent = vlans.length;
             })
@@ -565,8 +589,11 @@
         function loadConsistencyCheck() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show vpc consistency-parameters global'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show vpc consistency-parameters global'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -574,7 +601,11 @@
                     throw new Error(data.error);
                 }
                 
-                const consistency = parseConsistencyCheck(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const consistency = parseConsistencyCheck(data.result);
                 displayConsistencyCheck(consistency);
             })
             .catch(error => {
@@ -912,13 +943,16 @@
         function loadInterfaceList() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show interface brief'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show interface brief'
+                })
             })
             .then(response => response.json())
             .then(data => {
                 if (!data.error) {
-                    const interfaces = parseInterfaceList(data);
+                    const interfaces = parseInterfaceList(data.result);
                     populateInterfaceSelects(interfaces);
                 }
             })
@@ -996,8 +1030,12 @@
             
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=' + encodeURIComponent(configCmd) + '&type=config'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: configCmd,
+                    type: 'cli_conf'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -1027,8 +1065,12 @@
                 
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: 'cmd=' + encodeURIComponent(configCmd) + '&type=config'
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: configCmd,
+                        type: 'cli_conf'
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -1123,8 +1165,12 @@
             
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=' + encodeURIComponent(configCmd) + '&type=config'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: configCmd,
+                    type: 'cli_conf'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -1143,8 +1189,11 @@
         function enableVpcFeature() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=feature vpc&type=config'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'feature vpc'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -1164,8 +1213,11 @@
             if (confirm('Are you sure you want to disable VPC feature? This will remove all VPC configurations.')) {
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: 'cmd=no feature vpc&type=config'
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: 'no feature vpc'
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -1186,8 +1238,11 @@
             if (confirm('Are you sure you want to reload the VPC domain? This may cause temporary disruption.')) {
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: 'cmd=vpc domain reload'
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: 'vpc domain reload'
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -1207,8 +1262,11 @@
         function runConsistencyCheck() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=vpc consistency-check'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'vpc consistency-check'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -1228,8 +1286,11 @@
             if (confirm('Suspend all inconsistent VLANs?')) {
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: 'cmd=vpc suspend inconsistent-vlans&type=config'
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: 'vpc suspend inconsistent-vlans'
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -1249,8 +1310,11 @@
         function resumeVlans() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=no vpc suspend inconsistent-vlans&type=config'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'no vpc suspend inconsistent-vlans'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -1269,8 +1333,11 @@
         function clearConsistencyCheck() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=clear vpc consistency-check'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'clear vpc consistency-check'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -1290,8 +1357,11 @@
             if (confirm(`Suspend VPC ${vpcId}?`)) {
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: `cmd=vpc ${vpcId} suspend&type=config`
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: `vpc ${vpcId} suspend`
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -1312,8 +1382,11 @@
             if (confirm(`Delete VPC ${vpcId}?`)) {
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: `cmd=no vpc ${vpcId}&type=config`
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: `no vpc ${vpcId}`
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -1334,8 +1407,11 @@
             if (confirm(`Suspend VLAN ${vlanId} in VPC?`)) {
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: `cmd=vpc suspend vlan ${vlanId}&type=config`
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: `vpc suspend vlan ${vlanId}`
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -1356,8 +1432,11 @@
             if (confirm(`Resume VLAN ${vlanId} in VPC?`)) {
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: `cmd=no vpc suspend vlan ${vlanId}&type=config`
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: `no vpc suspend vlan ${vlanId}`
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {

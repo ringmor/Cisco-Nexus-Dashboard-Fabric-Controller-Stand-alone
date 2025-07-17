@@ -170,11 +170,13 @@
         });
 
         function loadVtpStatus() {
-            // Load VTP status
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show vtp status'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show vtp status'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -182,18 +184,19 @@
                     throw new Error(data.error);
                 }
                 
-                const vtpStatus = parseVtpStatus(data);
-                vtpData = vtpStatus;
-                displayVtpStatus(vtpStatus);
-                populateConfigForm(vtpStatus);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const vtpInfo = parseVtpStatus(data.result);
+                displayVtpStatus(vtpInfo);
+                document.getElementById('last-update').textContent = new Date().toLocaleTimeString();
             })
             .catch(error => {
                 console.error('Error loading VTP status:', error);
-                displayVtpError(error.message);
+                document.getElementById('vtp-status').innerHTML = 
+                    '<div class="alert alert-danger">Error loading VTP status</div>';
             });
-
-            // Load VTP statistics
-            loadVtpStatistics();
         }
 
         function parseVtpStatus(data) {
@@ -328,8 +331,12 @@
             
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=' + encodeURIComponent(configCmd) + '&type=config'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: configCmd,
+                    type: 'cli_conf'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -358,8 +365,12 @@
                 
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: 'cmd=' + encodeURIComponent(configCmd) + '&type=config'
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: configCmd,
+                        type: 'cli_conf'
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {

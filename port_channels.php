@@ -88,13 +88,13 @@
         });
 
         function loadPortChannels() {
-            document.getElementById('portchannel-tbody').innerHTML = 
-                '<tr><td colspan="7" class="text-center"><div class="spinner-border spinner-border-sm me-2"></div>Loading port channels...</td></tr>';
-
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show port-channel summary'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show port-channel summary'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -102,14 +102,18 @@
                     throw new Error(data.error);
                 }
                 
-                const portChannels = parsePortChannelData(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const portChannels = parsePortChannelData(data.result);
                 displayPortChannels(portChannels);
-                updateSummaryCards(portChannels);
+                document.getElementById('last-update').textContent = new Date().toLocaleTimeString();
             })
             .catch(error => {
                 console.error('Error loading port channels:', error);
-                document.getElementById('portchannel-tbody').innerHTML = 
-                    '<tr><td colspan="7" class="text-center text-danger">Error: ' + error.message + '</td></tr>';
+                document.getElementById('port-channels-tbody').innerHTML = 
+                    '<tr><td colspan="6" class="text-center text-danger">Error: ' + error.message + '</td></tr>';
             });
         }
 

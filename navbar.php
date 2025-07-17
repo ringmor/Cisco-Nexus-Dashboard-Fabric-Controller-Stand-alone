@@ -96,9 +96,9 @@
 <i class="fas fa-tools"></i> Tools
 </a>
 <ul class="dropdown-menu">
-<li><a class="dropdown-item" href="config.php">Config CLI</a></li>
+<li><a class="dropdown-item" href="#">Config CLI</a></li>
 <li><a class="dropdown-item" href="backup.php">Backup/Restore</a></li>
-<li><a class="dropdown-item" href="troubleshoot.php">Troubleshooting</a></li>
+<li><a class="dropdown-item" href="troubleshooting.php">Troubleshooting</a></li>
 <li><a class="dropdown-item" href="firmware.php">Firmware</a></li>
 <li><a class="dropdown-item" href="scheduled_tasks.php">Scheduled Tasks</a></li>
 </ul>
@@ -106,14 +106,14 @@
         </ul>
 
         <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="settings.php">
-                    <i class="fas fa-cog"></i> Settings
+            <li class="nav-item d-flex align-items-center">
+                <a class="nav-link btn btn-outline-light btn-sm me-3" href="settings.php" style="border-radius: 20px; padding: 8px 16px; font-weight: 500;">
+                    <i class="fas fa-cog me-1"></i> Settings
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item d-flex align-items-center">
                 <span class="navbar-text" id="connection-status">
-                    <i class="fas fa-circle text-success"></i> Connected
+                    <i class="fas fa-circle text-secondary"></i> <span id="status-text">Checking...</span>
                 </span>
             </li>
         </ul>
@@ -122,4 +122,91 @@
 </nav>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+// Connection status management
+function updateConnectionStatus(status, message) {
+    const statusElement = document.getElementById('connection-status');
+    const statusText = document.getElementById('status-text');
+    const icon = statusElement.querySelector('i');
+    
+    // Remove all status classes
+    icon.classList.remove('text-success', 'text-danger', 'text-warning', 'text-secondary');
+    
+    switch(status) {
+        case 'connected':
+            icon.classList.add('text-success');
+            statusText.textContent = 'Connected';
+            break;
+        case 'disconnected':
+            icon.classList.add('text-danger');
+            statusText.textContent = 'Disconnected';
+            break;
+        case 'connecting':
+            icon.classList.add('text-warning');
+            statusText.textContent = 'Connecting...';
+            break;
+        case 'error':
+            icon.classList.add('text-danger');
+            statusText.textContent = 'Error';
+            break;
+        default:
+            icon.classList.add('text-secondary');
+            statusText.textContent = message || 'Unknown';
+    }
+}
+
+function testConnectionStatus() {
+    // Get settings from localStorage
+    const settings = JSON.parse(localStorage.getItem('nexusSettings') || '{}');
+    
+    if (!settings.switchIP) {
+        updateConnectionStatus('error', 'No IP configured');
+        return;
+    }
+    
+    updateConnectionStatus('connecting');
+    
+    // Test connection using the same endpoint as settings page
+    fetch('nxapi.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            action: 'test_connection',
+            switchIP: settings.switchIP,
+            switchPort: settings.switchPort,
+            username: settings.username,
+            password: settings.password,
+            useHTTPS: settings.useHTTPS
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            updateConnectionStatus('connected');
+        } else {
+            updateConnectionStatus('disconnected');
+        }
+    })
+    .catch(error => {
+        console.error('Connection test failed:', error);
+        updateConnectionStatus('error', 'Network Error');
+    });
+}
+
+// Test connection on page load
+document.addEventListener('DOMContentLoaded', function() {
+    testConnectionStatus();
+    
+    // Test connection every 30 seconds
+    setInterval(testConnectionStatus, 30000);
+});
+
+// Test connection when settings are saved
+window.addEventListener('settingsSaved', function() {
+    setTimeout(testConnectionStatus, 1000); // Test after 1 second
+});
+</script>
 

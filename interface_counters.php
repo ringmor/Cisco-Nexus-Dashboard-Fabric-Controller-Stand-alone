@@ -73,17 +73,26 @@
 
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=' + encodeURIComponent(command)
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: command
+                })
             })
             .then(response => response.json())
             .then(data => {
                 if (data.error) {
                     throw new Error(data.error);
                 }
-                const counters = parseCountersData(data);
+                
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const counters = parseCountersData(data.result);
                 countersData = counters;
                 displayCounters(counters);
+                document.getElementById('last-update').textContent = new Date().toLocaleTimeString();
             })
             .catch(error => {
                 console.error('Error loading counters:', error);
@@ -158,8 +167,11 @@
         function loadInterfaceList() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show interface brief'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show interface brief'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -233,20 +245,24 @@
             if (confirm('Are you sure you want to clear all interface counters?')) {
                 fetch('nxapi.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: 'cmd=clear counters'
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'execute_command',
+                        command: 'clear counters'
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.error) {
-                        alert('Error clearing counters: ' + data.error);
-                    } else {
-                        alert('Counters cleared successfully');
+                    if (data.success) {
+                        showAlert('Counters cleared successfully', 'success');
                         loadCounters();
+                    } else {
+                        showAlert('Error clearing counters: ' + (data.message || 'Unknown error'), 'danger');
                     }
                 })
                 .catch(error => {
-                    alert('Error clearing counters: ' + error.message);
+                    console.error('Error:', error);
+                    showAlert('Error clearing counters', 'danger');
                 });
             }
         }

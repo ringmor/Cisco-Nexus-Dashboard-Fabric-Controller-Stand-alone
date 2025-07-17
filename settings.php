@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings - Nexus Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
 </head>
 <body>
@@ -334,7 +332,6 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="common.js"></script>
     <script>
         // Load settings on page load
@@ -347,10 +344,10 @@
             const settings = JSON.parse(localStorage.getItem('nexusSettings') || '{}');
             
             // Switch Connection Settings
-            document.getElementById('switchIP').value = settings.switchIP || '10.10.100.80';
-            document.getElementById('switchPort').value = settings.switchPort || '443';
-            document.getElementById('username').value = settings.username || 'admin';
-            document.getElementById('password').value = settings.password || 'admin';
+            document.getElementById('switchIP').value = settings.switchIP || '';
+            document.getElementById('switchPort').value = settings.switchPort || '';
+            document.getElementById('username').value = settings.username || '';
+            document.getElementById('password').value = settings.password || '';
             document.getElementById('useHTTPS').checked = settings.useHTTPS !== false;
             document.getElementById('verifySSL').checked = settings.verifySSL || false;
             
@@ -420,6 +417,8 @@
             .then(data => {
                 if (data.success) {
                     showAlert('Settings saved successfully!', 'success');
+                    // Trigger connection status update
+                    window.dispatchEvent(new Event('settingsSaved'));
                 } else {
                     showAlert('Error saving settings: ' + data.message, 'danger');
                 }

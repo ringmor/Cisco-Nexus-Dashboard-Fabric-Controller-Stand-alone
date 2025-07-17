@@ -348,14 +348,17 @@
         function loadSystemInfo() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show version'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show version'
+                })
             })
             .then(response => response.json())
             .then(data => {
-                if (data && !data.error) {
+                if (data && data.success && data.result && !data.result.error) {
                     try {
-                        const version = data.ins_api.outputs.output.body;
+                        const version = data.result.ins_api.outputs.output.body;
                         document.getElementById('switch-model').textContent = version.chassis_id || 'Nexus Switch';
                         document.getElementById('switch-version').textContent = version.kickstart_ver_str || 'NX-OS';
                         document.getElementById('switch-uptime').textContent = version.kern_uptm_days + ' days' || 'Unknown';
@@ -372,8 +375,11 @@
             
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show interface brief'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show interface brief'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -383,7 +389,11 @@
                     throw new Error(data.error);
                 }
                 
-                const interfaces = parseInterfaceData(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const interfaces = parseInterfaceData(data.result);
                 interfacesData = interfaces;
                 displayInterfaces(interfaces);
                 updateSummaryStats(interfaces);

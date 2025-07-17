@@ -171,8 +171,22 @@
             loadProcesses();
         }
         function loadCommand(cmd, callback){
-            fetch('nxapi.php',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'cmd='+encodeURIComponent(cmd)})
-            .then(r=>r.json()).then(data=>window[callback](data.ins_api.outputs.output.body))
+            fetch('nxapi.php',{
+                method:'POST',
+                headers:{'Content-Type':'application/json'},
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: cmd
+                })
+            })
+            .then(r=>r.json())
+            .then(data => {
+                if (data.success && data.result) {
+                    window[callback](data.result.ins_api.outputs.output.body);
+                } else {
+                    console.error('API error:', data.message || 'Unknown error');
+                }
+            })
             .catch(e=>console.error(cmd,e));
         }
         function displayHostname(body){document.getElementById('hostname').textContent=body.hostname;}

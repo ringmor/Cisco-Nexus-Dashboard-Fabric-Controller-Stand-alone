@@ -322,11 +322,14 @@
             loadStpInterfaces();
         }
 
-        function loadStpSummary() {
+        function loadStpStatus() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show spanning-tree summary'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show spanning-tree summary'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -334,20 +337,29 @@
                     throw new Error(data.error);
                 }
                 
-                const summary = parseStpSummary(data);
-                displayStpSummary(summary);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const stpInfo = parseStpStatus(data.result);
+                displayStpStatus(stpInfo);
+                document.getElementById('last-update').textContent = new Date().toLocaleTimeString();
             })
             .catch(error => {
-                console.error('Error loading STP summary:', error);
-                displayStpError(error.message);
+                console.error('Error loading STP status:', error);
+                document.getElementById('stp-status').innerHTML = 
+                    '<div class="alert alert-danger">Error loading STP status</div>';
             });
         }
 
         function loadStpInstances() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show spanning-tree'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show spanning-tree'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -355,7 +367,11 @@
                     throw new Error(data.error);
                 }
                 
-                const instances = parseStpInstances(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const instances = parseStpInstances(data.result);
                 displayStpInstances(instances);
             })
             .catch(error => {
@@ -368,8 +384,11 @@
         function loadStpInterfaces() {
             fetch('nxapi.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show spanning-tree interface'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show spanning-tree interface brief'
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -377,13 +396,46 @@
                     throw new Error(data.error);
                 }
                 
-                const interfaces = parseStpInterfaces(data);
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const interfaces = parseStpInterfaces(data.result);
                 displayStpInterfaces(interfaces);
             })
             .catch(error => {
                 console.error('Error loading STP interfaces:', error);
                 document.getElementById('stp-interfaces-tbody').innerHTML = 
                     '<tr><td colspan="8" class="text-center text-danger">Error: ' + error.message + '</td></tr>';
+            });
+        }
+
+        function loadStpVlans() {
+            fetch('nxapi.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'show spanning-tree vlan'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                
+                if (!data.success || !data.result) {
+                    throw new Error('Invalid response format');
+                }
+                
+                const vlans = parseStpVlans(data.result);
+                displayStpVlans(vlans);
+            })
+            .catch(error => {
+                console.error('Error loading STP VLANs:', error);
+                document.getElementById('stp-vlans').innerHTML = 
+                    '<div class="alert alert-danger">Error loading STP VLANs</div>';
             });
         }
 
