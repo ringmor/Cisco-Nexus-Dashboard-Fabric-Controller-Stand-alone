@@ -134578,3 +134578,1964 @@ RESPONSE: {
 
 ACTION: test_connection
 INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: execute_command
+INPUT: {"action":"execute_command","command":"show version"}
+ACTION: execute_command
+INPUT: {"action":"execute_command","command":"show interface brief"}
+RESPONSE: {
+	"ins_api":	{
+		"type":	"cli_show",
+		"version":	"1.0",
+		"sid":	"eoc",
+		"outputs":	{
+			"output":	{
+				"input":	"show version",
+				"msg":	"Success",
+				"code":	"200",
+				"body":	{
+					"header_str":	"Cisco Nexus Operating System (NX-OS) Software\nTAC support: http://www.cisco.com/tac\nDocuments: http://www.cisco.com/en/US/products/ps9372/tsd_products_support_series_home.html\nCopyright (c) 2002-2019, Cisco Systems, Inc. All rights reserved.\nThe copyrights to certain works contained herein are owned by\nother third parties and are used and distributed under license.\nSome parts of this software are covered under the GNU Public\nLicense. A copy of the license is available at\nhttp://www.gnu.org/licenses/gpl.html.\n",
+					"bios_ver_str":	"1.9.0",
+					"loader_ver_str":	"N/A",
+					"kickstart_ver_str":	"6.0(2)A8(11b)",
+					"sys_ver_str":	"6.0(2)A8(11b)",
+					"power_seq_ver_str":	"Module 1: version v3.1",
+					"bios_cmpl_time":	"10/13/2012",
+					"kick_file_name":	"bootflash:///n3500-uk9-kickstart.6.0.2.A8.11b.bin",
+					"kick_cmpl_time":	"7/19/2019 10:00:00",
+					"kick_tmstmp":	"07/19/2019 19:27:57",
+					"isan_file_name":	"bootflash:///n3500-uk9.6.0.2.A8.11b.bin",
+					"isan_cmpl_time":	"7/19/2019 10:00:00",
+					"isan_tmstmp":	"07/19/2019 19:59:39",
+					"chassis_id":	"Nexus 3548 Chassis",
+					"module_id":	"48x10GE Supervisor",
+					"cpu_name":	"Intel(R) Pentium(R) CPU  @ 1.50GHz",
+					"memory":	"3805860",
+					"mem_type":	"kB",
+					"proc_board_id":	"FOC18340HBU",
+					"host_name":	"TOR",
+					"bootflash_size":	"1966080",
+					"kern_uptm_days":	"0",
+					"kern_uptm_hrs":	"15",
+					"kern_uptm_mins":	"48",
+					"kern_uptm_secs":	"51",
+					"rr_usecs":	"426268",
+					"rr_ctime":	"Tue Jan  4 06:02:51 2011",
+					"rr_reason":	"Reset Requested by CLI command reload",
+					"rr_sys_ver":	"6.0(2)A8(11b)",
+					"rr_service":	""
+				}
+			}
+		}
+	}
+}
+
+RESPONSE: {
+	"ins_api":	{
+		"type":	"cli_show",
+		"version":	"1.0",
+		"sid":	"eoc",
+		"outputs":	{
+			"output":	{
+				"input":	"show interface brief",
+				"msg":	"Success",
+				"code":	"200",
+				"body":	{
+					"TABLE_interface":	{
+						"ROW_interface":	[{
+								"interface":	"Ethernet1/1",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/2",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/3",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/4",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/5",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/6",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/7",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/8",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/9",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/10",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"Transceiver validation failed",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/11",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/12",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/13",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/14",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/15",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/16",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/17",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"Link not connected",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/18",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/19",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/20",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/21",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/22",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/23",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/24",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/25",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/26",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/27",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/28",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/29",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"Link not connected",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/30",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/31",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/32",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/33",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/34",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/35",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"up",
+								"state_rsn_desc":	"none",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/36",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/37",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"up",
+								"state_rsn_desc":	"none",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/38",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"up",
+								"state_rsn_desc":	"none",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/39",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/40",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/41",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/42",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/43",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/44",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/45",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/46",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/47",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"down",
+								"state_rsn_desc":	"SFP not inserted",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"Ethernet1/48",
+								"vlan":	"1",
+								"type":	"eth",
+								"portmode":	"access",
+								"state":	"up",
+								"state_rsn_desc":	"none",
+								"speed":	"10G",
+								"ratemode":	"D"
+							}, {
+								"interface":	"mgmt0",
+								"state":	"up",
+								"ip_addr":	"10.10.100.80",
+								"speed":	"1000",
+								"mtu":	"1500"
+							}]
+					}
+				}
+			}
+		}
+	}
+}
+
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
