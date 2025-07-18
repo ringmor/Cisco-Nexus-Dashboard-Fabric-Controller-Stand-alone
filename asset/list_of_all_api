@@ -1,0 +1,215 @@
+✅ Perfect — if your portal will speak **NX‑API with `cli_show` and `cli_conf` types**, then here’s a **clean, LLM‑friendly version of the full command list** grouped logically.
+
+You can pass this directly into your LLM prompt to generate backend routes & UI:
+
+---
+
+# 📋 **Cisco Nexus 3548P‑48 — NX‑API Command List**
+
+### 🌐 System & Platform
+* `show version`
+* `show system resources`
+* `show environment`
+* `show processes`
+* `show feature`
+* `configure terminal ; feature <name>`
+* `reload`
+* `write erase`
+
+### 🔷 Interfaces
+* `show interface brief`
+* `show interface ethernet <id>`
+* `configure terminal ; interface ethernet <id> ; shutdown`
+* `configure terminal ; interface ethernet <id> ; no shutdown`
+* `configure terminal ; interface ethernet <id> ; description <text>`
+* `configure terminal ; interface ethernet <id> ; speed <value>`
+* `configure terminal ; interface ethernet <id> ; duplex <mode>`
+
+### 📦 VLANs & VRFs
+* `show vlan brief`
+* `configure terminal ; vlan <vlan-id>`
+* `configure terminal ; vlan <vlan-id> ; name <name>`
+* `configure terminal ; vlan <vlan-id> ; vn-segment <vxlan-vni>`
+* `configure terminal ; no vlan <vlan-id>`
+* `show vrf`
+* `configure terminal ; vrf context <vrf-name>`
+
+### 🔗 Port‑Channels & vPC
+* `show port-channel summary`
+* `configure terminal ; interface port-channel <id>`
+* `show vpc`
+* `configure terminal ; vpc domain <id>`
+* `configure terminal ; vpc domain <id> ; peer-keepalive destination <ip>`
+* `configure terminal ; vpc domain <id> ; peer-gateway`
+* `configure terminal ; vpc domain <id> ; role priority <value>`
+* `configure terminal ; vpc domain <id> ; delay restore`
+
+### 🛣️ Routing & Multicast
+* `show ip route`
+* `show ipv6 route`
+* `configure terminal ; ip route <prefix> <mask> <next-hop>`
+* `configure terminal ; router ospf <process-id>`
+* `configure terminal ; router ospf <process-id> ; router-id <id>`
+* `configure terminal ; router ospf <process-id> ; area <area> <interfaces>`
+* `configure terminal ; router bgp <asn>`
+* `configure terminal ; router bgp <asn> ; router-id <id>`
+* `configure terminal ; router bgp <asn> ; neighbor <ip> remote-as <asn>`
+* `configure terminal ; router bgp <asn> ; address-family <afi safi>`
+* `show ip pim`
+* `show ip igmp groups`
+* `configure terminal ; interface <id> ; ip pim sparse-mode`
+* `configure terminal ; interface <id> ; ip igmp version <x>`
+
+### 🖥️ HSRP & VRRP
+* `show hsrp`
+* `show vrrp`
+* `configure terminal ; interface vlan <vlan> ; hsrp <group>`
+* `configure terminal ; interface vlan <vlan> ; vrrp <group>`
+
+### 📡 QoS & ACLs
+* `show queuing interface`
+* `show access-lists`
+* `configure terminal ; ip access-list <name>`
+* `configure terminal ; ip access-list <name> ; permit <...>`
+* `configure terminal ; ip access-list <name> ; deny <...>`
+* `configure terminal ; no ip access-list <name>`
+
+### 🔐 Security & AAA
+* `show aaa`
+* `show ip dhcp snooping`
+* `show ip arp inspection`
+* `show ip source binding`
+* `configure terminal ; ip dhcp snooping vlan <vlan>`
+* `configure terminal ; ip arp inspection vlan <vlan>`
+
+### 🔍 Monitoring & Logging
+* `show logging`
+* `show flow monitor`
+* `show monitor`
+* `show event manager policy registered`
+* `show license usage`
+* `show telemetry`
+* `show nxapi`
+
+### 📝 Configuration & Checkpoints
+* `show running-config`
+* `show startup-config`
+* `copy running-config startup-config`
+* `rollback running-config`
+* `configure terminal ; checkpoint <name>`
+* `show configuration diff`
+
+### ⚙️ Automation & Scripts
+* `run bash <command>`
+* `run python <script>`
+* `configure terminal ; feature nxapi`
+* `configure terminal ; nxapi http port <port>`
+* `configure terminal ; nxapi https port <port>`
+
+### 📈 High Availability & Fabric
+* `show install all status`
+* `show system redundancy status`
+* `show system switchover history`
+* `show copp status`
+* `show ptp`
+
+### 🛑 Advanced DC Features
+
+#### 🔷 VXLAN (Overlay Networks)
+* `configure terminal ; feature nv overlay`
+* `configure terminal ; interface nve1`
+* `configure terminal ; interface nve1 ; no shutdown`
+* `configure terminal ; interface nve1 ; source-interface loopback <x>`
+* `configure terminal ; interface nve1 ; host-reachability protocol bgp`
+* `configure terminal ; interface nve1 ; member vni <vni> associate-vrf`
+* `configure terminal ; interface nve1 ; member vni <vni> ingress-replication protocol bgp`
+* `show nve peers`
+* `show nve vni`
+* `show nve interface`
+
+#### 🔷 EVPN (Ethernet VPN)
+* `configure terminal ; feature bgp`
+* `configure terminal ; feature nv overlay`
+* `configure terminal ; router bgp <asn>`
+* `configure terminal ; router bgp <asn> ; l2vpn evpn`
+* `configure terminal ; router bgp <asn> ; neighbor <ip> activate`
+* `configure terminal ; router bgp <asn> ; advertise l2vpn evpn`
+* `show bgp l2vpn evpn summary`
+* `show bgp l2vpn evpn route-type`
+
+#### 🔷 FabricPath
+* `configure terminal ; feature fabricpath`
+* `show fabricpath isis`
+* `show fabricpath topology`
+* `configure terminal ; interface ethernet <id> ; switchport mode fabricpath`
+
+#### 🔷 OTV (Overlay Transport Virtualization)
+* `configure terminal ; feature otv`
+* `configure terminal ; interface otv1`
+* `configure terminal ; interface otv1 ; join-interface ethernet <id>`
+* `configure terminal ; interface otv1 ; otv control-group <multicast-ip>`
+* `configure terminal ; interface otv1 ; otv data-group <multicast-ip>`
+* `configure terminal ; interface otv1 ; otv extend-vlan <x>`
+* `show otv`
+
+#### 🔷 PTP (Precision Time Protocol)
+* `configure terminal ; feature ptp`
+* `configure terminal ; ptp mode boundary`
+* `configure terminal ; ptp domain <x>`
+* `configure terminal ; interface ethernet <id> ; ptp enable`
+* `show ptp clock`
+* `show ptp interface`
+
+#### 🔷 Other Advanced
+* `configure terminal ; feature telemetry`
+* `show telemetry`
+* `show endpoint`
+* `show hardware latency`
+* `show queuing interface`
+* `configure terminal ; hardware profile warp mode`
+
+---
+
+✅ **Types:**
+* Use `cli_show` for any `show` commands (read‑only)
+* Use `cli_conf` for all `configure terminal` and state‑changing commands
+
+---
+
+### 🖇 Example JSON payloads:
+
+✅ **cli_show:**
+```json
+{
+  "ins_api": {
+    "version": "1.0",
+    "type": "cli_show",
+    "chunk": "0",
+    "sid": "1",
+    "input": "show version",
+    "output_format": "json"
+  }
+}
+```
+
+✅ **cli_conf:**
+```json
+{
+  "ins_api": {
+    "version": "1.0",
+    "type": "cli_conf",
+    "chunk": "0",
+    "sid": "1",
+    "input": "configure terminal ; vlan 100",
+    "output_format": "json"
+  }
+}
+```
+
+---
+
+📩 If you want, I can also:
+* Write a reusable **Python NX‑API client library**
+* Or produce a **YAML file of all these commands for easy reference**
+
+Just say the word! 🚀

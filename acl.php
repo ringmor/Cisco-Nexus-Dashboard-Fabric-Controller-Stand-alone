@@ -25,6 +25,9 @@
                         <button class="btn btn-nexus" onclick="refreshData()">
                             <i class="fas fa-sync-alt"></i> Refresh
                         </button>
+                        <button class="btn btn-outline-warning" onclick="debugAclData()" data-bs-toggle="tooltip" title="Debug ACL Data">
+                            <i class="fas fa-bug"></i> Debug
+                        </button>
                     </div>
                 </div>
 
@@ -64,13 +67,13 @@
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="ipv6-tab" data-bs-toggle="tab" data-bs-target="#ipv6-acls" type="button" role="tab">
-                            <i class="fas fa-globe"></i> IPv6 ACLs
+                        <button class="nav-link disabled" id="ipv6-tab" data-bs-toggle="tab" data-bs-target="#ipv6-acls" type="button" role="tab" disabled>
+                            <i class="fas fa-globe"></i> IPv6 ACLs <small class="text-muted">(Not Supported)</small>
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="mac-tab" data-bs-toggle="tab" data-bs-target="#mac-acls" type="button" role="tab">
-                            <i class="fas fa-ethernet"></i> MAC ACLs
+                        <button class="nav-link disabled" id="mac-tab" data-bs-toggle="tab" data-bs-target="#mac-acls" type="button" role="tab" disabled>
+                            <i class="fas fa-ethernet"></i> MAC ACLs <small class="text-muted">(Not Supported)</small>
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
@@ -90,6 +93,8 @@
                                     <div class="d-flex gap-2">
                                         <select class="form-select form-select-sm" id="ipv4-acl-filter" onchange="filterIpv4Acls()">
                                             <option value="">All ACLs</option>
+                                            <option value="system">System ACLs</option>
+                                            <option value="user">User ACLs</option>
                                             <option value="standard">Standard ACLs</option>
                                             <option value="extended">Extended ACLs</option>
                                             <option value="named">Named ACLs</option>
@@ -459,51 +464,69 @@
         });
 
         function loadAcls() {
+            console.log('Loading ACLs...');
             // Fetch and display IPv4 ACLs
             const ipv4Body = document.getElementById('ipv4-acls-tbody');
             ipv4Body.innerHTML = '<tr><td colspan="8" class="text-center"><div class="loading-spinner"></div> Loading IPv4 ACLs...</td></tr>';
-            executeCommand('show ip access-lists', function(data) {
-                // Parse NX-API CLI or JSON-RPC response for IPv4 ACLs
+            
+            executeCommand('show access-lists expanded', function(data) {
+                console.log('ACL response:', data);
+                console.log('Response type:', typeof data);
+                console.log('Response structure:', JSON.stringify(data, null, 2));
+                
+                // Handle the result wrapper if present
+                let actualData = data;
+                if (data && data.result) {
+                    actualData = data.result;
+                    console.log('Using data.result structure');
+                }
+                
                 let bodyObj;
-                if (data.ins_api) {
-                    const out = data.ins_api.outputs.output;
+                if (actualData.ins_api) {
+                    const out = actualData.ins_api.outputs.output;
                     bodyObj = Array.isArray(out) ? out[0].body : out.body;
-                } else if (data.result) {
-                    bodyObj = data.result.body;
+                } else if (actualData.result) {
+                    bodyObj = actualData.result.body;
                 } else {
                     bodyObj = {};
                 }
-                const rows = bodyObj.TABLE_ip_ipv6_mac?.ROW_ip_ipv6_mac || [];
-                const arr = Array.isArray(rows) ? rows : [rows];
-                aclsData = arr.map(item => {
-                    const seq = item.TABLE_seqno?.ROW_seqno;
-                    const entries = seq ? (Array.isArray(seq) ? seq : [seq]) : [];
-                    return {
-                        name: item.acl_name,
-                        type: 'ipv4-extended',
-                        rules: entries.length,
-                        appliedTo: [],
-                        direction: null,
-                        hitCount: 0,
-                        status: 'active',
-                        entries
-                    };
-                });
-                filteredAcls = [...aclsData];
-                displayIpv4Acls();
-                updateAclSummary();
-                // Populate raw JSON for testing
-                document.getElementById('ipv4-json-raw').textContent = JSON.stringify(data, null, 2);
-            });
+                
+                console.log('Body object:', bodyObj);
+                
+                let arr = [];
+                if (bodyObj && bodyObj.TABLE_ip_ipv6_mac && bodyObj.TABLE_ip_ipv6_mac.ROW_ip_ipv6_mac) {
+                    const rows = bodyObj.TABLE_ip_ipv6_mac.ROW_ip_ipv6_mac;
+                    arr = Array.isArray(rows) ? rows : [rows];
+                    console.log('Raw ACL rows:', arr);
+                }
+                
+                // Filter to only show IPv4 ACLs (op_ip_ipv6_mac === "ip")
+                const ipv4Acls = arr.filter(item => item.op_ip_ipv6_mac === "ip");
+                console.log('Filtered IPv4 ACLs:', ipv4Acls);
+                
+                // If no ACLs found with expanded command, try the regular command as fallback
+                if (ipv4Acls.length === 0) {
+                    console.log('No ACLs found with expanded command, trying fallback...');
+                    executeCommand('show ip access-lists', function(fallbackData) {
+                        console.log('Fallback ACL response:', fallbackData);
+                        processAclData(fallbackData, 'fallback');
+                    }, 'cli_show');
+                    return;
+                }
+                
+                processAclData(data, 'expanded');
+            }, 'cli_show');
 
             // Fetch and display IPv6 ACLs
             const ipv6Body = document.getElementById('ipv6-acls-tbody');
             ipv6Body.innerHTML = '<tr><td colspan="6" class="text-center"><div class="loading-spinner"></div> Loading IPv6 ACLs...</td></tr>';
             executeCommand('show ipv6 access-lists', function(data) {
-                // Support both ins_api and JSON-RPC wrappers
                 const body = data.ins_api?.outputs?.output?.body || data.result?.body;
-                const rows = body.TABLE_ip_ipv6_mac?.ROW_ip_ipv6_mac || [];
-                const arr = Array.isArray(rows) ? rows : [rows];
+                let arr = [];
+                if (body && body.TABLE_ip_ipv6_mac && body.TABLE_ip_ipv6_mac.ROW_ip_ipv6_mac) {
+                    const rows = body.TABLE_ip_ipv6_mac.ROW_ip_ipv6_mac;
+                    arr = Array.isArray(rows) ? rows : [rows];
+                }
                 ipv6AclsData = arr.map(item => {
                     const seq = item.TABLE_seqno?.ROW_seqno;
                     const entries = seq ? (Array.isArray(seq) ? seq : [seq]) : [];
@@ -524,10 +547,12 @@
             const macBody = document.getElementById('mac-acls-tbody');
             macBody.innerHTML = '<tr><td colspan="6" class="text-center"><div class="loading-spinner"></div> Loading MAC ACLs...</td></tr>';
             executeCommand('show mac access-lists', function(data) {
-                // Support both ins_api and JSON-RPC wrappers
                 const body = data.ins_api?.outputs?.output?.body || data.result?.body;
-                const rows = body.TABLE_ip_ipv6_mac?.ROW_ip_ipv6_mac || [];
-                const arr = Array.isArray(rows) ? rows : [rows];
+                let arr = [];
+                if (body && body.TABLE_ip_ipv6_mac && body.TABLE_ip_ipv6_mac.ROW_ip_ipv6_mac) {
+                    const rows = body.TABLE_ip_ipv6_mac.ROW_ip_ipv6_mac;
+                    arr = Array.isArray(rows) ? rows : [rows];
+                }
                 macAclsData = arr.map(item => {
                     const seq = item.TABLE_seqno?.ROW_seqno;
                     const entries = seq ? (Array.isArray(seq) ? seq : [seq]) : [];
@@ -546,6 +571,65 @@
 
             // Refresh object groups
             displayObjectGroups();
+        }
+
+        // Process ACL data from either expanded or fallback command
+        function processAclData(data, source) {
+            console.log(`Processing ACL data from ${source} command:`, data);
+            
+            // Handle the result wrapper if present
+            let actualData = data;
+            if (data && data.result) {
+                actualData = data.result;
+                console.log('Using data.result structure');
+            }
+            
+            let bodyObj;
+            if (actualData.ins_api) {
+                const out = actualData.ins_api.outputs.output;
+                bodyObj = Array.isArray(out) ? out[0].body : out.body;
+            } else if (actualData.result) {
+                bodyObj = actualData.result.body;
+            } else {
+                bodyObj = {};
+            }
+            
+            console.log('Body object:', bodyObj);
+            
+            let arr = [];
+            if (bodyObj && bodyObj.TABLE_ip_ipv6_mac && bodyObj.TABLE_ip_ipv6_mac.ROW_ip_ipv6_mac) {
+                const rows = bodyObj.TABLE_ip_ipv6_mac.ROW_ip_ipv6_mac;
+                arr = Array.isArray(rows) ? rows : [rows];
+                console.log('Raw ACL rows:', arr);
+            }
+            
+            // Filter to only show IPv4 ACLs (op_ip_ipv6_mac === "ip")
+            const ipv4Acls = arr.filter(item => item.op_ip_ipv6_mac === "ip");
+            console.log('Filtered IPv4 ACLs:', ipv4Acls);
+            
+            aclsData = ipv4Acls.map(item => {
+                const seq = item.TABLE_seqno?.ROW_seqno;
+                const entries = seq ? (Array.isArray(seq) ? seq : [seq]) : [];
+                return {
+                    name: item.acl_name,
+                    type: 'ipv4-extended',
+                    rules: entries.length,
+                    appliedTo: [],
+                    direction: null,
+                    hitCount: 0,
+                    status: 'active',
+                    entries
+                };
+            });
+            
+            console.log('Processed ACLs data:', aclsData);
+            filteredAcls = [...aclsData];
+            displayIpv4Acls();
+            updateAclSummary();
+            // Hide the raw JSON section
+            document.getElementById('ipv4-json-raw').style.display = 'none';
+            // Show parsed summary area
+            showParsedAclSummary(ipv4Acls);
         }
 
         function loadInterfaces() {
@@ -643,15 +727,37 @@
 
             const ipv4Acls = filteredAcls.filter(acl => acl.type.startsWith('ipv4'));
 
-            ipv4Acls.forEach(acl => {
-                const row = document.createElement('tr');
+            if (ipv4Acls.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted">No IPv4 ACLs found</td></tr>';
+                return;
+            }
+
+            ipv4Acls.forEach((acl, idx) => {
+                // Check if all entries are remarks
+                let allRemarks = false;
+                if (acl.entries && acl.entries.length > 0) {
+                    allRemarks = acl.entries.every(e => e.remark && !e.permitdeny);
+                }
+                const rulesCount = acl.entries ? acl.entries.filter(e => e.permitdeny).length : 0;
+                let rulesDisplay = rulesCount;
+                if (allRemarks) {
+                    rulesDisplay = '0 <span class="badge bg-secondary ms-1">remark only</span>';
+                } else if (acl.entries && acl.entries.length > 0 && rulesCount === 0) {
+                    rulesDisplay = '0';
+                }
                 
+                // Determine ACL type based on name (system ACLs vs user ACLs)
+                const isSystemAcl = acl.name.startsWith('copp-system-');
+                const aclType = isSystemAcl ? 'System' : 'User';
+                const typeBadge = isSystemAcl ? 'bg-warning' : 'bg-success';
+                
+                const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td><strong><a href="#" onclick="viewAclDetails('${acl.name}'); return false;">${acl.name}</a></strong></td>
+                    <td><strong><a href="#" onclick="toggleAclRulesRow(${idx}); return false;">${acl.name}</a></strong></td>
                     <td>
-                        <span class="badge ${getAclTypeBadge(acl.type)}">${getAclTypeLabel(acl.type)}</span>
+                        <span class="badge ${typeBadge}">${aclType}</span>
                     </td>
-                    <td>${acl.rules} rules</td>
+                    <td>${rulesDisplay} rules</td>
                     <td>${acl.appliedTo.length > 0 ? acl.appliedTo.join(', ') : '--'}</td>
                     <td>${acl.direction ? acl.direction.toUpperCase() : '--'}</td>
                     <td>${formatNumber(acl.hitCount)}</td>
@@ -659,33 +765,105 @@
                         <span class="badge ${getStatusBadge(acl.status)}">${acl.status.toUpperCase()}</span>
                     </td>
                     <td>
-                        <button class="btn btn-sm btn-outline-primary" 
-                                onclick="editAcl('${acl.name}')"
-                                data-bs-toggle="tooltip" title="Edit ACL">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-sm btn-outline-success" 
-                                onclick="showApplyAclModal('${acl.name}')"
-                                data-bs-toggle="tooltip" title="Apply to Interface">
-                            <i class="fas fa-link"></i>
-                        </button>
-                        <button class="btn btn-sm btn-outline-info" 
-                                onclick="viewAclDetails('${acl.name}')"
-                                data-bs-toggle="tooltip" title="View Details">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="btn btn-sm btn-outline-danger" 
-                                onclick="deleteAcl('${acl.name}')"
-                                data-bs-toggle="tooltip" title="Delete ACL">
-                            <i class="fas fa-trash"></i>
-                        </button>
+                        <button class="btn btn-sm btn-outline-primary" onclick="editAcl('${acl.name}')" data-bs-toggle="tooltip" title="Edit ACL" ${isSystemAcl ? 'disabled' : ''}><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-outline-success" onclick="showApplyAclModal('${acl.name}')" data-bs-toggle="tooltip" title="Apply to Interface"><i class="fas fa-link"></i></button>
+                        <button class="btn btn-sm btn-outline-info" onclick="toggleAclRulesRow(${idx});" data-bs-toggle="tooltip" title="View Rules"><i class="fas fa-eye"></i></button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteAcl('${acl.name}')" data-bs-toggle="tooltip" title="Delete ACL" ${isSystemAcl ? 'disabled' : ''}><i class="fas fa-trash"></i></button>
                     </td>
                 `;
-                
                 tbody.appendChild(row);
+
+                // Expandable row for rules
+                const rulesRow = document.createElement('tr');
+                rulesRow.className = 'acl-rules-row';
+                rulesRow.style.display = 'none';
+                rulesRow.innerHTML = `<td colspan="8" id="acl-rules-table-${idx}"></td>`;
+                tbody.appendChild(rulesRow);
             });
 
             initializeTooltips();
+        }
+
+        // Toggle rules table for an ACL
+        function toggleAclRulesRow(idx) {
+            const rulesRow = document.querySelectorAll('.acl-rules-row')[idx];
+            if (!rulesRow) return;
+            if (rulesRow.style.display === 'none') {
+                // Render rules table
+                const acl = filteredAcls[idx];
+                const isSystemAcl = acl.name.startsWith('copp-system-');
+                let html = `<div class="d-flex justify-content-between align-items-center mb-2">
+                    <strong>Rules for ACL: ${acl.name}</strong>
+                    ${!isSystemAcl ? `<button class="btn btn-sm btn-success" onclick="showAddRuleModal('${acl.name}')"><i class="fas fa-plus"></i> Add Rule</button>` : ''}
+                </div>`;
+                html += '<div class="table-responsive"><table class="table table-bordered table-sm mb-0"><thead><tr>' +
+                    '<th>Seq</th><th>Action</th><th>Protocol</th><th>Source</th><th>Src Port</th>' +
+                    '<th>Destination</th><th>Dst Port</th><th>ICMP</th><th>Actions</th></tr></thead><tbody>';
+                let rules = acl.entries || [];
+                let hasRealRule = false;
+                rules.forEach(rule => {
+                    if (rule.remark) {
+                        html += `<tr><td>${rule.seqno || ''}</td><td colspan="7"><em>Remark: ${rule.remark}</em></td><td></td></tr>`;
+                    } else {
+                        hasRealRule = true;
+                        
+                        // Build source display
+                        let sourceDisplay = rule.src_any || '';
+                        if (rule.src_ip_prefix) {
+                            sourceDisplay = rule.src_ip_prefix;
+                        }
+                        
+                        // Build destination display
+                        let destDisplay = rule.dest_any || '';
+                        if (rule.dest_ip_prefix) {
+                            destDisplay = rule.dest_ip_prefix;
+                        }
+                        
+                        // Build source port display
+                        let srcPortDisplay = '';
+                        if (rule.src_port_op && (rule.src_port1_str || rule.src_port1_num)) {
+                            srcPortDisplay = `${rule.src_port_op} ${rule.src_port1_str || rule.src_port1_num}`;
+                        }
+                        
+                        // Build destination port display
+                        let dstPortDisplay = '';
+                        if (rule.dest_port_op && (rule.dest_port1_str || rule.dest_port1_num)) {
+                            dstPortDisplay = `${rule.dest_port_op} ${rule.dest_port1_str || rule.dest_port1_num}`;
+                        }
+                        
+                        html += '<tr>' +
+                            `<td>${rule.seqno || ''}</td>` +
+                            `<td><span class="badge ${rule.permitdeny === 'permit' ? 'bg-success' : 'bg-danger'}">${rule.permitdeny || ''}</span></td>` +
+                            `<td>${rule.proto_str || rule.proto || ''}</td>` +
+                            `<td>${sourceDisplay}</td>` +
+                            `<td>${srcPortDisplay}</td>` +
+                            `<td>${destDisplay}</td>` +
+                            `<td>${dstPortDisplay}</td>` +
+                            `<td>${rule.icmp_str || ''}</td>` +
+                            `<td>`;
+                        
+                        if (!isSystemAcl) {
+                            html += `<button class="btn btn-sm btn-outline-primary me-1" onclick="showEditRuleModal('${acl.name}', ${JSON.stringify(rule).replace(/"/g, '&quot;')})"><i class="fas fa-edit"></i></button>` +
+                                   `<button class="btn btn-sm btn-outline-danger" onclick="deleteAclRule('${acl.name}', ${rule.seqno})"><i class="fas fa-trash"></i></button>`;
+                        } else {
+                            html += `<span class="text-muted">System ACL</span>`;
+                        }
+                        
+                        html += `</td></tr>`;
+                    }
+                });
+                if (!hasRealRule && rules.length > 0) {
+                    html += `<tr><td colspan="9" class="text-muted">No rules, only remarks defined for this ACL.</td></tr>`;
+                }
+                if (rules.length === 0) {
+                    html += `<tr><td colspan="9" class="text-muted">No rules or remarks defined for this ACL.</td></tr>`;
+                }
+                html += '</tbody></table></div>';
+                document.getElementById(`acl-rules-table-${idx}`).innerHTML = html;
+                rulesRow.style.display = '';
+            } else {
+                rulesRow.style.display = 'none';
+            }
         }
 
         function displayIpv6Acls() {
@@ -849,7 +1027,17 @@
             const searchTerm = document.getElementById('ipv4-search').value.toLowerCase();
 
             filteredAcls = aclsData.filter(acl => {
-                const matchesType = !typeFilter || acl.type === typeFilter;
+                let matchesType = true;
+                if (typeFilter) {
+                    if (typeFilter === 'system') {
+                        matchesType = acl.name.startsWith('copp-system-');
+                    } else if (typeFilter === 'user') {
+                        matchesType = !acl.name.startsWith('copp-system-');
+                    } else {
+                        matchesType = acl.type === typeFilter;
+                    }
+                }
+                
                 const matchesSearch = acl.name.toLowerCase().includes(searchTerm) ||
                                     (acl.description && acl.description.toLowerCase().includes(searchTerm));
                 
@@ -860,6 +1048,16 @@
         }
 
         function showCreateAclModal() {
+            console.log('showCreateAclModal called');
+            
+            // Check if modal element exists
+            const modalElement = document.getElementById('aclModal');
+            if (!modalElement) {
+                console.error('ACL modal element not found!');
+                showAlert('Error: Modal element not found', 'danger');
+                return;
+            }
+            
             document.getElementById('acl-action').value = 'create';
             document.getElementById('aclModalTitle').textContent = 'Create ACL';
             document.getElementById('acl-save-btn-text').textContent = 'Create ACL';
@@ -870,13 +1068,25 @@
             
             addAclRule(); // Add first rule
             
-            const modal = new bootstrap.Modal(document.getElementById('aclModal'));
-            modal.show();
+            try {
+                const modal = new bootstrap.Modal(modalElement);
+                modal.show();
+                console.log('Modal should be visible now');
+            } catch (error) {
+                console.error('Error showing modal:', error);
+                showAlert('Error showing modal: ' + error.message, 'danger');
+            }
         }
 
         function addAclRule() {
+            console.log('addAclRule called, counter:', ruleCounter);
             ruleCounter++;
             const container = document.getElementById('acl-rules-container');
+            
+            if (!container) {
+                console.error('acl-rules-container not found!');
+                return;
+            }
             
             const ruleDiv = document.createElement('div');
             ruleDiv.className = 'border rounded p-3 mb-3';
@@ -893,18 +1103,18 @@
                 <div class="row">
                     <div class="col-md-2">
                         <label class="form-label">Sequence</label>
-                        <input type="number" class="form-control" value="${ruleCounter * 10}" min="1" max="65535">
+                        <input type="number" class="form-control acl-sequence" value="${ruleCounter * 10}" min="1" max="65535">
                     </div>
                     <div class="col-md-2">
                         <label class="form-label">Action</label>
-                        <select class="form-select">
+                        <select class="form-select acl-action">
                             <option value="permit">Permit</option>
                             <option value="deny">Deny</option>
                         </select>
                     </div>
                     <div class="col-md-2">
                         <label class="form-label">Protocol</label>
-                        <select class="form-select">
+                        <select class="form-select acl-protocol">
                             <option value="ip">IP (any)</option>
                             <option value="tcp">TCP</option>
                             <option value="udp">UDP</option>
@@ -914,32 +1124,32 @@
                     </div>
                     <div class="col-md-3">
                         <label class="form-label">Source</label>
-                        <input type="text" class="form-control" placeholder="any or 192.168.1.0/24">
+                        <input type="text" class="form-control acl-source" placeholder="any or 192.168.1.0/24">
                     </div>
                     <div class="col-md-3">
                         <label class="form-label">Destination</label>
-                        <input type="text" class="form-control" placeholder="any or 10.0.0.0/8">
+                        <input type="text" class="form-control acl-destination" placeholder="any or 10.0.0.0/8">
                     </div>
                 </div>
                 
                 <div class="row mt-2">
                     <div class="col-md-3">
                         <label class="form-label">Source Port</label>
-                        <input type="text" class="form-control" placeholder="any, 80, or range 1024-65535">
+                        <input type="text" class="form-control acl-src-port" placeholder="any, 80, or range 1024-65535">
                     </div>
                     <div class="col-md-3">
                         <label class="form-label">Dest Port</label>
-                        <input type="text" class="form-control" placeholder="any, 443, or range 80-8080">
+                        <input type="text" class="form-control acl-dst-port" placeholder="any, 443, or range 80-8080">
                     </div>
                     <div class="col-md-3">
                         <div class="form-check mt-4">
-                            <input class="form-check-input" type="checkbox">
+                            <input class="form-check-input acl-log" type="checkbox">
                             <label class="form-check-label">Log matches</label>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-check mt-4">
-                            <input class="form-check-input" type="checkbox">
+                            <input class="form-check-input acl-established" type="checkbox">
                             <label class="form-check-label">Established</label>
                         </div>
                     </div>
@@ -947,6 +1157,7 @@
             `;
             
             container.appendChild(ruleDiv);
+            console.log('Rule added successfully, total rules:', ruleCounter);
         }
 
         function removeAclRule(ruleId) {
@@ -962,6 +1173,11 @@
             // Add logic to show/hide relevant fields based on ACL type
         }
 
+        function isSingleIPv4(ip) {
+            // Simple regex for IPv4 address
+            return /^\d{1,3}(?:\.\d{1,3}){3}$/.test(ip);
+        }
+
         function saveAcl() {
             const aclName = document.getElementById('acl-name').value;
             const aclType = document.getElementById('acl-type').value;
@@ -974,7 +1190,8 @@
 
             // Generate ACL configuration commands
             let commands = [];
-            // Use NX-OS classic ACL syntax (auto type detection)
+            
+            // Create the ACL based on type
             if (aclType.startsWith('ipv4')) {
                 commands.push(`ip access-list ${aclName}`);
             } else if (aclType === 'ipv6') {
@@ -982,38 +1199,111 @@
             } else if (aclType === 'mac') {
                 commands.push(`mac access-list ${aclName}`);
             }
+            
             // Add a remark for the description
             if (description) {
                 commands.push(`remark ${description}`);
             }
-            // Iterate each rule block and build commands
+            
+            // Get all rule containers and build commands
             const ruleDivs = document.querySelectorAll('#acl-rules-container > div');
-            ruleDivs.forEach(div => {
-                const action = div.querySelector('select:nth-of-type(1)').value;
-                const protocol = div.querySelector('select:nth-of-type(2)').value;
-                const anyInputs = div.querySelectorAll('input[placeholder^="any"]');
-                const src = anyInputs[0]?.value || 'any';
-                const dst = anyInputs[1]?.value || 'any';
-                const portInputs = div.querySelectorAll('input[placeholder^="any,"]');
-                const srcPort = portInputs[0]?.value || 'any';
-                const dstPort = portInputs[1]?.value || 'any';
-                const checks = div.querySelectorAll('.form-check-input');
-                let ruleCmd = `${action} ${protocol} ${src}`;
-                if (srcPort !== 'any') ruleCmd += ` ${srcPort}`;
-                ruleCmd += ` ${dst}`;
-                if (dstPort !== 'any') ruleCmd += ` ${dstPort}`;
-                if (checks[0]?.checked) ruleCmd += ' log';
-                if (checks[1]?.checked) ruleCmd += ' established';
-                commands.push(ruleCmd);
-            });
+            if (ruleDivs.length === 0) {
+                // Add a default permit rule if no rules are defined
+                commands.push(`permit ip any any`);
+            } else {
+                ruleDivs.forEach(div => {
+                    const sequence = div.querySelector('.acl-sequence').value;
+                    const action = div.querySelector('.acl-action').value;
+                    const protocol = div.querySelector('.acl-protocol').value;
+                    let source = div.querySelector('.acl-source').value || 'any';
+                    let destination = div.querySelector('.acl-destination').value || 'any';
+                    const srcPort = div.querySelector('.acl-src-port').value || '';
+                    const dstPort = div.querySelector('.acl-dst-port').value || '';
+                    const logCheckbox = div.querySelector('.acl-log');
+                    const establishedCheckbox = div.querySelector('.acl-established');
+                    
+                    // Prepend 'host' if single IPv4 address
+                    if (source !== 'any' && isSingleIPv4(source)) {
+                        source = `host ${source}`;
+                    }
+                    if (destination !== 'any' && isSingleIPv4(destination)) {
+                        destination = `host ${destination}`;
+                    }
+                    
+                    // Build the rule command with correct NX-OS syntax
+                    let ruleCmd = '';
+                    if (sequence) {
+                        ruleCmd += `${sequence} `;
+                    }
+                    ruleCmd += `${action} ${protocol}`;
+                    
+                    // Handle source
+                    ruleCmd += ` ${source}`;
+                    if (srcPort && srcPort !== 'any' && srcPort !== '') {
+                        ruleCmd += ` eq ${srcPort}`;
+                    }
+                    // Handle destination
+                    ruleCmd += ` ${destination}`;
+                    if (dstPort && dstPort !== 'any' && dstPort !== '') {
+                        ruleCmd += ` eq ${dstPort}`;
+                    }
+                    // Add optional parameters
+                    if (logCheckbox?.checked) {
+                        ruleCmd += ' log';
+                    }
+                    if (establishedCheckbox?.checked) {
+                        ruleCmd += ' established';
+                    }
+                    
+                    commands.push(ruleCmd);
+                });
+            }
+            
             // Exit ACL configuration context
             commands.push('exit');
 
+            const commandString = commands.join(' ; ');
+            console.log('Creating ACL with commands:', commandString);
+
             confirmAction(`Create ACL with the following configuration?\n\n${commands.join('\n')}`, function() {
-                executeCommand(commands.join(' ; '), function(data) {
+                console.log('Executing ACL creation command:', commandString);
+                executeCommand(`configure terminal ; ${commandString}`, function(data) {
+                    console.log('ACL creation response:', data);
+                    
+                    // Check for CLI errors in the response
+                    let hasErrors = false;
+                    let errorMessages = [];
+                    
+                    if (data.ins_api && data.ins_api.outputs && data.ins_api.outputs.output) {
+                        const outputs = Array.isArray(data.ins_api.outputs.output) ? 
+                            data.ins_api.outputs.output : [data.ins_api.outputs.output];
+                        
+                        outputs.forEach(output => {
+                            if (output.code === '400' || output.clierror) {
+                                hasErrors = true;
+                                if (output.clierror) {
+                                    errorMessages.push(output.clierror);
+                                }
+                            }
+                        });
+                    }
+                    
+                    if (hasErrors) {
+                        const errorText = errorMessages.join(', ');
+                        console.error('ACL creation failed:', errorText);
+                        showAlert(`ACL creation failed: ${errorText}`, 'danger');
+                        return;
+                    }
+                    
+                    console.log('ACL created successfully, refreshing data...');
                     showAlert('ACL created successfully', 'success');
                     bootstrap.Modal.getInstance(document.getElementById('aclModal')).hide();
-                    setTimeout(loadAcls, 2000);
+                    
+                    // Force refresh after a longer delay to ensure the switch has processed the command
+                    setTimeout(() => {
+                        console.log('Refreshing ACL data...');
+                        loadAcls();
+                    }, 3000);
                 }, 'cli_conf');
             });
         }
@@ -1035,7 +1325,7 @@
                 } else {
                     delCmd = `no ip access-list ${aclName}`;
                 }
-                executeCommand(delCmd, function(data) {
+                executeCommand(`configure terminal ; ${delCmd}`, function(data) {
                     showAlert('ACL deleted successfully', 'success');
                     setTimeout(loadAcls, 2000);
                 }, 'cli_conf');
@@ -1050,22 +1340,22 @@
 
         function executeApplyAcl() {
             const aclName = document.getElementById('apply-acl-name').value;
-            const interface = document.getElementById('apply-interface').value;
+            const interfaceName = document.getElementById('apply-interface').value;
             const direction = document.getElementById('apply-direction').value;
 
-            if (!interface) {
+            if (!interfaceName) {
                 showAlert('Please select an interface.', 'danger');
                 return;
             }
 
-            const command = `interface ${interface}\nip access-group ${aclName} ${direction}`;
+            const command = `interface ${interfaceName} ; ip access-group ${aclName} ${direction}`;
 
-            confirmAction(`Apply ACL ${aclName} to ${interface} (${direction})?`, function() {
-                executeCommand(`configure terminal\n${command}`, function(data) {
+            confirmAction(`Apply ACL ${aclName} to ${interfaceName} (${direction})?`, function() {
+                executeCommand(`configure terminal ; ${command}`, function(data) {
                     showAlert('ACL applied successfully', 'success');
                     bootstrap.Modal.getInstance(document.getElementById('applyAclModal')).hide();
                     setTimeout(loadAcls, 2000);
-                });
+                }, 'cli_conf');
             });
         }
 
@@ -1145,9 +1435,20 @@
         }
 
         function exportAcls() {
-            const aclConfig = aclsData.map(acl => {
-                return `! ACL: ${acl.name} (${acl.description || 'No description'})\nip access-list extended ${acl.name}\n permit ip any any\n!`;
-            }).join('\n');
+            const aclConfig = [
+                ...aclsData.map(acl => {
+                    return `! ACL: ${acl.name} (${acl.description || 'No description'})\n` +
+                        `ip access-list ${acl.name}\n permit ip any any\n!`;
+                }),
+                ...ipv6AclsData.map(acl => {
+                    return `! ACL: ${acl.name} (IPv6)\n` +
+                        `ipv6 access-list ${acl.name}\n permit ipv6 any any\n!`;
+                }),
+                ...macAclsData.map(acl => {
+                    return `! ACL: ${acl.name} (MAC)\n` +
+                        `mac access-list ${acl.name}\n permit any any\n!`;
+                })
+            ].join('\n');
 
             exportConfig(aclConfig, 'acls-config.txt');
         }
@@ -1168,7 +1469,7 @@
                 fetch('nxapi.php', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                    body: 'cmd=' + encodeURIComponent('show ip access-lists')
+                    body: 'cmd=' + encodeURIComponent('show access-lists expanded')
                 })
                 .then(response => response.text())
                 .then(text => {
@@ -1178,6 +1479,274 @@
                     pre.textContent = 'Error fetching raw data: ' + err.message;
                 });
             }
+        }
+
+        // Add a new function to show parsed ACL summary
+        function showParsedAclSummary(aclsArr) {
+            let html = '<div class="card mt-4"><div class="card-header bg-info text-white"><strong>Parsed IPv4 ACLs (from show access-lists expanded)</strong></div><div class="card-body">';
+            if (!aclsArr || aclsArr.length === 0) {
+                html += '<p class="text-muted">No ACLs found.</p>';
+            } else {
+                aclsArr.forEach(acl => {
+                    html += `<div class="mb-3"><strong>${acl.acl_name}</strong> <span class="badge bg-secondary">${acl.op_ip_ipv6_mac || 'ip'}</span><ul class="list-group">`;
+                    let rules = acl.TABLE_seqno?.ROW_seqno;
+                    if (rules) {
+                        if (!Array.isArray(rules)) rules = [rules];
+                        rules.forEach(rule => {
+                            if (rule.remark) {
+                                html += `<li class="list-group-item"><em>Remark: ${rule.remark}</em></li>`;
+                            } else {
+                                let ruleText = `Seq ${rule.seqno || ''}: <strong>${rule.permitdeny || ''}</strong> ${rule.proto_str || rule.proto || ''}`;
+                                
+                                // Handle source
+                                if (rule.src_any) {
+                                    ruleText += ` ${rule.src_any}`;
+                                }
+                                if (rule.src_ip_prefix) {
+                                    ruleText += ` ${rule.src_ip_prefix}`;
+                                }
+                                if (rule.src_port_op && (rule.src_port1_str || rule.src_port1_num)) {
+                                    ruleText += ` ${rule.src_port_op} ${rule.src_port1_str || rule.src_port1_num}`;
+                                }
+                                
+                                // Handle destination
+                                if (rule.dest_any) {
+                                    ruleText += ` ${rule.dest_any}`;
+                                }
+                                if (rule.dest_ip_prefix) {
+                                    ruleText += ` ${rule.dest_ip_prefix}`;
+                                }
+                                if (rule.dest_port_op && (rule.dest_port1_str || rule.dest_port1_num)) {
+                                    ruleText += ` ${rule.dest_port_op} ${rule.dest_port1_str || rule.dest_port1_num}`;
+                                }
+                                
+                                // Handle ICMP
+                                if (rule.icmp_str) {
+                                    ruleText += ` icmp: ${rule.icmp_str}`;
+                                }
+                                
+                                html += `<li class="list-group-item">${ruleText}</li>`;
+                            }
+                        });
+                    } else {
+                        html += '<li class="list-group-item text-muted">No rules or remarks.</li>';
+                    }
+                    html += '</ul></div>';
+                });
+            }
+            html += '</div></div>';
+            // Insert or update the summary area below the IPv4 ACLs table
+            let summaryDiv = document.getElementById('parsed-acl-summary');
+            if (!summaryDiv) {
+                summaryDiv = document.createElement('div');
+                summaryDiv.id = 'parsed-acl-summary';
+                const ipv4Tab = document.getElementById('ipv4-acls');
+                ipv4Tab.parentNode.insertBefore(summaryDiv, ipv4Tab.nextSibling);
+            }
+            summaryDiv.innerHTML = html;
+        }
+
+        // Graphical ACL display with add/edit/delete
+        // This function is no longer needed as rules are rendered directly in the table
+        // function displayAclDetailsGraphical(acls) {
+        //     const container = document.getElementById('ipv4-acl-details');
+        //     if (!acls || acls.length === 0) {
+        //         container.innerHTML = '<p>No ACLs found.</p>';
+        //         return;
+        //     }
+        //     let html = '';
+        //     acls.forEach(acl => {
+        //         html += `<div class="card mb-3"><div class="card-header d-flex justify-content-between align-items-center">` +
+        //             `<span><strong>ACL:</strong> ${acl.acl_name}</span>` +
+        //             `<button class="btn btn-sm btn-success" onclick="showAddRuleModal('${acl.acl_name}')"><i class="fas fa-plus"></i> Add Rule</button>` +
+        //             `</div><div class="card-body p-0">`;
+        //         html += '<div class="table-responsive"><table class="table table-bordered table-sm mb-0"><thead><tr>' +
+        //             '<th>Seq</th><th>Action</th><th>Protocol</th><th>Source</th><th>Src Port</th>' +
+        //             '<th>Destination</th><th>Dst Port</th><th>ICMP</th><th>Actions</th></tr></thead><tbody>';
+        //         let rules = acl.TABLE_seqno?.ROW_seqno;
+        //         if (rules) {
+        //             if (!Array.isArray(rules)) rules = [rules];
+        //             rules.forEach(rule => {
+        //                 html += '<tr>' +
+        //                     `<td>${rule.seqno || ''}</td>` +
+        //                     `<td>${rule.permitdeny || ''}</td>` +
+        //                     `<td>${rule.proto_str || rule.proto || ''}</td>` +
+        //                     `<td>${rule.src_any || ''}</td>` +
+        //                     `<td>${rule.src_port1_str || rule.src_port1_num || ''}</td>` +
+        //                     `<td>${rule.dest_any || ''}</td>` +
+        //                     `<td>${rule.dest_port1_str || rule.dest_port1_num || ''}</td>` +
+        //                     `<td>${rule.icmp_str || ''}</td>` +
+        //                     `<td>` +
+        //                         `<button class="btn btn-sm btn-outline-primary me-1" onclick="showEditRuleModal('${acl.acl_name}', ${JSON.stringify(rule).replace(/"/g, '&quot;')})"><i class="fas fa-edit"></i></button>` +
+        //                         `<button class="btn btn-sm btn-outline-danger" onclick="deleteAclRule('${acl.acl_name}', ${rule.seqno})"><i class="fas fa-trash"></i></button>` +
+        //                     `</td>` +
+        //                 '</tr>';
+        //             });
+        //         }
+        //         html += '</tbody></table></div></div></div>';
+        //     });
+        //     container.innerHTML = html;
+        // }
+
+        // Show Add Rule Modal
+        function showAddRuleModal(aclName) {
+            showRuleModal('add', aclName, {});
+        }
+        // Show Edit Rule Modal
+        function showEditRuleModal(aclName, rule) {
+            showRuleModal('edit', aclName, rule);
+        }
+        // Show Rule Modal (Add/Edit)
+        function showRuleModal(mode, aclName, rule) {
+            let modalHtml = `<div class='modal fade' id='ruleModal' tabindex='-1'><div class='modal-dialog'><div class='modal-content'>` +
+                `<div class='modal-header'><h5 class='modal-title'>${mode === 'add' ? 'Add' : 'Edit'} Rule for ${aclName}</h5>` +
+                `<button type='button' class='btn-close' data-bs-dismiss='modal'></button></div>` +
+                `<div class='modal-body'><form id='rule-form'>` +
+                `<input type='hidden' id='rule-acl-name' value='${aclName}'>` +
+                `<input type='hidden' id='rule-mode' value='${mode}'>` +
+                `<input type='hidden' id='rule-seqno' value='${rule.seqno || ''}'>` +
+                `<div class='mb-2'><label>Sequence</label><input type='number' class='form-control' id='rule-seq' value='${rule.seqno || ''}' required></div>` +
+                `<div class='mb-2'><label>Action</label><select class='form-select' id='rule-action'><option value='permit'${rule.permitdeny==='permit'?' selected':''}>Permit</option><option value='deny'${rule.permitdeny==='deny'?' selected':''}>Deny</option></select></div>` +
+                `<div class='mb-2'><label>Protocol</label><input type='text' class='form-control' id='rule-proto' value='${rule.proto_str || rule.proto || ''}'></div>` +
+                `<div class='mb-2'><label>Source</label><input type='text' class='form-control' id='rule-src' value='${rule.src_any || ''}'></div>` +
+                `<div class='mb-2'><label>Source Port</label><input type='text' class='form-control' id='rule-src-port' value='${rule.src_port1_str || rule.src_port1_num || ''}'></div>` +
+                `<div class='mb-2'><label>Destination</label><input type='text' class='form-control' id='rule-dst' value='${rule.dest_any || ''}'></div>` +
+                `<div class='mb-2'><label>Dest Port</label><input type='text' class='form-control' id='rule-dst-port' value='${rule.dest_port1_str || rule.dest_port1_num || ''}'></div>` +
+                `<div class='mb-2'><label>ICMP Type</label><input type='text' class='form-control' id='rule-icmp' value='${rule.icmp_str || ''}'></div>` +
+                `</form></div>` +
+                `<div class='modal-footer'><button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancel</button>` +
+                `<button type='button' class='btn btn-nexus' onclick='saveRule()'>${mode === 'add' ? 'Add' : 'Save'} Rule</button></div>` +
+                `</div></div></div>`;
+            // Remove any existing modal
+            const oldModal = document.getElementById('ruleModal');
+            if (oldModal) oldModal.remove();
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+            new bootstrap.Modal(document.getElementById('ruleModal')).show();
+        }
+
+        // Save Rule (Add/Edit)
+        function saveRule() {
+            const aclName = document.getElementById('rule-acl-name').value;
+            const mode = document.getElementById('rule-mode').value;
+            const seqno = document.getElementById('rule-seq').value;
+            const action = document.getElementById('rule-action').value;
+            const proto = document.getElementById('rule-proto').value;
+            let src = document.getElementById('rule-src').value;
+            const srcPort = document.getElementById('rule-src-port').value;
+            let dst = document.getElementById('rule-dst').value;
+            const dstPort = document.getElementById('rule-dst-port').value;
+            const icmp = document.getElementById('rule-icmp').value;
+            
+            // Prepend 'host' if single IPv4 address
+            if (src !== 'any' && isSingleIPv4(src)) {
+                src = `host ${src}`;
+            }
+            if (dst !== 'any' && isSingleIPv4(dst)) {
+                dst = `host ${dst}`;
+            }
+            
+            // Build the rule command with correct NX-OS syntax
+            let ruleCmd = '';
+            if (seqno) {
+                ruleCmd += `${seqno} `;
+            }
+            ruleCmd += `${action} ${proto}`;
+            // Handle source
+            ruleCmd += ` ${src}`;
+            if (srcPort && srcPort !== 'any' && srcPort !== '') {
+                ruleCmd += ` eq ${srcPort}`;
+            }
+            // Handle destination
+            ruleCmd += ` ${dst}`;
+            if (dstPort && dstPort !== 'any' && dstPort !== '') {
+                ruleCmd += ` eq ${dstPort}`;
+            }
+            // Add ICMP type if specified
+            if (icmp && icmp !== '') {
+                ruleCmd += ` ${icmp}`;
+            }
+            
+            let cmd = `ip access-list ${aclName} ; ${ruleCmd}`;
+            if (mode === 'edit') {
+                // Remove old rule first (by seqno)
+                cmd = `ip access-list ${aclName} ; no ${seqno} ; ${ruleCmd}`;
+            }
+            
+            console.log('Saving rule with command:', cmd);
+            
+            executeCommand(`configure terminal ; ${cmd} ; exit`, function(data) {
+                // Check for CLI errors in the response
+                if (data.ins_api && data.ins_api.outputs && data.ins_api.outputs.output) {
+                    const outputs = Array.isArray(data.ins_api.outputs.output) ? 
+                        data.ins_api.outputs.output : [data.ins_api.outputs.output];
+                    
+                    const hasErrors = outputs.some(output => 
+                        output.code === '400' || output.clierror
+                    );
+                    
+                    if (hasErrors) {
+                        const errors = outputs.filter(output => output.clierror)
+                            .map(output => output.clierror).join(', ');
+                        showAlert(`Rule save failed: ${errors}`, 'danger');
+                        return;
+                    }
+                }
+                
+                showAlert('Rule saved successfully', 'success');
+                bootstrap.Modal.getInstance(document.getElementById('ruleModal')).hide();
+                setTimeout(loadAcls, 2000);
+            }, 'cli_conf');
+        }
+
+        // Delete Rule
+        function deleteAclRule(aclName, seqno) {
+            confirmAction(`Delete rule ${seqno} from ACL ${aclName}?`, function() {
+                const cmd = `configure terminal ; ip access-list ${aclName} ; no ${seqno} ; exit`;
+                executeCommand(cmd, function(data) {
+                    showAlert('Rule deleted successfully', 'success');
+                    setTimeout(loadAcls, 2000);
+                }, 'cli_conf');
+            });
+        }
+
+        // Debug function to test ACL data loading
+        function debugAclData() {
+            console.log('=== ACL Debug Information ===');
+            console.log('Current aclsData:', aclsData);
+            console.log('Current filteredAcls:', filteredAcls);
+            console.log('Current aclSummaryData:', aclSummaryData);
+            
+            // Test the command directly
+            console.log('Testing show access-lists expanded command...');
+            executeCommand('show access-lists expanded', function(data) {
+                console.log('Raw ACL command response:', data);
+                
+                // Also test show ip access-lists for comparison
+                executeCommand('show ip access-lists', function(data2) {
+                    console.log('Raw show ip access-lists response:', data2);
+                    
+                    // Show both in the UI for comparison
+                    const debugDiv = document.createElement('div');
+                    debugDiv.className = 'alert alert-info mt-3';
+                    debugDiv.innerHTML = `
+                        <h6>Debug Information</h6>
+                        <p><strong>show access-lists expanded:</strong></p>
+                        <pre style="max-height: 200px; overflow-y: auto;">${JSON.stringify(data, null, 2)}</pre>
+                        <p><strong>show ip access-lists:</strong></p>
+                        <pre style="max-height: 200px; overflow-y: auto;">${JSON.stringify(data2, null, 2)}</pre>
+                    `;
+                    
+                    // Insert at the top of the page
+                    const container = document.querySelector('.container-fluid');
+                    container.insertBefore(debugDiv, container.firstChild);
+                }, 'cli_show');
+            }, 'cli_show');
+        }
+
+        // Utility function to format numbers with commas
+        function formatNumber(num) {
+            if (!num || num === '0') return '0';
+            return parseInt(num).toLocaleString();
         }
     </script>
 </body>

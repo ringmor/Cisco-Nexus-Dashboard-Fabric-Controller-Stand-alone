@@ -49,3 +49,65 @@ REQUEST: {"action":"load_logs","limit":1000,"level":null,"module":null}
 ACTION: load_logs
 REQUEST: {"action":"load_logs","limit":1000,"level":null,"module":null}
 ACTION: load_logs
+REQUEST: {"action":"save_settings","data":{"switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false,"verifySSL":false,"apiTimeout":"30","maxRetries":"3","refreshInterval":"10","enableLogging":true,"enableDebug":false,"dashboardTheme":"dark","defaultPage":"vlans.php","itemsPerPage":"25","showTooltips":true,"enableAnimations":true,"enableNotifications":true,"soundAlerts":false,"emailAlerts":false,"lastUpdated":"2025-07-17T02:14:28.215Z"}}
+ACTION: save_settings
+SAVE_SETTINGS: Processing request
+SAVE_SETTINGS: Data received, attempting to save
+SAVE_SETTINGS: Success
+REQUEST: {"action":"save_settings","data":{"switchIP":"","switchPort":"","username":"","password":"","useHTTPS":true,"verifySSL":false,"apiTimeout":"30","maxRetries":"3","refreshInterval":"10","enableLogging":true,"enableDebug":false,"dashboardTheme":"light","defaultPage":"interfaces.php","itemsPerPage":"25","showTooltips":true,"enableAnimations":true,"enableNotifications":true,"soundAlerts":false,"emailAlerts":false,"lastUpdated":"2025-07-17T06:53:44.337Z"}}
+ACTION: save_settings
+SAVE_SETTINGS: Processing request
+SAVE_SETTINGS: Data received, attempting to save
+SAVE_SETTINGS: Success
+REQUEST: {"action":"save_settings","data":{"switchIP":"","switchPort":"","username":"","password":"","useHTTPS":true,"verifySSL":false,"apiTimeout":"30","maxRetries":"3","refreshInterval":"10","enableLogging":true,"enableDebug":false,"dashboardTheme":"light","defaultPage":"interfaces.php","itemsPerPage":"25","showTooltips":true,"enableAnimations":true,"enableNotifications":true,"soundAlerts":false,"emailAlerts":false,"lastUpdated":"2025-07-17T06:54:01.890Z"}}
+ACTION: save_settings
+SAVE_SETTINGS: Processing request
+SAVE_SETTINGS: Data received, attempting to save
+SAVE_SETTINGS: Success
+REQUEST: {"action":"save_settings","data":{"switchIP":"","switchPort":"","username":"","password":"","useHTTPS":false,"verifySSL":false,"apiTimeout":"30","maxRetries":"3","refreshInterval":"10","enableLogging":true,"enableDebug":false,"dashboardTheme":"light","defaultPage":"interfaces.php","itemsPerPage":"25","showTooltips":true,"enableAnimations":true,"enableNotifications":true,"soundAlerts":false,"emailAlerts":false,"lastUpdated":"2025-07-17T06:54:09.199Z"}}
+ACTION: save_settings
+SAVE_SETTINGS: Processing request
+SAVE_SETTINGS: Data received, attempting to save
+SAVE_SETTINGS: Success
+REQUEST: {"action":"save_settings","data":{"switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false,"verifySSL":false,"apiTimeout":"30","maxRetries":"3","refreshInterval":"10","enableLogging":true,"enableDebug":false,"dashboardTheme":"dark","defaultPage":"vlans.php","itemsPerPage":"25","showTooltips":true,"enableAnimations":true,"enableNotifications":true,"soundAlerts":false,"emailAlerts":false,"lastUpdated":"2025-07-17T17:29:29.639Z"}}
+ACTION: save_settings
+SAVE_SETTINGS: Processing request
+SAVE_SETTINGS: Data received, attempting to save
+SAVE_SETTINGS: Success
+REQUEST: {"action":"save_settings","data":{"switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false,"verifySSL":false,"apiTimeout":"30","maxRetries":"3","refreshInterval":"10","enableLogging":true,"enableDebug":false,"dashboardTheme":"dark","defaultPage":"vlans.php","itemsPerPage":"25","showTooltips":true,"enableAnimations":true,"enableNotifications":true,"soundAlerts":false,"emailAlerts":false,"lastUpdated":"2025-07-18T01:28:05.159Z"}}
+ACTION: save_settings
+SAVE_SETTINGS: Processing request
+SAVE_SETTINGS: Data received, attempting to save
+SAVE_SETTINGS: Success
+REQUEST: {"action":"save_settings","data":{"switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false,"verifySSL":false,"apiTimeout":"30","maxRetries":"3","refreshInterval":"10","enableLogging":true,"enableDebug":false,"dashboardTheme":"dark","defaultPage":"vlans.php","itemsPerPage":"25","showTooltips":true,"enableAnimations":true,"enableNotifications":true,"soundAlerts":false,"emailAlerts":false,"lastUpdated":"2025-07-18T01:28:07.582Z"}}
+ACTION: save_settings
+SAVE_SETTINGS: Processing request
+SAVE_SETTINGS: Data received, attempting to save
+SAVE_SETTINGS: Success
+REQUEST: {"action":"save_settings","data":{"switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false,"verifySSL":false,"apiTimeout":"30","maxRetries":"3","refreshInterval":"10","enableLogging":true,"enableDebug":false,"dashboardTheme":"dark","defaultPage":"vlans.php","itemsPerPage":"25","showTooltips":true,"enableAnimations":true,"enableNotifications":true,"soundAlerts":false,"emailAlerts":false,"lastUpdated":"2025-07-18T01:28:07.919Z"}}
+ACTION: save_settings
+SAVE_SETTINGS: Processing request
+SAVE_SETTINGS: Data received, attempting to save
+SAVE_SETTINGS: Success
+REQUEST: {"action":"save_settings","data":{"switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false,"verifySSL":false,"apiTimeout":"30","maxRetries":"3","refreshInterval":"10","enableLogging":true,"enableDebug":false,"dashboardTheme":"dark","defaultPage":"vlans.php","itemsPerPage":"25","showTooltips":true,"enableAnimations":true,"enableNotifications":true,"soundAlerts":false,"emailAlerts":false,"lastUpdated":"2025-07-18T01:46:45.398Z"}}
+ACTION: save_settings
+SAVE_SETTINGS: Processing request
+SAVE_SETTINGS: Data received, attempting to save
+SAVE_SETTINGS: Success
+REQUEST: {"action":"save_settings","data":{"switchIP":"10.10.100.8","switchPort":"80","username":"admin","password":"admin","useHTTPS":false,"verifySSL":false,"apiTimeout":"30","maxRetries":"3","refreshInterval":"10","enableLogging":true,"enableDebug":false,"dashboardTheme":"dark","defaultPage":"vlans.php","itemsPerPage":"25","showTooltips":true,"enableAnimations":true,"enableNotifications":true,"soundAlerts":false,"emailAlerts":false,"lastUpdated":"2025-07-18T01:47:00.792Z"}}
+ACTION: save_settings
+SAVE_SETTINGS: Processing request
+SAVE_SETTINGS: Data received, attempting to save
+SAVE_SETTINGS: Success
+REQUEST: {"action":"save_settings","data":{"switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false,"verifySSL":false,"apiTimeout":"30","maxRetries":"3","refreshInterval":"10","enableLogging":true,"enableDebug":false,"dashboardTheme":"dark","defaultPage":"vlans.php","itemsPerPage":"25","showTooltips":true,"enableAnimations":true,"enableNotifications":true,"soundAlerts":false,"emailAlerts":false,"lastUpdated":"2025-07-18T01:47:04.979Z"}}
+ACTION: save_settings
+SAVE_SETTINGS: Processing request
+SAVE_SETTINGS: Data received, attempting to save
+SAVE_SETTINGS: Success
+REQUEST: {"action":"save_settings","data":{"switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false,"verifySSL":false,"apiTimeout":"30","maxRetries":"3","refreshInterval":"10","enableLogging":true,"enableDebug":false,"dashboardTheme":"dark","defaultPage":"vlans.php","itemsPerPage":"25","showTooltips":true,"enableAnimations":true,"enableNotifications":true,"soundAlerts":false,"emailAlerts":false,"lastUpdated":"2025-07-18T01:47:17.032Z"}}
+ACTION: save_settings
+SAVE_SETTINGS: Processing request
+SAVE_SETTINGS: Data received, attempting to save
+SAVE_SETTINGS: Success
+REQUEST: {"action":"load_logs","limit":1000,"level":null,"module":null}
+ACTION: load_logs

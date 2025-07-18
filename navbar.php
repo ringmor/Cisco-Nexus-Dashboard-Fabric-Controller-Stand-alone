@@ -30,7 +30,7 @@
 </a>
 <ul class="dropdown-menu">
 <li><a class="dropdown-item" href="vlans.php">VLAN Status</a></li>
-<li><a class="dropdown-item" href="vlan_config.php">VLAN Config</a></li>
+
 <li><a class="dropdown-item" href="svi.php">SVI Management</a></li>
 <li><a class="dropdown-item" href="vtp.php">VTP Config</a></li>
 </ul>
@@ -47,6 +47,7 @@
 <li><a class="dropdown-item" href="ospf.php">OSPF</a></li>
 <li><a class="dropdown-item" href="bgp.php">BGP</a></li>
 <li><a class="dropdown-item" href="hsrp.php">HSRP/VRRP</a></li>
+<li><a class="dropdown-item" href="nat.php">NAT Configuration</a></li>
 </ul>
 </li>
 
@@ -60,6 +61,8 @@
 <li><a class="dropdown-item" href="port_security.php">Port Security</a></li>
 <li><a class="dropdown-item" href="aaa.php">AAA Config</a></li>
 <li><a class="dropdown-item" href="dhcp_snooping.php">DHCP Snooping</a></li>
+<li><a class="dropdown-item" href="snmp.php">SNMP Configuration</a></li>
+<li><a class="dropdown-item" href="ntp.php">NTP Configuration</a></li>
 </ul>
 </li>
 
@@ -96,6 +99,7 @@
 <i class="fas fa-tools"></i> Tools
 </a>
 <ul class="dropdown-menu">
+<li><a class="dropdown-item" href="config_management.php"><i class="fas fa-cogs me-2"></i>Configuration Management</a></li>
 <li><a class="dropdown-item" href="#">Config CLI</a></li>
 <li><a class="dropdown-item" href="backup.php">Backup/Restore</a></li>
 <li><a class="dropdown-item" href="troubleshooting.php">Troubleshooting</a></li>

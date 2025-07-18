@@ -4,679 +4,358 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Configuration Management - Nexus Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <?php include 'navbar.php'; ?>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="d-flex justify-content-between align-items-center mb-4">
+<div class="container-fluid py-4">
+    <div class="row mb-4">
+        <div class="col-12 d-flex justify-content-between align-items-center">
             <h2><i class="fas fa-cogs"></i> Configuration Management</h2>
-            <div>
-                <button class="btn btn-success" onclick="refreshData()">
+            <div class="d-flex gap-2">
+                <button class="btn btn-success" onclick="showCreateCheckpointModal()">
+                    <i class="fas fa-save"></i> Create Checkpoint
+                </button>
+                <button class="btn btn-primary" onclick="backupConfig()">
+                    <i class="fas fa-download"></i> Backup Config
+                </button>
+                <button class="btn btn-nexus btn-secondary" onclick="refreshData()">
                     <i class="fas fa-sync-alt"></i> Refresh
                 </button>
-                <button class="btn btn-primary" onclick="compareConfigs()">
-                    <i class="fas fa-code-branch"></i> Compare Configs
-                </button>
             </div>
         </div>
-
-        <!-- Configuration Overview -->
-        <div class="row mb-4">
-            <div class="col-md-3">
-                <div class="card bg-primary text-white">
-                    <div class="card-body">
-                        <h5 class="card-title">Running Config</h5>
-                        <h6 id="running-lines">Loading...</h6>
-                        <small>Lines of configuration</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card bg-info text-white">
-                    <div class="card-body">
-                        <h5 class="card-title">Startup Config</h5>
-                        <h6 id="startup-lines">Loading...</h6>
-                        <small>Lines of configuration</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card bg-success text-white">
-                    <div class="card-body">
-                        <h5 class="card-title">Templates</h5>
-                        <h6 id="template-count">Loading...</h6>
-                        <small>Available templates</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card bg-warning text-white">
-                    <div class="card-body">
-                        <h5 class="card-title">Changes</h5>
-                        <h6 id="unsaved-changes">Loading...</h6>
-                        <small>Unsaved changes</small>
-                    </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Running Config</h5>
+                    <p class="card-text" id="runningConfigStatus">Loading...</p>
                 </div>
             </div>
         </div>
-
-        <!-- Configuration Tabs -->
-        <ul class="nav nav-tabs" id="configTabs" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="compare-tab" data-bs-toggle="tab" data-bs-target="#compare" type="button" role="tab">
-                    <i class="fas fa-code-branch"></i> Compare Configs
-                </button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="templates-tab" data-bs-toggle="tab" data-bs-target="#templates" type="button" role="tab">
-                    <i class="fas fa-file-code"></i> Templates
-                </button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="compliance-tab" data-bs-toggle="tab" data-bs-target="#compliance" type="button" role="tab">
-                    <i class="fas fa-shield-alt"></i> Compliance
-                </button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="changes-tab" data-bs-toggle="tab" data-bs-target="#changes" type="button" role="tab">
-                    <i class="fas fa-history"></i> Change History
-                </button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="deploy-tab" data-bs-toggle="tab" data-bs-target="#deploy" type="button" role="tab">
-                    <i class="fas fa-rocket"></i> Deploy
-                </button>
-            </li>
-        </ul>
-
-        <div class="tab-content" id="configTabContent">
-            <!-- Compare Configs Tab -->
-            <div class="tab-pane fade show active" id="compare" role="tabpanel">
-                <div class="card mt-3">
-                    <div class="card-header">
-                        <h5><i class="fas fa-code-branch"></i> Configuration Comparison</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="config-source" class="form-label">Source Configuration</label>
-                                <select class="form-select" id="config-source">
-                                    <option value="running">Running Configuration</option>
-                                    <option value="startup">Startup Configuration</option>
-                                    <option value="backup">Backup File</option>
-                                    <option value="template">Template</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="config-target" class="form-label">Target Configuration</label>
-                                <select class="form-select" id="config-target">
-                                    <option value="startup">Startup Configuration</option>
-                                    <option value="running">Running Configuration</option>
-                                    <option value="backup">Backup File</option>
-                                    <option value="template">Template</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-12">
-                                <button class="btn btn-primary" onclick="executeComparison()">
-                                    <i class="fas fa-search"></i> Compare Configurations
+        <div class="col-md-3">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Startup Config</h5>
+                    <p class="card-text" id="startupConfigStatus">Loading...</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Checkpoints</h5>
+                    <p class="card-text" id="checkpointCount">Loading...</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-warning text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Last Backup</h5>
+                    <p class="card-text" id="lastBackupTime">Loading...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-tools"></i> Configuration Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Backup & Restore</h6>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-primary" onclick="viewRunningConfig()">
+                                    <i class="fas fa-eye"></i> View Running Config
                                 </button>
-                                <button class="btn btn-info" onclick="exportComparison()">
-                                    <i class="fas fa-download"></i> Export Diff
+                                <button class="btn btn-outline-success" onclick="viewStartupConfig()">
+                                    <i class="fas fa-eye"></i> View Startup Config
+                                </button>
+                                <button class="btn btn-outline-warning" onclick="saveRunningToStartup()">
+                                    <i class="fas fa-save"></i> Save Running to Startup
                                 </button>
                             </div>
                         </div>
-                        
-                        <div id="comparison-result" style="display: none;">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h6>Source Configuration</h6>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <pre id="source-config" class="config-display"></pre>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <h6>Target Configuration</h6>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <pre id="target-config" class="config-display"></pre>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-12">
-                                    <h6>Differences</h6>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <pre id="config-diff" class="diff-display"></pre>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="col-md-6">
+                            <h6>Configuration Comparison</h6>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-info" onclick="compareConfigs()">
+                                    <i class="fas fa-exchange-alt"></i> Compare Running vs Startup
+                                </button>
+                                <button class="btn btn-outline-secondary" onclick="showCheckpointModal()">
+                                    <i class="fas fa-history"></i> Manage Checkpoints
+                                </button>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Templates Tab -->
-            <div class="tab-pane fade" id="templates" role="tabpanel">
-                <div class="card mt-3">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5><i class="fas fa-file-code"></i> Configuration Templates</h5>
-                        <button class="btn btn-primary btn-sm" onclick="createTemplate()">
-                            <i class="fas fa-plus"></i> Create Template
-                        </button>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th>Template Name</th>
-                                        <th>Category</th>
-                                        <th>Description</th>
-                                        <th>Created</th>
-                                        <th>Modified</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="templates-tbody">
-                                    <tr>
-                                        <td colspan="6" class="text-center">
-                                            <div class="spinner-border spinner-border-sm me-2"></div>
-                                            Loading templates...
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card mt-3">
-                    <div class="card-header">
-                        <h5><i class="fas fa-plus"></i> Create/Edit Template</h5>
-                    </div>
-                    <div class="card-body">
-                        <form id="templateForm">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="template-name" class="form-label">Template Name</label>
-                                        <input type="text" class="form-control" id="template-name" placeholder="Enter template name" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="template-category" class="form-label">Category</label>
-                                        <select class="form-select" id="template-category">
-                                            <option value="interface">Interface Configuration</option>
-                                            <option value="vlan">VLAN Configuration</option>
-                                            <option value="routing">Routing Configuration</option>
-                                            <option value="security">Security Configuration</option>
-                                            <option value="qos">QoS Configuration</option>
-                                            <option value="system">System Configuration</option>
-                                            <option value="custom">Custom Configuration</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="template-description" class="form-label">Description</label>
-                                        <textarea class="form-control" id="template-description" rows="3" placeholder="Template description"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="template-variables" class="form-label">Variables</label>
-                                        <textarea class="form-control" id="template-variables" rows="5" placeholder="Define variables (JSON format)&#10;{&#10;  &quot;interface&quot;: &quot;Ethernet1/1&quot;,&#10;  &quot;vlan&quot;: &quot;100&quot;,&#10;  &quot;description&quot;: &quot;Server Port&quot;&#10;}"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="mb-3">
-                                        <label for="template-config" class="form-label">Configuration Template</label>
-                                        <textarea class="form-control" id="template-config" rows="10" placeholder="Enter configuration template with variables&#10;interface {{interface}}&#10;  description {{description}}&#10;  switchport access vlan {{vlan}}&#10;  no shutdown"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <button type="button" class="btn btn-primary" onclick="saveTemplate()">
-                                        <i class="fas fa-save"></i> Save Template
-                                    </button>
-                                    <button type="button" class="btn btn-info" onclick="previewTemplate()">
-                                        <i class="fas fa-eye"></i> Preview
-                                    </button>
-                                    <button type="button" class="btn btn-success" onclick="applyTemplate()">
-                                        <i class="fas fa-play"></i> Apply Template
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Compliance Tab -->
-            <div class="tab-pane fade" id="compliance" role="tabpanel">
-                <div class="card mt-3">
-                    <div class="card-header">
-                        <h5><i class="fas fa-shield-alt"></i> Configuration Compliance</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <div class="card bg-success text-white">
-                                    <div class="card-body text-center">
-                                        <h3 id="compliance-score">85%</h3>
-                                        <p>Compliance Score</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card bg-warning text-white">
-                                    <div class="card-body text-center">
-                                        <h3 id="violations-count">3</h3>
-                                        <p>Policy Violations</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card bg-info text-white">
-                                    <div class="card-body text-center">
-                                        <h3 id="policies-count">12</h3>
-                                        <p>Active Policies</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th>Policy</th>
-                                        <th>Category</th>
-                                        <th>Status</th>
-                                        <th>Severity</th>
-                                        <th>Description</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="compliance-tbody">
-                                    <tr>
-                                        <td><strong>Password Policy</strong></td>
-                                        <td>Security</td>
-                                        <td><span class="badge bg-success">Compliant</span></td>
-                                        <td><span class="badge bg-info">Medium</span></td>
-                                        <td>Strong password requirements enforced</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-info" onclick="viewPolicyDetails('password')">Details</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>SNMP Community</strong></td>
-                                        <td>Security</td>
-                                        <td><span class="badge bg-danger">Violation</span></td>
-                                        <td><span class="badge bg-danger">High</span></td>
-                                        <td>Default SNMP community strings detected</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-warning" onclick="fixViolation('snmp')">Fix</button>
-                                            <button class="btn btn-sm btn-outline-info" onclick="viewPolicyDetails('snmp')">Details</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Interface Naming</strong></td>
-                                        <td>Standards</td>
-                                        <td><span class="badge bg-warning">Warning</span></td>
-                                        <td><span class="badge bg-warning">Low</span></td>
-                                        <td>Some interfaces lack proper descriptions</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-warning" onclick="fixViolation('naming')">Fix</button>
-                                            <button class="btn btn-sm btn-outline-info" onclick="viewPolicyDetails('naming')">Details</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Logging Configuration</strong></td>
-                                        <td>Operations</td>
-                                        <td><span class="badge bg-success">Compliant</span></td>
-                                        <td><span class="badge bg-info">Medium</span></td>
-                                        <td>Proper logging configuration in place</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-info" onclick="viewPolicyDetails('logging')">Details</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="mt-3">
-                            <button class="btn btn-primary" onclick="runComplianceCheck()">
-                                <i class="fas fa-play"></i> Run Compliance Check
-                            </button>
-                            <button class="btn btn-info" onclick="exportComplianceReport()">
-                                <i class="fas fa-download"></i> Export Report
-                            </button>
-                            <button class="btn btn-success" onclick="createCompliancePolicy()">
-                                <i class="fas fa-plus"></i> Create Policy
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Change History Tab -->
-            <div class="tab-pane fade" id="changes" role="tabpanel">
-                <div class="card mt-3">
-                    <div class="card-header">
-                        <h5><i class="fas fa-history"></i> Configuration Change History</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th>Timestamp</th>
-                                        <th>User</th>
-                                        <th>Change Type</th>
-                                        <th>Module</th>
-                                        <th>Description</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="changes-tbody">
-                                    <tr>
-                                        <td>2024-01-15 14:30:25</td>
-                                        <td>admin</td>
-                                        <td><span class="badge bg-info">Interface</span></td>
-                                        <td>Ethernet1/1</td>
-                                        <td>Changed interface description to "Web Server"</td>
-                                        <td><span class="badge bg-success">Applied</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-info" onclick="viewChangeDetails('1')">Details</button>
-                                            <button class="btn btn-sm btn-outline-warning" onclick="rollbackChange('1')">Rollback</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2024-01-15 14:25:10</td>
-                                        <td>admin</td>
-                                        <td><span class="badge bg-warning">VLAN</span></td>
-                                        <td>VLAN 100</td>
-                                        <td>Created VLAN 100 with name "Servers"</td>
-                                        <td><span class="badge bg-success">Applied</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-info" onclick="viewChangeDetails('2')">Details</button>
-                                            <button class="btn btn-sm btn-outline-warning" onclick="rollbackChange('2')">Rollback</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2024-01-15 14:20:45</td>
-                                        <td>admin</td>
-                                        <td><span class="badge bg-danger">Security</span></td>
-                                        <td>ACL Web-ACL</td>
-                                        <td>Added permit rule for HTTP traffic</td>
-                                        <td><span class="badge bg-success">Applied</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-info" onclick="viewChangeDetails('3')">Details</button>
-                                            <button class="btn btn-sm btn-outline-warning" onclick="rollbackChange('3')">Rollback</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Deploy Tab -->
-            <div class="tab-pane fade" id="deploy" role="tabpanel">
-                <div class="card mt-3">
-                    <div class="card-header">
-                        <h5><i class="fas fa-rocket"></i> Configuration Deployment</h5>
-                    </div>
-                    <div class="card-body">
-                        <form id="deployForm">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="deploy-source" class="form-label">Configuration Source</label>
-                                        <select class="form-select" id="deploy-source">
-                                            <option value="template">Template</option>
-                                            <option value="backup">Backup File</option>
-                                            <option value="manual">Manual Configuration</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="deploy-target" class="form-label">Deployment Target</label>
-                                        <select class="form-select" id="deploy-target">
-                                            <option value="running">Running Configuration</option>
-                                            <option value="startup">Startup Configuration</option>
-                                            <option value="both">Both Configurations</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="deploy-backup">
-                                            <label class="form-check-label" for="deploy-backup">
-                                                Create backup before deployment
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="deploy-validate">
-                                            <label class="form-check-label" for="deploy-validate">
-                                                Validate configuration before applying
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="deploy-rollback">
-                                            <label class="form-check-label" for="deploy-rollback">
-                                                Enable automatic rollback on failure
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="deploy-config" class="form-label">Configuration to Deploy</label>
-                                        <textarea class="form-control" id="deploy-config" rows="10" placeholder="Enter configuration commands to deploy"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="alert alert-info">
-                                        <i class="fas fa-info-circle"></i>
-                                        <strong>Note:</strong> Configuration deployment will apply changes to the running configuration. 
-                                        Ensure you have tested the configuration in a lab environment.
-                                    </div>
-                                    <button type="button" class="btn btn-warning" onclick="executeDeploy()">
-                                        <i class="fas fa-rocket"></i> Deploy Configuration
-                                    </button>
-                                    <button type="button" class="btn btn-info" onclick="validateDeploy()">
-                                        <i class="fas fa-check"></i> Validate Only
-                                    </button>
-                                    <button type="button" class="btn btn-secondary" onclick="previewDeploy()">
-                                        <i class="fas fa-eye"></i> Preview Commands
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="card mt-3">
-                    <div class="card-header">
-                        <h5><i class="fas fa-terminal"></i> Deployment Progress</h5>
-                    </div>
-                    <div class="card-body">
-                        <div id="deploy-progress" style="display: none;">
-                            <div class="progress mb-3">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" id="deploy-progress-bar"></div>
-                            </div>
-                            <div id="deploy-status">Preparing deployment...</div>
-                        </div>
-                        <div id="deploy-output" class="terminal-output" style="display: none;"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5><i class="fas fa-file-code"></i> Configuration Content</h5>
+                    <div>
+                        <button class="btn btn-sm btn-outline-secondary" onclick="copyToClipboard()">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                        <button class="btn btn-sm btn-outline-primary" onclick="downloadConfig()">
+                            <i class="fas fa-download"></i> Download
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <pre id="configContent" class="bg-light p-3" style="max-height: 600px; overflow-y: auto; font-size: 12px;"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <script>
-        let configData = {};
+<!-- Create Checkpoint Modal -->
+<div class="modal fade" id="checkpointModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create Configuration Checkpoint</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="checkpointName" class="form-label">Checkpoint Name</label>
+                    <input type="text" class="form-control" id="checkpointName" placeholder="Enter checkpoint name">
+                </div>
+                <div class="mb-3">
+                    <label for="checkpointDescription" class="form-label">Description (Optional)</label>
+                    <textarea class="form-control" id="checkpointDescription" rows="3" placeholder="Enter description"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="createCheckpointConfirm()">Create Checkpoint</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-        document.addEventListener('DOMContentLoaded', function() {
-            loadConfigData();
-        });
+<!-- Checkpoint Management Modal -->
+<div class="modal fade" id="checkpointManagementModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Checkpoint Management</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-striped" id="checkpointTable">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody id="checkpointTableBody">
+                        <!-- Checkpoints will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-        function loadConfigData() {
-            loadConfigStats();
-            loadTemplates();
-            loadChangeHistory();
+<script src="common.js"></script>
+<script>
+let currentConfigType = 'running';
+let currentConfigData = '';
+
+// Initial load
+window.addEventListener('DOMContentLoaded', function() {
+    loadConfigStatus();
+    loadCheckpoints();
+});
+
+function loadConfigStatus() {
+    executeCommand('show running-config | head 20', function(data) {
+        document.getElementById('runningConfigStatus').textContent = data && data.success ? 'Available' : 'Error';
+    });
+    executeCommand('show startup-config | head 20', function(data) {
+        document.getElementById('startupConfigStatus').textContent = data && data.success ? 'Available' : 'Error';
+    });
+    const lastBackup = localStorage.getItem('lastConfigBackup');
+    document.getElementById('lastBackupTime').textContent = lastBackup ? new Date(lastBackup).toLocaleString() : 'Never';
+}
+
+function loadCheckpoints() {
+    executeCommand('show checkpoint summary', function(data) {
+        let count = 0;
+        if (data && data.success && data.output) {
+            count = parseCheckpoints(data.output).length;
         }
+        document.getElementById('checkpointCount').textContent = count + ' available';
+    });
+}
 
-        function loadConfigStats() {
-            // Load running config stats
-            fetch('nxapi.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show running-config | wc -l'
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (!data.error) {
-                    const lines = parseConfigLines(data);
-                    document.getElementById('running-lines').textContent = lines;
-                }
-            })
-            .catch(error => {
-                console.error('Error loading running config stats:', error);
-                document.getElementById('running-lines').textContent = 'Error';
-            });
-
-            // Load startup config stats
-            fetch('nxapi.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=show startup-config | wc -l'
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (!data.error) {
-                    const lines = parseConfigLines(data);
-                    document.getElementById('startup-lines').textContent = lines;
-                }
-            })
-            .catch(error => {
-                console.error('Error loading startup config stats:', error);
-                document.getElementById('startup-lines').textContent = 'Error';
-            });
-
-            // Set mock data for templates and changes
-            document.getElementById('template-count').textContent = '8';
-            document.getElementById('unsaved-changes').textContent = '0';
-        }
-
-        function parseConfigLines(data) {
-            try {
-                if (data.ins_api && data.ins_api.outputs && data.ins_api.outputs.output) {
-                    const output = data.ins_api.outputs.output;
-                    if (output.body) {
-                        return output.body.trim();
-                    }
-                }
-            } catch (e) {
-                console.error('Error parsing config lines:', e);
+function parseCheckpoints(output) {
+    const lines = output.split('\n');
+    const checkpoints = [];
+    for (let line of lines) {
+        if (line.trim() && !line.toLowerCase().includes('checkpoint')) {
+            const parts = line.split(/\s+/);
+            if (parts.length >= 1) {
+                checkpoints.push({
+                    name: parts[0],
+                    description: parts.slice(1).join(' ')
+                });
             }
-            return '0';
         }
+    }
+    return checkpoints;
+}
 
-        function loadTemplates() {
-            const templates = [
-                {
-                    name: 'Access Port Template',
-                    category: 'Interface',
-                    description: 'Standard access port configuration',
-                    created: '2024-01-10',
-                    modified: '2024-01-15'
-                },
-                {
-                    name: 'Trunk Port Template',
-                    category: 'Interface',
-                    description: 'Standard trunk port configuration',
-                    created: '2024-01-10',
-                    modified: '2024-01-12'
-                },
-                {
-                    name: 'Server VLAN Template',
-                    category: 'VLAN',
-                    description: 'Server VLAN with SVI configuration',
-                    created: '2024-01-08',
-                    modified: '2024-01-14'
-                },
-                {
-                    name: 'OSPF Area Template',
-                    category: 'Routing',
-                    description: 'OSPF area configuration template',
-                    created: '2024-01-05',
-                    modified: '2024-01-13'
-                },
-                {
-                    name: 'Web ACL Template',
-                    category: 'Security',
-                    description: 'Web server access control list',
-                    created: '2024-01-12',
-                    modified: '2024-01-15'
-                },
-                {
-                    name: 'QoS Voice Template',
-                    category: 'QoS',
-                    description: 'Voice traffic QoS configuration',
-                    created: '2024-01-09',
-                    modified: '2024-01-11'
-                },
-                {
-                    name: 'SNMP Template',
-                    category: 'System',
-                    description: 'SNMP monitoring configuration',
-                    created: '2024-01-07',
-                    modified: '2024-01-10'
-                },
-                {
-                    name: 'Backup Config Template',
-                    category: 'System',
-                    description: 'Automated backup configuration',
-                    created: '2024-01-06',
-                    modified: '2024-01-09'
-                }
-            ];
-
-            displayTemplates(templates);
+function viewRunningConfig() {
+    currentConfigType = 'running';
+    showLoading(true);
+    executeCommand('show running-config', function(data) {
+        showLoading(false);
+        if (data && data.success) {
+            currentConfigData = data.output;
+            document.getElementById('configContent').textContent = data.output;
+            showAlert('Running configuration loaded successfully', 'success');
+        } else {
+            showAlert('Failed to load running configuration', 'danger');
         }
+    });
+}
 
-        function displayTemplates(templates) {
-            const tbody = document.getElementById('templates-tbody');
-            tbody.innerHTML = '';
+function viewStartupConfig() {
+    currentConfigType = 'startup';
+    showLoading(true);
+    executeCommand('show startup-config', function(data) {
+        showLoading(false);
+        if (data && data.success) {
+            currentConfigData = data.output;
+            document.getElementById('configContent').textContent = data.output;
+            showAlert('Startup configuration loaded successfully', 'success');
+        } else {
+            showAlert('Failed to load startup configuration', 'danger');
+        }
+    });
+}
 
-            templates.forEach(template => {
+function saveRunningToStartup() {
+    if (confirm('Are you sure you want to save the running configuration to startup configuration? This will overwrite the current startup config.')) {
+        showLoading(true);
+        executeCommand('copy running-config startup-config', function(data) {
+            showLoading(false);
+            if (data && data.success) {
+                showAlert('Configuration saved to startup successfully', 'success');
+                loadConfigStatus();
+            } else {
+                showAlert('Failed to save configuration to startup', 'danger');
+            }
+        }, 'cli_conf');
+    }
+}
+
+function compareConfigs() {
+    showLoading(true);
+    Promise.all([
+        new Promise(resolve => executeCommand('show running-config', resolve)),
+        new Promise(resolve => executeCommand('show startup-config', resolve))
+    ]).then(([runningData, startupData]) => {
+        showLoading(false);
+        if (runningData && runningData.success && startupData && startupData.success) {
+            const diff = generateDiff(runningData.output, startupData.output);
+            currentConfigData = diff;
+            document.getElementById('configContent').textContent = diff;
+            showAlert('Configuration comparison completed', 'success');
+        } else {
+            showAlert('Failed to load configurations for comparison', 'danger');
+        }
+    });
+}
+
+function generateDiff(running, startup) {
+    const runningLines = running.split('\n');
+    const startupLines = startup.split('\n');
+    let diff = '=== CONFIGURATION DIFF (Running vs Startup) ===\n\n';
+    const maxLines = Math.max(runningLines.length, startupLines.length);
+    for (let i = 0; i < maxLines; i++) {
+        const runningLine = runningLines[i] || '';
+        const startupLine = startupLines[i] || '';
+        if (runningLine !== startupLine) {
+            diff += `Line ${i + 1}:\n- ${startupLine}\n+ ${runningLine}\n\n`;
+        }
+    }
+    return diff;
+}
+
+function showCreateCheckpointModal() {
+    document.getElementById('checkpointName').value = '';
+    document.getElementById('checkpointDescription').value = '';
+    new bootstrap.Modal(document.getElementById('checkpointModal')).show();
+}
+
+function createCheckpointConfirm() {
+    const name = document.getElementById('checkpointName').value.trim();
+    const description = document.getElementById('checkpointDescription').value.trim();
+    if (!name) {
+        showAlert('Please enter a checkpoint name', 'warning');
+        return;
+    }
+    showLoading(true);
+    let command = `checkpoint ${name}`;
+    if (description) command += ` description ${description}`;
+    executeCommand(command, function(data) {
+        showLoading(false);
+        if (data && data.success) {
+            showAlert(`Checkpoint "${name}" created successfully`, 'success');
+            loadCheckpoints();
+            bootstrap.Modal.getInstance(document.getElementById('checkpointModal')).hide();
+        } else {
+            showAlert('Failed to create checkpoint', 'danger');
+        }
+    }, 'cli_conf');
+}
+
+function showCheckpointModal() {
+    loadCheckpointTable();
+    new bootstrap.Modal(document.getElementById('checkpointManagementModal')).show();
+}
+
+function loadCheckpointTable() {
+    executeCommand('show checkpoint summary', function(data) {
+        const tbody = document.getElementById('checkpointTableBody');
+        tbody.innerHTML = '';
+        if (data && data.success && data.output) {
+            const checkpoints = parseCheckpoints(data.output);
+            checkpoints.forEach(checkpoint => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td><strong>${template.name}</strong></td>
-                    <td><span class="badge bg-info">${template.category}</span></td>
-                    <td>${template.description}</td>
-                    <td>${template.created}</td>
-                    <td>${template.modified}</td>
+                    <td>${checkpoint.name}</td>
+                    <td>${checkpoint.description}</td>
                     <td>
-                        <button class="btn btn-sm btn-outline-primary" onclick="editTemplate('${template.name}')">
-                            <i class="fas fa-edit"></i> Edit
+                        <button class="btn btn-sm btn-outline-primary" onclick="viewCheckpoint('${checkpoint.name}')">
+                            <i class="fas fa-eye"></i> View
                         </button>
-                        <button class="btn btn-sm btn-outline-success" onclick="applyTemplate('${template.name}')">
-                            <i class="fas fa-play"></i> Apply
+                        <button class="btn btn-sm btn-outline-success" onclick="rollbackToCheckpoint('${checkpoint.name}')">
+                            <i class="fas fa-undo"></i> Rollback
                         </button>
-                        <button class="btn btn-sm btn-outline-danger" onclick="deleteTemplate('${template.name}')">
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteCheckpoint('${checkpoint.name}')">
                             <i class="fas fa-trash"></i> Delete
                         </button>
                     </td>
@@ -684,357 +363,98 @@
                 tbody.appendChild(row);
             });
         }
+    });
+}
 
-        function loadChangeHistory() {
-            // Change history is already populated in the HTML
-            // In a real implementation, this would load from audit logs
+function viewCheckpoint(name) {
+    showLoading(true);
+    executeCommand(`show checkpoint ${name}`, function(data) {
+        showLoading(false);
+        if (data && data.success) {
+            currentConfigData = data.output;
+            document.getElementById('configContent').textContent = data.output;
+            showAlert(`Checkpoint "${name}" loaded successfully`, 'success');
+            bootstrap.Modal.getInstance(document.getElementById('checkpointManagementModal')).hide();
+        } else {
+            showAlert('Failed to load checkpoint', 'danger');
         }
+    });
+}
 
-        function executeComparison() {
-            const source = document.getElementById('config-source').value;
-            const target = document.getElementById('config-target').value;
-
-            if (source === target) {
-                alert('Please select different configurations to compare');
-                return;
-            }
-
-            // Show comparison result
-            document.getElementById('comparison-result').style.display = 'block';
-
-            // Load source configuration
-            loadConfiguration(source, 'source-config');
-            
-            // Load target configuration
-            loadConfiguration(target, 'target-config');
-
-            // Generate diff
-            setTimeout(() => {
-                generateConfigDiff();
-            }, 1000);
-        }
-
-        function loadConfiguration(configType, elementId) {
-            let command = '';
-            
-            switch (configType) {
-                case 'running':
-                    command = 'show running-config';
-                    break;
-                case 'startup':
-                    command = 'show startup-config';
-                    break;
-                case 'backup':
-                    command = 'show file bootflash:backup.cfg';
-                    break;
-                case 'template':
-                    command = 'show running-config | section template';
-                    break;
-            }
-
-            fetch('nxapi.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'cmd=' + encodeURIComponent(command)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    document.getElementById(elementId).textContent = 'Error loading configuration: ' + data.error;
-                } else {
-                    const config = parseConfigOutput(data);
-                    document.getElementById(elementId).textContent = config;
-                }
-            })
-            .catch(error => {
-                document.getElementById(elementId).textContent = 'Error loading configuration: ' + error.message;
-            });
-        }
-
-        function parseConfigOutput(data) {
-            try {
-                if (data.ins_api && data.ins_api.outputs && data.ins_api.outputs.output) {
-                    const output = data.ins_api.outputs.output;
-                    if (output.body) {
-                        return output.body;
-                    }
-                }
-            } catch (e) {
-                console.error('Error parsing config output:', e);
-            }
-            return 'Configuration not available';
-        }
-
-        function generateConfigDiff() {
-            const sourceConfig = document.getElementById('source-config').textContent;
-            const targetConfig = document.getElementById('target-config').textContent;
-            
-            // Simple diff implementation
-            const sourceLines = sourceConfig.split('\n');
-            const targetLines = targetConfig.split('\n');
-            
-            let diff = '';
-            const maxLines = Math.max(sourceLines.length, targetLines.length);
-            
-            for (let i = 0; i < maxLines; i++) {
-                const sourceLine = sourceLines[i] || '';
-                const targetLine = targetLines[i] || '';
-                
-                if (sourceLine !== targetLine) {
-                    if (sourceLine && !targetLine) {
-                        diff += `- ${sourceLine}\n`;
-                    } else if (!sourceLine && targetLine) {
-                        diff += `+ ${targetLine}\n`;
-                    } else {
-                        diff += `- ${sourceLine}\n+ ${targetLine}\n`;
-                    }
-                }
-            }
-            
-            if (!diff) {
-                diff = 'No differences found between configurations.';
-            }
-            
-            document.getElementById('config-diff').textContent = diff;
-        }
-
-        function exportComparison() {
-            const diff = document.getElementById('config-diff').textContent;
-            const blob = new Blob([diff], { type: 'text/plain' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'config-diff.txt';
-            a.click();
-            window.URL.revokeObjectURL(url);
-        }
-
-        function createTemplate() {
-            // Clear form and switch to templates tab
-            document.getElementById('templateForm').reset();
-            document.getElementById('template-name').focus();
-        }
-
-        function saveTemplate() {
-            const name = document.getElementById('template-name').value;
-            const category = document.getElementById('template-category').value;
-            const description = document.getElementById('template-description').value;
-            const variables = document.getElementById('template-variables').value;
-            const config = document.getElementById('template-config').value;
-
-            if (!name || !config) {
-                alert('Please provide template name and configuration');
-                return;
-            }
-
-            // Save template to data manager
-            const template = {
-                name: name,
-                category: category,
-                description: description,
-                variables: variables,
-                config: config,
-                created: new Date().toISOString().slice(0, 10),
-                modified: new Date().toISOString().slice(0, 10)
-            };
-
-            alert('Template saved successfully: ' + name);
-            loadTemplates();
-        }
-
-        function previewTemplate() {
-            const config = document.getElementById('template-config').value;
-            const variables = document.getElementById('template-variables').value;
-
-            if (!config) {
-                alert('Please enter template configuration');
-                return;
-            }
-
-            let preview = config;
-            
-            if (variables) {
-                try {
-                    const vars = JSON.parse(variables);
-                    Object.keys(vars).forEach(key => {
-                        const regex = new RegExp(`{{${key}}}`, 'g');
-                        preview = preview.replace(regex, vars[key]);
-                    });
-                } catch (e) {
-                    alert('Invalid variables JSON format');
-                    return;
-                }
-            }
-
-            alert('Template Preview:\n\n' + preview);
-        }
-
-        function applyTemplate(templateName) {
-            if (confirm(`Apply template "${templateName}" to the running configuration?`)) {
-                alert(`Template "${templateName}" would be applied to the configuration`);
-            }
-        }
-
-        function editTemplate(templateName) {
-            alert(`Edit template "${templateName}" functionality would be implemented here`);
-        }
-
-        function deleteTemplate(templateName) {
-            if (confirm(`Delete template "${templateName}"?`)) {
-                alert(`Template "${templateName}" deleted successfully`);
-                loadTemplates();
-            }
-        }
-
-        function runComplianceCheck() {
-            alert('Running compliance check...\n\nCompliance check would analyze the current configuration against defined policies.');
-        }
-
-        function exportComplianceReport() {
-            alert('Exporting compliance report...\n\nReport would be generated in PDF format.');
-        }
-
-        function createCompliancePolicy() {
-            alert('Create compliance policy functionality would be implemented here');
-        }
-
-        function viewPolicyDetails(policyId) {
-            alert(`Policy details for "${policyId}" would be displayed here`);
-        }
-
-        function fixViolation(violationId) {
-            alert(`Auto-fix for violation "${violationId}" would be implemented here`);
-        }
-
-        function viewChangeDetails(changeId) {
-            alert(`Change details for ID "${changeId}" would be displayed here`);
-        }
-
-        function rollbackChange(changeId) {
-            if (confirm(`Rollback change ID "${changeId}"?`)) {
-                alert(`Change ID "${changeId}" would be rolled back`);
-            }
-        }
-
-        function executeDeploy() {
-            const config = document.getElementById('deploy-config').value;
-            const backup = document.getElementById('deploy-backup').checked;
-            const validate = document.getElementById('deploy-validate').checked;
-
-            if (!config) {
-                alert('Please enter configuration to deploy');
-                return;
-            }
-
-            if (!confirm('Deploy configuration to the running system? This may affect network connectivity.')) {
-                return;
-            }
-
-            showDeployProgress();
-            
-            if (backup) {
-                updateDeployProgress(25, 'Creating backup...');
-                setTimeout(() => {
-                    updateDeployProgress(50, 'Deploying configuration...');
-                    performDeploy(config, validate);
-                }, 2000);
+function rollbackToCheckpoint(name) {
+    if (confirm(`Are you sure you want to rollback to checkpoint "${name}"? This will overwrite the current running configuration.`)) {
+        showLoading(true);
+        executeCommand(`rollback running-config checkpoint ${name}`, function(data) {
+            showLoading(false);
+            if (data && data.success) {
+                showAlert(`Successfully rolled back to checkpoint "${name}"`, 'success');
+                loadConfigStatus();
             } else {
-                updateDeployProgress(50, 'Deploying configuration...');
-                performDeploy(config, validate);
+                showAlert('Failed to rollback to checkpoint', 'danger');
             }
-        }
+        }, 'cli_conf');
+    }
+}
 
-        function performDeploy(config, validate) {
-            // Split config into individual commands
-            const commands = config.split('\n').filter(cmd => cmd.trim());
-            
-            // Deploy each command
-            let deployPromise = Promise.resolve();
-            
-            commands.forEach(command => {
-                deployPromise = deployPromise.then(() => {
-                    return fetch('nxapi.php', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                        body: 'cmd=' + encodeURIComponent(command)
-                    });
-                });
-            });
-
-            deployPromise
-                .then(() => {
-                    if (validate) {
-                        updateDeployProgress(75, 'Validating configuration...');
-                        setTimeout(() => {
-                            updateDeployProgress(100, 'Deployment completed successfully');
-                            setTimeout(() => {
-                                hideDeployProgress();
-                                alert('Configuration deployed successfully');
-                            }, 2000);
-                        }, 2000);
-                    } else {
-                        updateDeployProgress(100, 'Deployment completed successfully');
-                        setTimeout(() => {
-                            hideDeployProgress();
-                            alert('Configuration deployed successfully');
-                        }, 2000);
-                    }
-                })
-                .catch(error => {
-                    updateDeployProgress(0, 'Deployment failed: ' + error.message);
-                    setTimeout(() => {
-                        hideDeployProgress();
-                        alert('Deployment failed: ' + error.message);
-                    }, 2000);
-                });
-        }
-
-        function validateDeploy() {
-            const config = document.getElementById('deploy-config').value;
-
-            if (!config) {
-                alert('Please enter configuration to validate');
-                return;
+function deleteCheckpoint(name) {
+    if (confirm(`Are you sure you want to delete checkpoint "${name}"?`)) {
+        showLoading(true);
+        executeCommand(`no checkpoint ${name}`, function(data) {
+            showLoading(false);
+            if (data && data.success) {
+                showAlert(`Checkpoint "${name}" deleted successfully`, 'success');
+                loadCheckpoints();
+                loadCheckpointTable();
+            } else {
+                showAlert('Failed to delete checkpoint', 'danger');
             }
+        }, 'cli_conf');
+    }
+}
 
-            alert('Configuration validation would check syntax and dependencies');
-        }
+function backupConfig() {
+    if (!currentConfigData) {
+        showAlert('No configuration data to backup. Please view a config first.', 'warning');
+        return;
+    }
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const filename = `nexus-config-backup-${timestamp}.txt`;
+    const blob = new Blob([currentConfigData], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+    localStorage.setItem('lastConfigBackup', new Date().toISOString());
+    loadConfigStatus();
+    showAlert('Configuration backup downloaded successfully', 'success');
+}
 
-        function previewDeploy() {
-            const config = document.getElementById('deploy-config').value;
+function copyToClipboard() {
+    if (currentConfigData) {
+        navigator.clipboard.writeText(currentConfigData).then(() => {
+            showAlert('Configuration copied to clipboard', 'success');
+        }).catch(() => {
+            showAlert('Failed to copy to clipboard', 'danger');
+        });
+    } else {
+        showAlert('No configuration data to copy', 'warning');
+    }
+}
 
-            if (!config) {
-                alert('Please enter configuration to preview');
-                return;
-            }
+function downloadConfig() {
+    backupConfig();
+}
 
-            alert('Configuration Preview:\n\n' + config);
-        }
+function refreshData() {
+    loadConfigStatus();
+    loadCheckpoints();
+    showAlert('Configuration data refreshed', 'info');
+}
+</script>
 
-        function showDeployProgress() {
-            document.getElementById('deploy-progress').style.display = 'block';
-            updateDeployProgress(0, 'Preparing deployment...');
-        }
-
-        function hideDeployProgress() {
-            document.getElementById('deploy-progress').style.display = 'none';
-        }
-
-        function updateDeployProgress(percent, status) {
-            document.getElementById('deploy-progress-bar').style.width = percent + '%';
-            document.getElementById('deploy-status').textContent = status;
-        }
-
-        function compareConfigs() {
-            // Switch to compare tab
-            const compareTab = new bootstrap.Tab(document.getElementById('compare-tab'));
-            compareTab.show();
-        }
-
-        function refreshData() {
-            loadConfigData();
-        }
-    </script>
 </body>
-</html>
-
+</html> 

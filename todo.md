@@ -16,17 +16,20 @@
 - [x] Add interface statistics and monitoring
 
 ## Phase 3: Layer 3 Routing Features
-- [ ] Create routing.php for static routes management
-- [ ] Implement OSPF configuration and monitoring
-- [ ] Add BGP configuration and neighbor management
-- [ ] Create route table viewer
-- [ ] Add routing protocol troubleshooting tools
+- [x] Create routing.php for static routes management
+- [x] Implement OSPF configuration and monitoring
+- [x] Add BGP configuration and neighbor management
+- [x] Create route table viewer
+- [x] Add routing protocol troubleshooting tools
+- [x] Create NAT configuration (Static NAT and PAT)
 
 ## Phase 4: Security Features
-- [ ] Create ACL management (Standard/Extended/Named)
-- [ ] Implement port security configuration
-- [ ] Add AAA (Authentication, Authorization, Accounting)
+- [x] Create ACL management (Standard/Extended/Named)
+- [x] Implement port security configuration
+- [x] Add AAA (Authentication, Authorization, Accounting)
 - [ ] Create DHCP snooping configuration
+- [x] Add SNMP Configuration
+- [x] Add NTP Configuration
 - [ ] Add IP Source Guard and Dynamic ARP Inspection
 
 ## Phase 5: Advanced Features

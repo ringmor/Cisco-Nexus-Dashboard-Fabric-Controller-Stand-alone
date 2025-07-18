@@ -81,76 +81,105 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary">Features Enabled</h5>
-                        <h3 id="feature-count" class="text-info">--</h3>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <!-- Tables for Modules, Inventory, Licenses, Processes -->
         <div class="row mb-4">
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#module-collapse" style="cursor: pointer;">
                         <h5><i class="fas fa-puzzle-piece"></i> Module Information</h5>
+                        <i class="fas fa-chevron-down" id="module-icon"></i>
                     </div>
-                    <div class="card-body table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Module</th><th>Ports</th><th>Model</th><th>Status</th><th>Serial</th><th>MAC</th><th>HW Ver</th>
-                                </tr>
-                            </thead>
-                            <tbody id="modules-tbody">
-                                <tr><td colspan="7" class="text-center py-4">
-                                    <div class="spinner-border spinner-border-sm me-2"></div>Loading modules...
-                                </td></tr>
-                            </tbody>
-                        </table>
+                    <div class="collapse show" id="module-collapse">
+                        <div class="card-body table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Module</th><th>Ports</th><th>Model</th><th>Status</th><th>Serial</th><th>MAC</th><th>HW Ver</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modules-tbody">
+                                    <tr><td colspan="7" class="text-center py-4">
+                                        <div class="spinner-border spinner-border-sm me-2"></div>Loading modules...
+                                    </td></tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#license-collapse" style="cursor: pointer;">
                         <h5><i class="fas fa-certificate"></i> License Information</h5>
+                        <i class="fas fa-chevron-down" id="license-icon"></i>
                     </div>
-                    <div class="card-body table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr><th>Feature</th><th>Type</th><th>Status</th><th>Count</th><th>Expiry</th></tr>
-                            </thead>
-                            <tbody id="licenses-tbody">
-                                <tr><td colspan="5" class="text-center py-4">
-                                    <div class="spinner-border spinner-border-sm me-2"></div>Loading licenses...
-                                </td></tr>
-                            </tbody>
-                        </table>
+                    <div class="collapse show" id="license-collapse">
+                        <div class="card-body table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr><th>Feature</th><th>Type</th><th>Status</th><th>Count</th><th>Expiry</th></tr>
+                                </thead>
+                                <tbody id="licenses-tbody">
+                                    <tr><td colspan="5" class="text-center py-4">
+                                        <div class="spinner-border spinner-border-sm me-2"></div>Loading licenses...
+                                    </td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Enabled Section -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#features-collapse" style="cursor: pointer;">
+                        <h5><i class="fas fa-list"></i> Features Enabled</h5>
+                        <i class="fas fa-chevron-down" id="features-icon"></i>
+                    </div>
+                    <div class="collapse show" id="features-collapse">
+                        <div class="card-body table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr><th>Feature Name</th><th>Instance</th><th>State</th></tr>
+                                </thead>
+                                <tbody id="features-tbody">
+                                    <tr><td colspan="3" class="text-center py-4">
+                                        <div class="spinner-border spinner-border-sm me-2"></div>Loading features...
+                                    </td></tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="card mb-4">
-            <div class="card-header d-flex justify-content-between align-items-center">
+            <div class="card-header d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#processes-collapse" style="cursor: pointer;">
                 <h5><i class="fas fa-cogs"></i> Processes</h5>
-                <button class="btn btn-sm btn-info" onclick="loadProcesses()"><i class="fas fa-sync-alt"></i> Refresh</button>
+                <div>
+                    <button class="btn btn-sm btn-info" onclick="loadProcesses(); event.stopPropagation();"><i class="fas fa-sync-alt"></i> Refresh</button>
+                    <i class="fas fa-chevron-down ms-2" id="processes-icon"></i>
+                </div>
             </div>
-            <div class="card-body table-responsive">
-                <table class="table table-striped table-sm">
-                    <thead>
-                        <tr><th>PID</th><th>Name</th><th>CPU%</th><th>Mem%</th><th>Status</th><th>Runtime</th></tr>
-                    </thead>
-                    <tbody id="processes-tbody">
-                        <tr><td colspan="6" class="text-center py-4">
-                            <div class="spinner-border spinner-border-sm me-2"></div>Loading processes...
-                        </td></tr>
-                    </tbody>
-                </table>
+            <div class="collapse show" id="processes-collapse">
+                <div class="card-body table-responsive">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                            <tr><th>PID</th><th>Name</th><th>CPU%</th><th>Mem%</th><th>Status</th><th>Runtime</th></tr>
+                        </thead>
+                        <tbody id="processes-tbody">
+                            <tr><td colspan="6" class="text-center py-4">
+                                <div class="spinner-border spinner-border-sm me-2"></div>Loading processes...
+                            </td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
@@ -164,10 +193,10 @@
             loadCommand('show system uptime','displayUptime');
             loadCommand('show version','displayVersion');
             loadCommand('show system resources','displayResources');
-            loadCommand('show feature','displayFeatures');
+            loadCommand('show feature','displayFeaturesTable'); // CHANGED
             loadCommand('show module','displayModules');
             loadCommand('show inventory','displayInventory');
-            loadCommand('show license','displayLicenses');
+            loadCommand('show license usage','displayLicenseUsage');
             loadProcesses();
         }
         function loadCommand(cmd, callback){
@@ -182,7 +211,12 @@
             .then(r=>r.json())
             .then(data => {
                 if (data.success && data.result) {
-                    window[callback](data.result.ins_api.outputs.output.body);
+                    const output = data.result.ins_api.outputs.output;
+                    if (callback === 'displayFeaturesTable') {
+                        window[callback]({ clierror: output.clierror || '' });
+                    } else {
+                        window[callback](output.body);
+                    }
                 } else {
                     console.error('API error:', data.message || 'Unknown error');
                 }
@@ -213,20 +247,74 @@
     const memUsage = totalMem ? (usedMem / totalMem * 100) : 0;
     document.getElementById('memory-usage').textContent = memUsage.toFixed(1) + '%';
 }
-        function displayFeatures(body){
-            document.getElementById('feature-count').textContent=Object.keys(body.feature_list||{}).length;
+        // New function to parse and display features table
+        function displayFeaturesTable(body){
+            const tb = document.getElementById('features-tbody');
+            tb.innerHTML = '';
+            let clierror = body.clierror || '';
+            // Remove header lines and dashes
+            const lines = clierror.split('\n').filter(line => line.trim() && !line.includes('Feature Name') && !/^[- ]+$/.test(line));
+            lines.forEach(line => {
+                // Split by whitespace, but keep feature name together
+                // Feature Name is up to column 20, Instance is next 8, State is rest
+                const feature = line.substring(0, 20).trim();
+                const instance = line.substring(20, 30).trim();
+                const state = line.substring(30).trim();
+                tb.insertAdjacentHTML('beforeend',
+                    `<tr>
+                        <td>${feature}</td>
+                        <td>${instance}</td>
+                        <td><span class="badge ${state==='enabled' ? 'bg-success' : 'bg-secondary'}">${state}</span></td>
+                    </tr>`
+                );
+            });
         }
         function displayModules(body){
-            const rows=body.TABLE_module.ROW_module;const arr=Array.isArray(rows)?rows:[rows];
-            const tb=document.getElementById('modules-tbody');tb.innerHTML='';
-            arr.forEach(m=>tb.insertAdjacentHTML('beforeend',
-                `<tr><td>${m.modnum}</td><td>${m.portcnt}</td><td>${m.modname}</td><td><span class="badge ${m.modstatus==='OK'?'bg-success':'bg-danger'}">${m.modstatus}</span></td><td>${m.serialnum}</td><td>${m.macaddr}</td><td>${m.hw_ver}</td></tr>`));
+            // Extract and normalize arrays from each table
+            const modinfoRows = body.TABLE_modinfo && body.TABLE_modinfo.ROW_modinfo ? (Array.isArray(body.TABLE_modinfo.ROW_modinfo) ? body.TABLE_modinfo.ROW_modinfo : [body.TABLE_modinfo.ROW_modinfo]) : [];
+            const modmacRows = body.TABLE_modmacinfo && body.TABLE_modmacinfo.ROW_modmacinfo ? (Array.isArray(body.TABLE_modmacinfo.ROW_modmacinfo) ? body.TABLE_modmacinfo.ROW_modmacinfo : [body.TABLE_modmacinfo.ROW_modmacinfo]) : [];
+            const modwwnRows = body.TABLE_modwwninfo && body.TABLE_modwwninfo.ROW_modwwninfo ? (Array.isArray(body.TABLE_modwwninfo.ROW_modwwninfo) ? body.TABLE_modwwninfo.ROW_modwwninfo : [body.TABLE_modwwninfo.ROW_modwwninfo]) : [];
+
+            // Index by module number for easy merging
+            const macByMod = {};
+            modmacRows.forEach(m => { macByMod[m.modmac] = m; });
+            const wwnByMod = {};
+            modwwnRows.forEach(w => { wwnByMod[w.modwwn] = w; });
+
+            const tb = document.getElementById('modules-tbody');
+            tb.innerHTML = '';
+            modinfoRows.forEach(m => {
+                const modnum = m.modinf;
+                const macInfo = macByMod[modnum] || {};
+                const wwnInfo = wwnByMod[modnum] || {};
+                tb.insertAdjacentHTML('beforeend',
+                    `<tr>
+                        <td>${modnum}</td>
+                        <td>${m.ports}</td>
+                        <td>${m.modtype ? m.modtype.trim() : ''}</td>
+                        <td><span class="badge ${m.status && m.status.trim().toLowerCase().startsWith('active') ? 'bg-success' : 'bg-danger'}">${m.status ? m.status.trim() : ''}</span></td>
+                        <td>${macInfo.serialnum || ''}</td>
+                        <td>${macInfo.mac || ''}</td>
+                        <td>${wwnInfo.hw ? wwnInfo.hw.trim() : ''}</td>
+                    </tr>`
+                );
+            });
         }
-        function displayLicenses(body){
-            const rows=body.TABLE_license.ROW_license;const arr=Array.isArray(rows)?rows:[rows];
-            const tb=document.getElementById('licenses-tbody');tb.innerHTML='';
-            arr.forEach(l=>tb.insertAdjacentHTML('beforeend',
-                `<tr><td>${l.licname}</td><td>${l.type}</td><td><span class="badge ${l.status==='In Use'? 'bg-success':'bg-secondary'}">${l.status}</span></td><td>${l.count}</td><td>${l.expiry}</td></tr>`));
+        // Replace displayLicenses with displayLicenseUsage
+        function displayLicenseUsage(body){
+            const rows = body.TABLE_lic_usage.ROW_lic_usage;
+            const arr = Array.isArray(rows) ? rows : [rows];
+            const tb = document.getElementById('licenses-tbody');
+            tb.innerHTML = '';
+            arr.forEach(l => tb.insertAdjacentHTML('beforeend',
+                `<tr>
+                    <td>${l.feature_name}</td>
+                    <td>${l.install_status}</td>
+                    <td><span class="badge ${l.status==='In Use' ? 'bg-success' : 'bg-secondary'}">${l.status}</span></td>
+                    <td>${l.lic_count}</td>
+                    <td>${l.expiry ? l.expiry.trim() : '-'}</td>
+                </tr>`
+            ));
         }
         function loadProcesses(){loadCommand('show processes cpu','displayProcesses');}
         function displayProcesses(body){
@@ -236,6 +324,41 @@
                 `<tr><td>${p.pid}</td><td>${p.cmd}</td><td>${p.pcpu}</td><td>${p.pmem}</td><td>${p.status}</td><td>${p.elapsed}</td></tr>`));
         }
         function toggleAutoRefresh(){const btn=document.getElementById('auto-refresh-btn');if(isAutoRefreshing){clearInterval(autoRefreshInterval);isAutoRefreshing=false;btn.innerHTML='<i class="fas fa-play"></i> Auto Refresh';btn.className='btn btn-warning';}else{autoRefreshInterval=setInterval(loadAllSystemData,30000);isAutoRefreshing=true;btn.innerHTML='<i class="fas fa-pause"></i> Stop Auto';btn.className='btn btn-danger';}}
+        
+        // Add collapse functionality for icons
+        document.addEventListener('DOMContentLoaded', function() {
+            // Module collapse
+            document.getElementById('module-collapse').addEventListener('show.bs.collapse', function() {
+                document.getElementById('module-icon').className = 'fas fa-chevron-down';
+            });
+            document.getElementById('module-collapse').addEventListener('hide.bs.collapse', function() {
+                document.getElementById('module-icon').className = 'fas fa-chevron-right';
+            });
+            
+            // License collapse
+            document.getElementById('license-collapse').addEventListener('show.bs.collapse', function() {
+                document.getElementById('license-icon').className = 'fas fa-chevron-down';
+            });
+            document.getElementById('license-collapse').addEventListener('hide.bs.collapse', function() {
+                document.getElementById('license-icon').className = 'fas fa-chevron-right';
+            });
+            
+            // Features collapse
+            document.getElementById('features-collapse').addEventListener('show.bs.collapse', function() {
+                document.getElementById('features-icon').className = 'fas fa-chevron-down';
+            });
+            document.getElementById('features-collapse').addEventListener('hide.bs.collapse', function() {
+                document.getElementById('features-icon').className = 'fas fa-chevron-right';
+            });
+            
+            // Processes collapse
+            document.getElementById('processes-collapse').addEventListener('show.bs.collapse', function() {
+                document.getElementById('processes-icon').className = 'fas fa-chevron-down';
+            });
+            document.getElementById('processes-collapse').addEventListener('hide.bs.collapse', function() {
+                document.getElementById('processes-icon').className = 'fas fa-chevron-right';
+            });
+        });
     </script>
 </body>
 </html>

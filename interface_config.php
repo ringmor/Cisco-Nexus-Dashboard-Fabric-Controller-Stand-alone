@@ -293,6 +293,9 @@
                                 <button type="button" class="btn btn-outline-secondary" onclick="previewConfiguration()">
                                     <i class="fas fa-eye"></i> Preview Commands
                                 </button>
+                                <button type="button" class="btn btn-outline-success" onclick="saveAsTemplate()">
+                                    <i class="fas fa-save"></i> Save Template
+                                </button>
                                 <button type="button" class="btn btn-outline-danger" onclick="resetForm()">
                                     <i class="fas fa-undo"></i> Reset Form
                                 </button>
@@ -504,7 +507,11 @@
         }
 
         function applyTemplate(templateType) {
-            resetForm();
+            // Don't reset the form - just set template-specific values
+            // Hide all mode-specific configs first
+            document.getElementById('access-config').style.display = 'none';
+            document.getElementById('trunk-config').style.display = 'none';
+            document.getElementById('routed-config').style.display = 'none';
             
             switch (templateType) {
                 case 'access':
@@ -543,18 +550,70 @@
                 return;
             }
             
-            document.getElementById('preview-commands').textContent = commands.join('\n');
+            // Format commands with proper line breaks and styling
+            const formattedCommands = commands.map((cmd, index) => {
+                const lineNumber = (index + 1).toString().padStart(3, ' ');
+                return `${lineNumber}: ${cmd}`;
+            }).join('\n');
+            
+            const previewElement = document.getElementById('preview-commands');
+            previewElement.innerHTML = `<pre style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace; font-size: 14px; line-height: 1.4; max-height: 400px; overflow-y: auto; white-space: pre-wrap;">${formattedCommands}</pre>`;
+            
             const modal = new bootstrap.Modal(document.getElementById('previewModal'));
             modal.show();
         }
 
-        function generateConfigurationCommands() {
+        function validateConfiguration() {
             const selectedInterfaces = Array.from(document.getElementById('interface-select').selectedOptions)
                 .map(option => option.value);
             
             if (selectedInterfaces.length === 0) {
                 showAlert('Please select at least one interface.', 'warning');
+                return false;
+            }
+
+            const mode = document.getElementById('interface-mode').value;
+            if (mode === 'switchport-access') {
+                const accessVlan = document.getElementById('access-vlan').value;
+                if (!accessVlan) {
+                    showAlert('Please select an Access VLAN for access port configuration.', 'warning');
+                    return false;
+                }
+            } else if (mode === 'switchport-trunk') {
+                const allowedVlans = document.getElementById('allowed-vlans').value;
+                if (!allowedVlans) {
+                    showAlert('Please specify allowed VLANs for trunk port configuration.', 'warning');
+                    return false;
+                }
+            } else if (mode === 'routed') {
+                const ipAddress = document.getElementById('ip-address').value;
+                if (!ipAddress) {
+                    showAlert('Please specify an IP address for routed port configuration.', 'warning');
+                    return false;
+                }
+                if (!validateIP(ipAddress)) {
+                    showAlert('Please enter a valid IP address.', 'warning');
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        function generateConfigurationCommands() {
+            if (!validateConfiguration()) {
                 return [];
+            }
+
+            const selectedInterfaces = Array.from(document.getElementById('interface-select').selectedOptions)
+                .map(option => option.value);
+
+            // Debug: Log form values (only in development)
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                console.log('Selected interfaces:', selectedInterfaces);
+                console.log('Description:', document.getElementById('interface-description').value);
+                console.log('Mode:', document.getElementById('interface-mode').value);
+                console.log('Admin state:', document.getElementById('admin-state').value);
             }
 
             let commands = ['configure terminal'];
@@ -649,8 +708,9 @@
                 }
                 
                 if (document.getElementById('lldp-enable').checked) {
-                    commands.push('lldp transmit');
-                    commands.push('lldp receive');
+                    commands.push('lldp enable');
+                } else {
+                    commands.push('no lldp enable');
                 }
                 
                 if (document.getElementById('storm-control').checked) {
@@ -661,6 +721,9 @@
                 if (document.getElementById('flow-control').checked) {
                     commands.push('flowcontrol receive on');
                     commands.push('flowcontrol send on');
+                } else {
+                    commands.push('no flowcontrol receive');
+                    commands.push('no flowcontrol send');
                 }
                 
                 // Administrative state (last)
@@ -675,6 +738,11 @@
             commands.push('end');
             commands.push('copy running-config startup-config');
             
+            // Debug: Log generated commands (only in development)
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                console.log('Generated commands:', commands);
+            }
+            
             return commands;
         }
 
@@ -686,11 +754,64 @@
                 .map(option => option.value);
             
             confirmAction(`Apply configuration to ${selectedInterfaces.length} interface(s)?\n\n${selectedInterfaces.join(', ')}`, function() {
-                executeCommand(commands.join(' ; '), function(data) {
-                    showAlert(`Configuration applied to ${selectedInterfaces.length} interface(s)`, 'success');
+                // Send commands individually for cli_conf
+                executeCommandsSequentially(commands, function(data) {
+                    if (data.success) {
+                        showAlert(`Configuration applied successfully! ${data.successCount}/${data.totalCommands} commands executed.`, 'success');
+                    } else {
+                        showAlert(`Configuration completed with errors. ${data.successCount}/${data.totalCommands} commands succeeded, ${data.errorCount} failed.`, 'warning');
+                    }
                     setTimeout(loadData, 2000);
-                }, 'cli_conf');
+                });
             });
+        }
+
+        function executeCommandsSequentially(commands, callback) {
+            let currentIndex = 0;
+            let successCount = 0;
+            let errorCount = 0;
+            
+            // Show progress message
+            showAlert(`Executing ${commands.length} configuration commands...`, 'info');
+            
+            function executeNext() {
+                if (currentIndex >= commands.length) {
+                    if (callback) {
+                        const result = { 
+                            success: errorCount === 0, 
+                            successCount: successCount, 
+                            errorCount: errorCount,
+                            totalCommands: commands.length
+                        };
+                        callback(result);
+                    }
+                    return;
+                }
+                
+                const command = commands[currentIndex];
+                const progress = Math.round(((currentIndex + 1) / commands.length) * 100);
+                
+                // Update progress message
+                showAlert(`Executing command ${currentIndex + 1}/${commands.length}: ${command}`, 'info', 2000);
+                
+                executeCommand(command, function(data) {
+                    if (data.success) {
+                        successCount++;
+                        currentIndex++;
+                        // Small delay between commands
+                        setTimeout(executeNext, 100);
+                    } else {
+                        errorCount++;
+                        const errorMsg = data.error || data.message || 'Unknown error';
+                        showAlert(`Error executing command: ${command}\nError: ${errorMsg}`, 'danger');
+                        // Continue with next command even if one fails
+                        currentIndex++;
+                        setTimeout(executeNext, 100);
+                    }
+                }, 'cli_conf');
+            }
+            
+            executeNext();
         }
 
         function applyFromPreview() {
@@ -699,8 +820,10 @@
         }
 
         function copyCommands() {
-            const commands = document.getElementById('preview-commands').textContent;
-            copyToClipboard(commands);
+            const commands = generateConfigurationCommands();
+            const commandText = commands.join('\n');
+            copyToClipboard(commandText);
+            showAlert('Commands copied to clipboard!', 'success', 2000);
         }
 
         function resetForm() {
@@ -726,6 +849,159 @@
             
             // This would parse the interface range and apply the template
             showAlert('Bulk configuration feature coming soon!', 'info');
+        }
+
+        // Test function for debugging
+        function testCommandExecution() {
+            console.log('Testing command execution...');
+            executeCommand('show version', function(data) {
+                console.log('Test command result:', data);
+                if (data.success) {
+                    showAlert('Test command executed successfully!', 'success');
+                } else {
+                    showAlert('Test command failed!', 'danger');
+                }
+            }, 'cli_show');
+        }
+
+        // Test function for configuration commands
+        function testConfigCommand() {
+            console.log('Testing configuration command...');
+            executeCommand('configure terminal', function(data) {
+                console.log('Config command result:', data);
+                if (data.success) {
+                    showAlert('Config command executed successfully!', 'success');
+                } else {
+                    showAlert('Config command failed!', 'danger');
+                }
+            }, 'cli_conf');
+        }
+
+        // Test function to check form values
+        function testFormValues() {
+            console.log('=== FORM VALUES TEST ===');
+            console.log('Interface Description:', document.getElementById('interface-description').value);
+            console.log('Interface Mode:', document.getElementById('interface-mode').value);
+            console.log('Admin State:', document.getElementById('admin-state').value);
+            console.log('Speed:', document.getElementById('interface-speed').value);
+            console.log('Duplex:', document.getElementById('interface-duplex').value);
+            console.log('Access VLAN:', document.getElementById('access-vlan').value);
+            console.log('Native VLAN:', document.getElementById('native-vlan').value);
+            console.log('Allowed VLANs:', document.getElementById('allowed-vlans').value);
+            console.log('IP Address:', document.getElementById('ip-address').value);
+            console.log('CDP Enable:', document.getElementById('cdp-enable').checked);
+            console.log('LLDP Enable:', document.getElementById('lldp-enable').checked);
+            console.log('Storm Control:', document.getElementById('storm-control').checked);
+            console.log('Flow Control:', document.getElementById('flow-control').checked);
+            console.log('=== END FORM VALUES TEST ===');
+        }
+
+        // Test function to simulate a complete configuration
+        function testCompleteConfig() {
+            console.log('=== TESTING COMPLETE CONFIGURATION ===');
+            
+            // Select an interface
+            const interfaceSelect = document.getElementById('interface-select');
+            if (interfaceSelect.options.length > 0) {
+                interfaceSelect.options[0].selected = true;
+            }
+            
+            // Set some form values
+            document.getElementById('interface-description').value = 'Test Interface';
+            document.getElementById('interface-mode').value = 'switchport-access';
+            document.getElementById('access-vlan').value = '10';
+            document.getElementById('admin-state').value = 'no shutdown';
+            document.getElementById('cdp-enable').checked = true;
+            document.getElementById('lldp-enable').checked = false;
+            
+            // Show the access config
+            document.getElementById('access-config').style.display = 'block';
+            
+            console.log('Form values set. Now test preview or apply configuration.');
+            showAlert('Test configuration set. Try preview or apply now.', 'info');
+        }
+
+        // Function to save current configuration as template
+        function saveAsTemplate() {
+            const templateName = prompt('Enter a name for this template:');
+            if (!templateName) return;
+            
+            const config = {
+                description: document.getElementById('interface-description').value,
+                mode: document.getElementById('interface-mode').value,
+                adminState: document.getElementById('admin-state').value,
+                speed: document.getElementById('interface-speed').value,
+                duplex: document.getElementById('interface-duplex').value,
+                accessVlan: document.getElementById('access-vlan').value,
+                nativeVlan: document.getElementById('native-vlan').value,
+                allowedVlans: document.getElementById('allowed-vlans').value,
+                ipAddress: document.getElementById('ip-address').value,
+                prefixLength: document.getElementById('prefix-length').value,
+                secondaryIps: document.getElementById('secondary-ips').value,
+                mtu: document.getElementById('mtu-size').value,
+                loadInterval: document.getElementById('load-interval').value,
+                bandwidth: document.getElementById('bandwidth').value,
+                cdpEnable: document.getElementById('cdp-enable').checked,
+                lldpEnable: document.getElementById('lldp-enable').checked,
+                stormControl: document.getElementById('storm-control').checked,
+                flowControl: document.getElementById('flow-control').checked,
+                trunkEncapsulation: document.getElementById('trunk-encapsulation').checked
+            };
+            
+            // Save to localStorage for now (could be enhanced to save to server)
+            const templates = JSON.parse(localStorage.getItem('interfaceTemplates') || '{}');
+            templates[templateName] = config;
+            localStorage.setItem('interfaceTemplates', JSON.stringify(templates));
+            
+            showAlert(`Template "${templateName}" saved successfully!`, 'success');
+        }
+
+        // Function to load a saved template
+        function loadTemplate(templateName) {
+            const templates = JSON.parse(localStorage.getItem('interfaceTemplates') || '{}');
+            const config = templates[templateName];
+            
+            if (!config) {
+                showAlert(`Template "${templateName}" not found.`, 'warning');
+                return;
+            }
+            
+            // Apply the template
+            document.getElementById('interface-description').value = config.description || '';
+            document.getElementById('interface-mode').value = config.mode || '';
+            document.getElementById('admin-state').value = config.adminState || '';
+            document.getElementById('interface-speed').value = config.speed || '';
+            document.getElementById('interface-duplex').value = config.duplex || '';
+            document.getElementById('access-vlan').value = config.accessVlan || '';
+            document.getElementById('native-vlan').value = config.nativeVlan || '';
+            document.getElementById('allowed-vlans').value = config.allowedVlans || '';
+            document.getElementById('ip-address').value = config.ipAddress || '';
+            document.getElementById('prefix-length').value = config.prefixLength || '24';
+            document.getElementById('secondary-ips').value = config.secondaryIps || '';
+            document.getElementById('mtu-size').value = config.mtu || '';
+            document.getElementById('load-interval').value = config.loadInterval || '';
+            document.getElementById('bandwidth').value = config.bandwidth || '';
+            document.getElementById('cdp-enable').checked = config.cdpEnable || false;
+            document.getElementById('lldp-enable').checked = config.lldpEnable || false;
+            document.getElementById('storm-control').checked = config.stormControl || false;
+            document.getElementById('flow-control').checked = config.flowControl || false;
+            document.getElementById('trunk-encapsulation').checked = config.trunkEncapsulation || false;
+            
+            // Show appropriate config section
+            const mode = config.mode;
+            document.getElementById('access-config').style.display = 'none';
+            document.getElementById('trunk-config').style.display = 'none';
+            document.getElementById('routed-config').style.display = 'none';
+            
+            if (mode === 'switchport-access') {
+                document.getElementById('access-config').style.display = 'block';
+            } else if (mode === 'switchport-trunk') {
+                document.getElementById('trunk-config').style.display = 'block';
+            } else if (mode === 'routed') {
+                document.getElementById('routed-config').style.display = 'block';
+            }
+            
+            showAlert(`Template "${templateName}" loaded successfully!`, 'success');
         }
     </script>
 </body>
