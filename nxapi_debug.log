@@ -136545,3 +136545,7 @@ ACTION: test_connection
 INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
 ACTION: test_connection
 INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
+ACTION: test_connection
+INPUT: {"action":"test_connection","switchIP":"10.10.100.80","switchPort":"80","username":"admin","password":"admin","useHTTPS":false}
