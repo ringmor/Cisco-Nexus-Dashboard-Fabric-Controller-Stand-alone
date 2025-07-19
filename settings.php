@@ -94,6 +94,13 @@
                                                 </label>
                                             </div>
                                         </div>
+
+                                        <div class="mb-3">
+                                            <button class="btn btn-danger" id="reloadSwitchBtn" onclick="reloadSwitch()">
+                                                <i class="fas fa-sync-alt"></i> Reload Switch
+                                            </button>
+                                            <div class="form-text text-danger">Reloading will restart the switch. Use with caution.</div>
+                                        </div>
                                     </div>
 
                                     <div class="col-md-6">
@@ -584,6 +591,48 @@
                     alertDiv.parentNode.removeChild(alertDiv);
                 }
             }, 5000);
+        }
+
+        function reloadSwitch() {
+            const switchIP = document.getElementById('switchIP').value;
+            if (!switchIP) {
+                showAlert('Please enter the switch IP address first.', 'warning');
+                return;
+            }
+            if (!confirm('Are you sure you want to reload the switch at ' + switchIP + '? This will restart the device.')) {
+                return;
+            }
+            if (!confirm('SECONDARY CONFIRMATION: This will immediately restart the switch at ' + switchIP + '. Are you absolutely sure?')) {
+                return;
+            }
+            document.getElementById('reloadSwitchBtn').disabled = true;
+            fetch('nxapi.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'execute_command',
+                    command: 'reload',
+                    type: 'cli_show',
+                    switchIP: switchIP,
+                    switchPort: document.getElementById('switchPort').value,
+                    username: document.getElementById('username').value,
+                    password: document.getElementById('password').value,
+                    useHTTPS: document.getElementById('useHTTPS').checked
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('reloadSwitchBtn').disabled = false;
+                if (data.success) {
+                    showAlert('Reload command sent successfully. The switch is restarting.', 'success');
+                } else {
+                    showAlert('Failed to reload switch: ' + (data.message || data.error || 'Unknown error'), 'danger');
+                }
+            })
+            .catch(error => {
+                document.getElementById('reloadSwitchBtn').disabled = false;
+                showAlert('Network error: ' + error, 'danger');
+            });
         }
     </script>
 </body>

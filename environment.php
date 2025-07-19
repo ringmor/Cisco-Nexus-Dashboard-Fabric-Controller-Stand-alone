@@ -281,7 +281,7 @@
 
                 const fStatusElem = document.getElementById('fan-status');
                 if (failures.length === 0) {
-                    fStatusElem.textContent = 'ALL OK';
+                    fStatusElem.innerHTML = '<strong class="small fw-bold">ALL OK</strong>';
                 } else {
                     const list = failures.map(r => r.fanname).join(', ');
                     fStatusElem.innerHTML =

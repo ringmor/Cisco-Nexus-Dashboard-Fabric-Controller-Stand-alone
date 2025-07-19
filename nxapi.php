@@ -22,6 +22,13 @@ if (!$input) {
     $input = $_POST;
 }
 
+// Override settings with POST body if provided
+if (isset($input['switchIP']) && $input['switchIP']) $nexus_ip = $input['switchIP'];
+if (isset($input['switchPort']) && $input['switchPort']) $port = $input['switchPort'];
+if (isset($input['username']) && $input['username']) $user = $input['username'];
+if (isset($input['password']) && $input['password']) $pass = $input['password'];
+if (isset($input['useHTTPS'])) $use_https = $input['useHTTPS'] ? true : false;
+
 $action = isset($input['action']) ? $input['action'] : 'execute_command';
 
 // Debug logging
