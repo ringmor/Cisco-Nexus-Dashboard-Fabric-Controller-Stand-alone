@@ -308,7 +308,7 @@
         </div>
     </div>
 
-    <script src="common.js"></script>
+    <script src="../../assets/js/common.js"></script>
     <script>
         let sviData = [];
         let vlansData = [];

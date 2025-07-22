@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings - Nexus Dashboard</title>
-    <link href="styles.css" rel="stylesheet">
+    <link href="../../assets/css/styles.css" rel="stylesheet">
 </head>
 <body>
     <?php include 'navbar.php'; ?>
@@ -339,7 +339,7 @@
         </div>
     </div>
 
-    <script src="common.js"></script>
+    <script src="../../assets/js/common.js"></script>
     <script>
         // Load settings on page load
         document.addEventListener('DOMContentLoaded', function() {

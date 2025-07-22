@@ -1,4 +1,4 @@
 <?php
-header("Location: interfaces.php");
+header('Location: src/php/controllers/interfaces.php');
 exit;
-
+?> 

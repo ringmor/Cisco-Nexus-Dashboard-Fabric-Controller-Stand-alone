@@ -10,7 +10,7 @@ require_once 'navbar.php';
     <title>NTP Configuration - Cisco Nexus Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="styles.css" rel="stylesheet">
+    <link href="../../assets/css/styles.css" rel="stylesheet">
     <style>
         .ntp-status-card {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -406,7 +406,7 @@ require_once 'navbar.php';
         </div>
     </div>
 
-    <script src="common.js"></script>
+    <script src="../../assets/js/common.js"></script>
     <script>
         let ntpServers = [];
         let ntpPeers = [];
@@ -427,25 +427,39 @@ require_once 'navbar.php';
         });
 
         function loadNTPStatus() {
-            executeCommand('show ntp status', function(data) {
-                console.log('NTP status response:', data);
+            executeCommand('show feature', function(data) {
                 let isEnabled = false;
                 let syncStatus = 'Unknown';
-                
-                if (data && data.ins_api && data.ins_api.outputs && data.ins_api.outputs.output) {
-                    const output = data.ins_api.outputs.output;
-                    if (output.body) {
-                        isEnabled = output.body.includes('enabled') || output.body.includes('Enabled');
-                        if (output.body.includes('synchronized')) {
-                            syncStatus = 'Synchronized';
-                        } else if (output.body.includes('unsynchronized')) {
-                            syncStatus = 'Unsynchronized';
-                        }
-                    }
+
+                // Try to get the output object
+                let output = null;
+                if (data && data.result && data.result.ins_api && data.result.ins_api.outputs && data.result.ins_api.outputs.output) {
+                    output = data.result.ins_api.outputs.output;
+                } else if (data && data.ins_api && data.ins_api.outputs && data.ins_api.outputs.output) {
+                    output = data.ins_api.outputs.output;
                 }
-                
+
+                // Check for clierror (unstructured output)
+                if (output && output.clierror) {
+                    const lines = output.clierror.split('\n');
+                    lines.forEach(line => {
+                        if (line.toLowerCase().includes('ntp')) {
+                            if (line.toLowerCase().includes('enabled')) isEnabled = true;
+                        }
+                    });
+                } else if (output && output.body && output.body.TABLE_feature) {
+                    // Fallback to structured output if available
+                    let features = output.body.TABLE_feature.ROW_feature;
+                    if (!Array.isArray(features)) features = [features];
+                    features.forEach(feature => {
+                        if (feature.feature_name && feature.feature_name.toLowerCase() === 'ntp') {
+                            isEnabled = (feature.state && feature.state.toLowerCase() === 'enabled');
+                        }
+                    });
+                }
+
                 document.getElementById('ntp-status').textContent = isEnabled ? 'NTP is Enabled' : 'NTP is Disabled';
-                document.getElementById('ntp-sync-status').textContent = syncStatus;
+                document.getElementById('ntp-sync-status').textContent = syncStatus; // Optionally update with a separate call
                 document.getElementById('ntp-toggle-btn').innerHTML = isEnabled ? 
                     '<i class="fas fa-power-off"></i> Disable NTP' : 
                     '<i class="fas fa-power-off"></i> Enable NTP';
@@ -462,7 +476,7 @@ require_once 'navbar.php';
         }
 
         function loadNTPPeers() {
-            executeCommand('show ntp associations', function(data) {
+            executeCommand('show ntp peer-status', function(data) {
                 ntpPeers = parseNTPPeers(data);
                 populateNTPPeersTable();
             });
@@ -491,8 +505,40 @@ require_once 'navbar.php';
 
         function parseNTPPeers(data) {
             const peers = [];
-            // Parse NTP peers from command output
-            // This is a simplified parser
+            // Parse NTP peers from 'clierror' output
+            let output = null;
+            if (data && data.result && data.result.ins_api && data.result.ins_api.outputs && data.result.ins_api.outputs.output) {
+                output = data.result.ins_api.outputs.output;
+            } else if (data && data.ins_api && data.ins_api.outputs && data.ins_api.outputs.output) {
+                output = data.ins_api.outputs.output;
+            }
+            if (output && output.clierror) {
+                const lines = output.clierror.split('\n');
+                // Find the header line (starts with 'remote')
+                let headerIdx = lines.findIndex(line => line.trim().startsWith('remote'));
+                if (headerIdx !== -1) {
+                    for (let i = headerIdx + 2; i < lines.length; i++) { // skip header and separator
+                        const line = lines[i].trim();
+                        if (!line) continue;
+                        // Example line: '=1.1.1.1                0.0.0.0                16   16       0   0.00000 default'
+                        // Remove any leading mode character (=,*,+,-)
+                        let peerLine = line.replace(/^[=*+\-]/, '').trim();
+                        // Split by whitespace
+                        const parts = peerLine.split(/\s+/);
+                        if (parts.length >= 7) {
+                            peers.push({
+                                ip: parts[0],
+                                local: parts[1],
+                                st: parts[2],
+                                poll: parts[3],
+                                reach: parts[4],
+                                delay: parts[5],
+                                vrf: parts[6]
+                            });
+                        }
+                    }
+                }
+            }
             return peers;
         }
 
@@ -752,9 +798,12 @@ require_once 'navbar.php';
         function deleteNTPPeer(index) {
             if (confirm('Are you sure you want to delete this NTP peer?')) {
                 const peer = ntpPeers[index];
-                const command = `no ntp peer ${peer.ip}`;
-                
+                let command = `no ntp peer ${peer.ip}`;
+                if (peer.vrf && peer.vrf !== 'default') {
+                    command += ` use-vrf ${peer.vrf}`;
+                }
                 executeCommand(command, function(data) {
+                    console.log('NTP peer delete response:', data);
                     showAlert('NTP peer deleted successfully', 'success');
                     loadNTPPeers();
                 }, 'cli_conf');
@@ -784,6 +833,7 @@ require_once 'navbar.php';
             }
 
             executeCommand(command, function(data) {
+                console.log('NTP peer command response:', data);
                 showAlert(`NTP peer ${action === 'add' ? 'added' : 'updated'} successfully`, 'success');
                 bootstrap.Modal.getInstance(document.getElementById('ntpPeerModal')).hide();
                 loadNTPPeers();

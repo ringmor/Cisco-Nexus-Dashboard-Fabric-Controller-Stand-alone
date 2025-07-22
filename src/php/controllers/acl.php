@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Access Control Lists - Nexus Dashboard</title>
     <?php include 'navbar.php'; ?>
+    <link rel="stylesheet" href="../../assets/css/styles.css">
 </head>
 <body>
     <div class="container-fluid">
@@ -444,7 +445,7 @@
         </div>
     </div>
 
-    <script src="common.js"></script>
+    <script src="../../assets/js/common.js"></script>
     <script>
         let aclsData = [];
         let filteredAcls = [];

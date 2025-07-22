@@ -10,7 +10,7 @@ require_once 'navbar.php';
     <title>SNMP Configuration - Cisco Nexus Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="styles.css" rel="stylesheet">
+    <link href="../../assets/css/styles.css" rel="stylesheet">
     <style>
         .snmp-status-card {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -462,7 +462,7 @@ require_once 'navbar.php';
         </div>
     </div>
 
-    <script src="common.js"></script>
+    <script src="../../assets/js/common.js"></script>
     <script>
         let snmpUsers = [];
         let snmpCommunities = [];

@@ -1,184 +1,242 @@
-# Nexus Dashboard - Comprehensive Layer 3 Switch Management
+# Cisco Nexus Dashboard Fabric Controller
 
-A professional web-based dashboard for managing Cisco Nexus Layer 3 switches with complete network management capabilities.
+A comprehensive web-based dashboard for managing Cisco Nexus switches and fabric controllers.
 
-Look for Screenshots
+## Project Structure
 
-## 🚀 Features Implemented
-
-### ✅ Phase 1: Enhanced Navigation & Core Infrastructure
-- **Professional UI**: Bootstrap-based responsive design with custom Nexus branding
-- **Organized Navigation**: Dropdown menus for all major switch functions
-- **JavaScript Utilities**: Common functions for API calls, validation, and dynamic content
-- **Real-time Status**: Connection status monitoring and auto-refresh capabilities
-
-### ✅ Phase 2: Interface Management & VLAN Assignment
-- **Interface Management** (`interfaces.php`): Real-time status, configuration, statistics
-- **Advanced Interface Config** (`interface_config.php`): Bulk configuration, templates, Layer 2/3 modes
-- **VLAN Management** (`vlans.php`): Complete VLAN lifecycle, port assignment, bulk operations
-- **SVI Management** (`svi.php`): Switch Virtual Interfaces with IP config, DHCP relay, HSRP
-
-### ✅ Phase 3: Layer 3 Routing Features (In Progress)
-- **Route Table** (`routing.php`): Complete routing table visualization with filtering
-- **Static Routes**: Add, edit, delete with multiple route types
-- **Routing Protocols**: OSPF, BGP, EIGRP, RIP configuration
-- **Advanced Filtering**: Protocol, network, next-hop, interface filters
-
-## 📁 File Structure
+The project has been reorganized for better maintainability and scalability:
 
 ```
-nexus-dashboard/
-├── index.php              # Main entry point (redirects to interfaces)
-├── navbar.php             # Enhanced navigation with dropdown menus
-├── nxapi.php              # Core NX-API communication handler
-├── styles.css             # Custom CSS with Nexus branding
-├── common.js              # JavaScript utilities and common functions
-├── interfaces.php         # Interface status and basic configuration
-├── interface_config.php   # Advanced interface configuration
-├── vlans.php              # VLAN management and assignment
-├── svi.php                # Switch Virtual Interface management
-├── routing.php            # Route table and routing configuration
-├── todo.md                # Development progress tracker
-└── README.md              # This file
+Cisco-Nexus-Dashboard-Fabric-Controller-Stand-alone/
+├── index.php                          # Main entry point
+├── src/                               # Source code
+│   ├── php/                           # PHP application
+│   │   ├── controllers/               # Main PHP pages/controllers
+│   │   ├── includes/                  # Shared PHP files (config, functions)
+│   │   └── api/                       # API endpoints
+│   ├── python/                        # Python scripts
+│   └── assets/                        # Static assets
+│       ├── css/                       # Stylesheets
+│       ├── js/                        # JavaScript files
+│       ├── images/                    # Image files
+│       └── asset/                     # Additional assets
+├── docs/                              # Documentation
+├── config/                            # Configuration files
+├── data/                              # Data storage
+├── logs/                              # Log files
+├── tests/                             # Test files
+└── scripts/                           # Utility scripts
 ```
 
-## 🛠️ Setup Instructions
+## Features
 
-### Option 1: PHP Development Server (Recommended for Testing)
-```bash
-# Navigate to the nexus-dashboard directory
-cd nexus-dashboard/
+- **Interface Management**: Configure and monitor switch interfaces
+- **VLAN Management**: Create and manage VLANs
+- **Routing Configuration**: Configure static routes, OSPF, BGP
+- **Monitoring**: Real-time monitoring of switch status
+- **Backup & Restore**: Configuration backup and restore
+- **System Management**: Firmware, AAA, SNMP configuration
+- **Security**: ACL, port security, DHCP snooping
+- **Troubleshooting**: Diagnostic tools and logs
 
-# Start PHP development server
-php -S localhost:8080
+## Installation
 
-# Open browser to http://localhost:8080
+1. **Prerequisites**:
+   - PHP 7.4 or higher
+   - Python 3.7 or higher
+   - Web server (Apache/Nginx)
+   - XAMPP/WAMP (for Windows)
+
+2. **Setup**:
+   ```bash
+   # Clone the repository
+   git clone <repository-url>
+   cd Cisco-Nexus-Dashboard-Fabric-Controller-Stand-alone
+   
+   # Install Python dependencies
+   pip install -r config/requirements.txt
+   
+   # Configure web server to point to the project directory
+   # Access via: http://localhost/Cisco-Nexus-Dashboard-Fabric-Controller-Stand-alone/
+   ```
+
+3. **Configuration**:
+   - Edit `src/php/includes/config.php` for application settings
+   - Configure switch credentials in the web interface
+   - Set up logging in `config/` directory
+
+## Usage
+
+### Main Entry Point
+
+The application uses a single entry point (`index.php`) with routing:
+
+```
+http://localhost/project/?page=dashboard
+http://localhost/project/?page=interfaces
+http://localhost/project/?page=vlans
 ```
 
-### Option 2: Apache/Nginx Setup
-1. Copy files to your web server document root
-2. Ensure PHP is enabled
-3. Configure your web server to serve PHP files
-4. Access via your web server URL
+### Available Pages
 
-### Option 3: XAMPP/WAMP (Windows)
-1. Extract files to `C:\xampp\htdocs\nexus-dashboard\` (or equivalent)
-2. Start Apache and PHP in XAMPP
-3. Access via `http://localhost/nexus-dashboard/`
+- `dashboard` - Main dashboard
+- `interfaces` - Interface management
+- `vlans` - VLAN configuration
+- `routing` - Routing protocols
+- `monitoring` - System monitoring
+- `settings` - Application settings
+- `logs` - System logs
+- `backup` - Configuration backup
+- `system` - System management
+- `aaa` - Authentication, Authorization, Accounting
+- `acl` - Access Control Lists
+- `alerts` - Alert management
+- `api_examples` - API examples
+- `bgp` - BGP configuration
+- `config_management` - Configuration management
+- `cpu_memory` - CPU and memory monitoring
+- `dhcp_snooping` - DHCP snooping
+- `environment` - Environment monitoring
+- `firmware` - Firmware management
+- `hsrp` - HSRP configuration
+- `interface_config` - Interface configuration
+- `interface_counters` - Interface counters
+- `multicast` - Multicast configuration
+- `nat` - NAT configuration
+- `ntp` - NTP configuration
+- `ospf` - OSPF configuration
+- `port_channels` - Port channel configuration
+- `port_security` - Port security
+- `qos` - Quality of Service
+- `scheduled_tasks` - Scheduled tasks
+- `snmp` - SNMP configuration
+- `spanning_tree` - Spanning tree configuration
+- `static_routes` - Static routes
+- `svi` - Switch Virtual Interface
+- `troubleshooting` - Troubleshooting tools
+- `vpc` - Virtual Port Channel
+- `vtp` - VLAN Trunking Protocol
 
-## ⚙️ Configuration
+## File Organization
 
-### NX-API Settings
-Edit `nxapi.php` to configure your Nexus switch connection:
+### PHP Controllers (`src/php/controllers/`)
+All main PHP pages are organized here. Each file handles a specific functionality:
+- `index.php` - Dashboard
+- `interfaces.php` - Interface management
+- `vlans.php` - VLAN configuration
+- etc.
 
-```php
-$nexus_ip = "10.10.100.80";    // Your Nexus switch IP
-$user = "admin";               // Username
-$pass = "admin";               // Password
-```
+### Includes (`src/php/includes/`)
+Shared PHP files:
+- `config.php` - Application configuration
+- `functions.php` - Common utility functions
 
-### Mock Data Mode
-The dashboard includes comprehensive mock data for testing without a real Nexus switch. All features can be tested with simulated data.
+### Assets (`src/assets/`)
+Static files:
+- `css/` - Stylesheets
+- `js/` - JavaScript files
+- `images/` - Image files
 
-## 🧪 Testing Features
+### Python Scripts (`src/python/`)
+Python utilities and automation scripts:
+- `main.py` - Main Python application
+- `app.py` - Additional Python utilities
 
-### 1. Interface Management
-- **View Interface Status**: Real-time interface monitoring with auto-refresh
-- **Configure Interfaces**: Speed, duplex, description, admin state
-- **Switchport Modes**: Access, trunk, and routed configurations
-- **Bulk Configuration**: Apply settings to multiple interfaces
+### Documentation (`docs/`)
+All documentation files:
+- `README.md` - This file
+- `CHANGELOG.md` - Version history
+- `FEATURES.md` - Feature documentation
+- API documentation
+- Configuration guides
 
-### 2. VLAN Management
-- **Create/Edit VLANs**: Full VLAN lifecycle management
-- **Port Assignment**: Assign VLANs to interfaces individually or in bulk
-- **SVI Creation**: Automatic Switch Virtual Interface creation
-- **VLAN Statistics**: Active, inactive, and unused VLAN tracking
+### Configuration (`config/`)
+Configuration files:
+- `requirements.txt` - Python dependencies
+- Environment-specific configurations
 
-### 3. SVI Management
-- **IP Configuration**: Primary and secondary IP addresses
-- **DHCP Relay**: Configure DHCP relay agents
-- **HSRP Setup**: Hot Standby Router Protocol configuration
-- **Advanced Options**: MTU, load interval, IP options
+### Data (`data/`)
+Application data storage:
+- `backups/` - Configuration backups
+- `dashboard_settings.json` - Dashboard settings
+- `logs.json` - Application logs
 
-### 4. Routing Management
-- **Route Table View**: Complete IP routing table with filtering
-- **Static Routes**: Add/edit/delete static routes
-- **Protocol Configuration**: OSPF, BGP, EIGRP, RIP setup
-- **Route Filtering**: Filter by protocol, network, next-hop, interface
+### Logs (`logs/`)
+Application log files:
+- `application.log` - Main application log
+- `nxapi_debug.log` - NX-API debug logs
+- `data_manager_debug.log` - Data manager logs
 
-## 🎯 Key Testing Scenarios
+## Development
 
-### Basic Interface Configuration
-1. Navigate to **Interfaces → Interface Status**
-2. Click configure button on any interface
-3. Test different switchport modes (access, trunk, routed)
-4. Apply configuration and verify changes
+### Adding New Features
 
-### VLAN Creation and Assignment
-1. Go to **VLANs → VLAN Status**
-2. Click "Create VLAN" and add a new VLAN
-3. Use port assignment to assign interfaces to the VLAN
-4. Test bulk assignment features
+1. Create a new PHP controller in `src/php/controllers/`
+2. Add the route to `index.php` in the `$allowed_pages` array
+3. Create any necessary includes in `src/php/includes/`
+4. Add CSS/JS files to `src/assets/` as needed
 
-### SVI Configuration
-1. Navigate to **VLANs → SVI Management**
-2. Create an SVI for an existing VLAN
-3. Configure IP address and advanced options
-4. Test HSRP configuration
+### Code Standards
 
-### Routing Configuration
-1. Go to **Routing → Route Table**
-2. Add static routes with different types
-3. Test route filtering capabilities
-4. Configure routing protocols
+- Use consistent indentation (4 spaces)
+- Follow PSR-4 autoloading standards
+- Include proper error handling
+- Add logging for important operations
+- Sanitize all user inputs
+- Use prepared statements for database queries
 
-## 🔧 Troubleshooting
+## Security
 
-### Common Issues
-1. **PHP Errors**: Ensure PHP 7.4+ is installed
-2. **Permission Issues**: Check file permissions (755 for directories, 644 for files)
-3. **NX-API Connection**: Verify switch IP, credentials, and HTTPS access
-4. **JavaScript Errors**: Check browser console for errors
+- All user inputs are sanitized
+- CSRF protection is implemented
+- Session management with timeout
+- Secure cookie settings
+- Input validation for IP addresses and MAC addresses
 
-### Mock Data Testing
-- All features work with mock data when NX-API is unavailable
-- Mock data provides realistic switch configurations for testing
-- No actual switch configuration is applied in mock mode
+## Logging
 
-## 📊 Current Status
+The application uses a centralized logging system:
+- Log levels: DEBUG, INFO, WARNING, ERROR
+- Log file location: `logs/application.log`
+- API requests are logged for debugging
+- Error logging is enabled
 
-### Completed Features (Ready for Testing)
-- ✅ Professional UI with responsive design
-- ✅ Interface management and configuration
-- ✅ VLAN management and assignment
-- ✅ SVI configuration with advanced options
-- ✅ Route table visualization and static routing
-- ✅ Routing protocol configuration
+## API Integration
 
-### Upcoming Features (Next Phases)
-- 🔄 Security features (ACLs, port security, AAA)
-- 🔄 Advanced features (QoS, spanning tree, port channels)
-- 🔄 High availability (HSRP, VRRP, VPC)
-- 🔄 Monitoring and troubleshooting tools
+The application integrates with Cisco Nexus switches via:
+- NX-API REST API
+- SSH connections
+- SNMP for monitoring
+- Custom automation scripts
 
-## 💡 Testing Tips
+## Troubleshooting
 
-1. **Use Auto-Refresh**: Enable auto-refresh on interface and VLAN pages
-2. **Test Filtering**: Use the filter options on route table and VLAN pages
-3. **Try Bulk Operations**: Test bulk interface configuration and VLAN assignment
-4. **Check Validation**: Test form validation with invalid inputs
-5. **Mobile Testing**: Test responsive design on mobile devices
+1. Check log files in `logs/` directory
+2. Verify switch connectivity
+3. Check PHP error logs
+4. Validate configuration files
+5. Test API connectivity
 
-## 🐛 Known Limitations
+## Contributing
 
-- Mock data mode simulates real switch responses
-- Some advanced features require actual NX-API connectivity
-- Configuration changes in mock mode are not persistent
-- Real-time monitoring requires active switch connection
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
 
-## 📞 Support
+## License
 
-This is a comprehensive network management dashboard designed for Cisco Nexus switches. All major Layer 3 switch functionalities are implemented or planned for implementation.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-For testing, start with the interface management features and work through the VLAN and routing configurations to get familiar with the dashboard capabilities.
+## Support
 
+For support and questions:
+- Check the documentation in `docs/`
+- Review the troubleshooting guide
+- Check the logs for error messages
+- Contact the development team
+
+## Version History
+
+See `docs/CHANGELOG.md` for detailed version history and changes. 
